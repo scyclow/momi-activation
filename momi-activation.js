@@ -1,7 +1,13 @@
 
 
+const VALID_ACTIVATION_CODE = 'null'
+
+
+
+const popupId = 'momi-activation-popup'
 const updatePopup = `
   <div
+    id="${popupId}"
     style="
       border: 8px solid;
       height: 240px;
@@ -25,7 +31,6 @@ const updatePopup = `
 
 
 let popupWait = 1500
-const popupId = 'momi-activation-popup'
 
 
 const closePopup = (permanantClose=false) => {
@@ -50,9 +55,15 @@ function mountPopup() {
   document.body.appendChild(popup)
 
 
-  $.id('closePopup').onclick = closePopup
+  let ignoreMount
+  $.id('closePopup').onclick = () => {
+    ignoreMount = true
+    closePopup()
+    setTimeout(() => ignoreMount = false, 100)
+  }
 
   $.id('momi-activation-popup').onclick = () => {
+    if (ignoreMount) return
     mountPageTakeover()
     closePopup(true)
   }
@@ -89,6 +100,17 @@ setTimeout(() => {
       }
     }
 
+    @keyframes BorderBlink {
+      0%, 100% {
+        outline: 3px solid;
+      }
+
+      50% {
+        outline: 3px none;
+      }
+    }
+
+
   `)
 }, popupWait)
 
@@ -124,6 +146,82 @@ const continueId = 'momi-continue-button'
 const timerId = 'momi-timer'
 const takeoverId = 'momi-activation-takeover'
 const containerId = 'momi-takeover-container'
+const enterId = 'momi-takeover-enter'
+const noCodeId = 'momi-takeover-no-code'
+const okId = 'momi-activation-ok'
+const activationCodeErrorId = 'momi-activation-code-error'
+const activationCodeInputId = 'momi-activation-code-input'
+
+
+
+
+const page1 = `
+  <h1 style="text-align: center; font-size: 45px; color: #f00; font-family: sans-serif; margin-bottom: 16px">WARNING</h1>
+  <div style="width: 45vw;">
+    ${times(36, i => `<div style=" display: inline-block; width: 5vw; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: ${-0.1 * i}s;">${warningSvg()}</div>`).join('')}
+  </div>
+
+  <!--
+    <h1 style="text-align: center; font-size: 32px; color: #f00; font-family: sans-serif; margin: 16px 0">MALWARE DETECTED</h1>
+    -->
+
+    <div style="height: 32px"></div>
+
+  <div style="display: flex; justify-content: center">
+    <button id="${ignoreId}" class="momi-button"">IGNORE</button>
+    <button id="${continueId}" class="momi-button" style="margin-left: 24px">CONTINUE <span style="animation: ActivationBlink 1s steps(2, start) infinite;">→</span></button>
+  </div>
+`
+
+
+const page2 = `
+  <h1 id="${timerId}" style="text-align: center; font-size: 45px; color: #f00; font-family: sans-serif; margin-bottom: 16px"></h1>
+
+  <div style="margin-bottom: 6px; font-size: 20px">
+
+
+    <input id="${activationCodeInputId}" placeholder="ACTIVATION CODE" style="text-align: center; border: 1px solid #f00; border-radius: 2px; padding: 3px">
+
+    <div style="display: flex; align-items: center; justify-content: space-between; font-weight: bold; margin: 12px">
+      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.5s">↑</span>
+      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.4s">↑</span>
+      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.3s">↑</span>
+      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.2s">↑</span>
+      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.1s">↑</span>
+      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.0s">↑</span>
+      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.1s">↑</span>
+      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.2s">↑</span>
+      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.3s">↑</span>
+      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.4s">↑</span>
+      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.5s">↑</span>
+    </div>
+  </div>
+
+  <div id="${activationCodeErrorId}" style="color: #f00; margin-bottom: 12px; max-width: 900px"></div>
+
+  <div style="display: flex; justify-content: center; align-items: center; flex-direction: column">
+    <button id="${enterId}" class="momi-button"">ENTER</button>
+    <button id="${noCodeId}" class="momi-button" style="margin-top: 12px; font-size: 16px; border: none; text-decoration: underline">I DON'T HAVE AN ACTIVATION CODE</button>
+  </div>
+`
+
+
+const page3 = `
+  <h1 class="momi-page3-h1" style="text-align: center; font-size: 36px; color: #f00; font-family: sans-serif; max-width: 500px; margin-bottom: 36px">PLEASE VISIT THE "ACTIVATION CENTER" AT:</h1>
+
+    <address style="animation: BorderBlink 1s linear infinite; padding: 24px; max-width: 750px; text-align: center; color: #f00; font-size: 24px; margin-bottom: 36px">
+      <div style="margin-bottom: 6px">36-01 35 Ave</div>
+      <div>Astoria, NY 11106</div>
+    </address>
+
+  <h1 class="momi-page3-h1" style="font-size: 36px; color: #f00; margin-bottom: 48px; text-align: center">TO RECEIVE THE ACTIVATION CODE</h1>
+
+  <button id="${okId}" class="momi-button"">OK</button>
+
+`
+
+
+
 
 const pageTakeover = `
   <div
@@ -152,56 +250,67 @@ const pageTakeover = `
 
 
     <div
-    id="${containerId}"
-    style="
-      height: 95vh;
-      width: 95vw;
-      z-index: 3;
-      background: #ff0;
-      padding: 1em;
-      box-sizing: border-box;
-      animation: GreenYellow 10s linear infinite;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-    ">
-      <h1 style="text-align: center; font-size: 45px; color: #f00; font-family: sans-serif; margin: 1em 0">WARNING</h1>
-      <div style="width: 45vw;">
-        ${times(36, i => `<div style=" display: inline-block; width: 5vw; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: ${-0.1 * i}s;">${warningSvg()}</div>`).join('')}
-      </div>
-
-      <!--
-        <h1 style="text-align: center; font-size: 32px; color: #f00; font-family: sans-serif; margin: 1em 0">MALWARE DETECTED</h1>
-        -->
-
-        <div style="height: 32px"></div>
-
-      <div style="display: flex; justify-content: center">
-        <button id="${ignoreId}" style="font-weight: bold; border: 2px solid; background: none; padding: 4px 12px; font-size: 24px">IGNORE</button>
-        <button id="${continueId}" style="font-weight: bold; border: 2px solid; background: none; padding: 4px 12px; font-size: 24px; margin-left: 24px">CONTINUE <span style="animation: ActivationBlink 1s steps(2, start) infinite;">→</span></button>
-      </div>
-
+      id="${containerId}"
+      style="
+        height: 95vh;
+        width: 95vw;
+        z-index: 3;
+        background: #ff0;
+        padding: 16px;
+        box-sizing: border-box;
+        animation: GreenYellow 10s linear infinite;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      "
+    >
+      ${page1}
     </div>
 
-    <style>
-      #${ignoreId}, #${continueId} {
-        animation: GreenYellowColor 10s linear infinite;
-        border-color: #f00 !important;
-      }
-      #${ignoreId}:not(:hover), #${continueId}:not(:hover) {
-        color: #f00 !important;
-      }
-      #${ignoreId}:hover, #${continueId}:hover {
-        background: #f00 !important;
-      }
-    </style>
 
-    <!--
 
-      countdown clock starting: NaN:16:53:32.0390
-      goes negative
-    -->
+  <style>
+    .momi-button {
+      font-weight: bold;
+      border: 2px solid;
+      background: none;
+      padding: 4px 16px;
+      font-size: 24px;
+      cursor: pointer;
+      animation: GreenYellowColor 10s linear infinite;
+      border-color: #f00 !important;
+      user-select: none;
+    }
+
+    .momi-button:not(:hover) {
+      color: #f00 !important;
+    }
+    .momi-button:hover {
+      background: #f00 !important;
+    }
+
+    @media (max-width: 440px) {
+      #${timerId} {
+        font-size: 32px !important;
+      }
+    }
+
+    @media (max-width: 660px) {
+      .momi-page3-h1 {
+        font-size: 24px !important;
+        margin-bottom: 24px !important;
+      }
+
+      .momi-page3-h1 + address {
+        margin-bottom: 24px !important;
+        font-size: 20px !important;
+        padding: 20px !important;
+      }
+    }
+  </style>
+
+
 
   </div>
 
@@ -210,6 +319,21 @@ const pageTakeover = `
 
 
 
+
+const soundIntervals = []
+const startSoundInterval = () => {
+  const s = new SoundSrc('square')
+
+  soundIntervals.push(
+    setInterval(() => {
+      s.note(300, 300)
+    }, 2000)
+  )
+}
+
+const stopSoundIntervals = () => {
+  soundIntervals.forEach(i => clearInterval(i))
+}
 
 
 function mountPageTakeover() {
@@ -223,30 +347,59 @@ function mountPageTakeover() {
     `
   })
   document.body.appendChild(takeover)
+  startSoundInterval()
 
-  const alertSoud1 = new SoundSrc('square')
-  const alertSoud2 = new SoundSrc('square')
-  // const alertSoud3 = new SoundSrc('square')
 
-  const soundInterval = setInterval(() => {
-    alertSoud1.note(300, 300)
-    // alertSoud2.note(300, 300)
-    // alertSoud3.note(200, 300)
-  }, 2000)
+  let timerInterval
 
-  // const timerInterval = triggerTimer(60812000, $.id(timerId))
 
 
 
   const closeModal = () => {
-    clearInterval(soundInterval)
-    // clearInterval(timerInterval)
+    stopSoundIntervals()
+    clearInterval(timerInterval)
     takeover.remove()
+  }
+
+
+  const gotoActivationEntry = () => {
+    startSoundInterval()
+
+    $.id(containerId).innerHTML = page2
+
+    timerInterval = triggerTimer(60812000, $.id(timerId))
+
+    $.id(enterId).onclick = () => {
+
+      startSoundInterval()
+
+      const enteredActivationCode = $.id(activationCodeInputId).value
+
+      if (enteredActivationCode.trim() !== VALID_ACTIVATION_CODE) {
+        $.id(activationCodeErrorId).innerHTML += 'INVALID ACTIVATION CODE '
+      } else {
+
+      }
+    }
+
+    $.id(noCodeId).onclick = gotoActivationCenter
+
+  }
+
+
+  const gotoActivationCenter = () => {
+    clearInterval(timerInterval)
+    startSoundInterval()
+    $.id(containerId).innerHTML = page3
+
+    $.id(okId).onclick = closeModal
+
   }
 
 
   $.id(modalBgId).onclick = closeModal
   $.id(ignoreId).onclick = closeModal
+  $.id(continueId).onclick = gotoActivationEntry
 }
 
 
@@ -259,9 +412,9 @@ function triggerTimer(timeLeft, $elem) {
     const hours = 24 * (days%1)
     const minutes = 60 * (hours%1)
     const seconds = Math.floor(60 * (minutes%1))
-    const ms = timeLeft % 1000
+    const ms = timeLeft/10 % 100
 
-    $elem.innerHTML = `NaN:${with0(hours)}:${with0(minutes)}:${with0(seconds)}.${with00(ms)}`
+    $elem.innerHTML = `NaN:${with0(hours)}:${with0(minutes)}:${with0(seconds)}.${with0(ms)}`
   }, 10)
 }
 
