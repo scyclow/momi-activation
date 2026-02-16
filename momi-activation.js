@@ -148,9 +148,20 @@ const takeoverId = 'momi-activation-takeover'
 const containerId = 'momi-takeover-container'
 const enterId = 'momi-takeover-enter'
 const noCodeId = 'momi-takeover-no-code'
+const generateActivationId = 'momi-takeover-generate-activation'
 const okId = 'momi-activation-ok'
 const activationCodeErrorId = 'momi-activation-code-error'
 const activationCodeInputId = 'momi-activation-code-input'
+const generatedActivationCodeId = 'momi-generated-activation-code'
+const generationTokenBalanceId = 'momi-generation-token-balance-code'
+const addGTId = 'momi-add-gt'
+const generateCharId = 'momi-generate-activation-char'
+const activationCharPriceId = 'momi-activation-char-price'
+const gtCharErrId = 'momi-gt-char-error'
+const gtGeneratorPriceId = 'momi-gt-generator-price'
+const buyGeneratorId = 'momi-buy-generator'
+const buyGeneretorErrId = 'momi-buy-generator-error'
+const generatorSection = 'momi-generator-section'
 
 
 
@@ -210,15 +221,60 @@ const page3 = `
   <h1 class="momi-page3-h1" style="text-align: center; font-size: 36px; color: #f00; font-family: sans-serif; max-width: 500px; margin-bottom: 36px">PLEASE VISIT THE "ACTIVATION CENTER" AT:</h1>
 
     <address style="animation: BorderBlink 1s linear infinite; padding: 24px; max-width: 750px; text-align: center; color: #f00; font-size: 24px; margin-bottom: 36px">
-      <div style="margin-bottom: 6px">36-01 35 Ave</div>
-      <div>Astoria, NY 11106</div>
+      <div style="margin-bottom: 6px">MUSEUM OF MOVING IMAGE</div>
+      <div style="margin-bottom: 6px">36-01 35 AVE</div>
+      <div>ASTORIA, NY 11106</div>
     </address>
 
-  <h1 class="momi-page3-h1" style="font-size: 36px; color: #f00; margin-bottom: 48px; text-align: center">TO RECEIVE THE ACTIVATION CODE</h1>
+  <h1 class="momi-page3-h1" style="font-size: 36px; color: #f00; margin-bottom: 48px; text-align: center">FOR ACTIVATION CODE</h1>
 
-  <button id="${okId}" class="momi-button"">OK</button>
+  <!--
+    <h1 class="momi-page3-h1" style="font-size: 36px; color: #f00; margin-bottom: 48px; text-align: center">TO RECEIVE THE ACTIVATION CODE</h1>
+  -->
+
+  <button id="${okId}" class="momi-button"">ENTER CODE</button>
+  <h3 style="text-align: center; color: #f00; margin: 16px 0">OR</h3>
+  <button id="${generateActivationId}" class="momi-button" style="font-size: 16px; border: none; text-decoration: underline">GENERATE NEW CODE</button>
 
 `
+
+const page4 = `
+
+<div style="overflow: scroll; color: #f00; ">
+  <div>
+    <h3 style="margin-bottom: 16px">ACTIVATION CODE: <span id="${generatedActivationCodeId}" style="margin-left:6px; display: inline-block; font-family: monospace"></span></h3>
+
+    <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+      <button id="${generateCharId}" class="momi-button" style="font-size: 12px">GENERATE ACTIVATION <br>CODE CHAR</button>
+      <div style="font-weight: bold; font-size: 12px; margin-left: 12px; text-align: center">(<span id="${activationCharPriceId}"></span> GENERATION TOKENS)</div>
+    </div>
+
+    <div id="${gtCharErrId}" style="margin-bottom: 8px; text-align: center; animation: ActivationBlink 1s steps(2, start) infinite; font-size: 10px; font-weight: bold;"></div>
+
+    <h4 style="margin-bottom: 16px; font-size: 16px">GENERATION TOKEN BALANCE: <span id="${generationTokenBalanceId}" style="animation: ActivationBlink 1s steps(2, start) infinite"></span></h4>
+
+    <div style="display: flex; align-items: center; justify-content: center;">
+      <button id="${addGTId}" class="momi-button" style="font-size: 12px; margin: auto">+1 GENERATION TOKEN</button>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px">
+    <div id="${generatorSection}"></div>
+
+    <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
+      <button id="${buyGeneratorId}" class="momi-button" style="font-size: 12px; margin: auto">+1 GT GENERATOR</button>
+      <div style="font-weight: bold; font-size: 12px; margin-left: 12px; margin-bottom:8px; text-align: center">(<span id="${gtGeneratorPriceId}"></span> GENERATION TOKENS)</div>
+    </div>
+
+    <div id="${buyGeneretorErrId}" style="margin-bottom: 8px; text-align: center; animation: ActivationBlink 1s steps(2, start) infinite; font-size: 10px; font-weight: bold;"></div>
+  </div>
+
+
+</div>
+
+`
+
+
 
 
 
@@ -321,12 +377,12 @@ const pageTakeover = `
 
 
 const soundIntervals = []
-const startSoundInterval = () => {
+const startSoundInterval = (freq=300, len=300) => {
   const s = new SoundSrc('square')
 
   soundIntervals.push(
     setInterval(() => {
-      s.note(300, 300)
+      s.note(freq, len)
     }, 2000)
   )
 }
@@ -363,7 +419,7 @@ function mountPageTakeover() {
 
 
   const gotoActivationEntry = () => {
-    startSoundInterval()
+    startSoundInterval(250)
 
     $.id(containerId).innerHTML = page2
 
@@ -371,7 +427,7 @@ function mountPageTakeover() {
 
     $.id(enterId).onclick = () => {
 
-      startSoundInterval()
+      startSoundInterval(250, 200)
 
       const enteredActivationCode = $.id(activationCodeInputId).value
 
@@ -389,10 +445,92 @@ function mountPageTakeover() {
 
   const gotoActivationCenter = () => {
     clearInterval(timerInterval)
-    startSoundInterval()
+    startSoundInterval(350)
     $.id(containerId).innerHTML = page3
 
-    $.id(okId).onclick = closeModal
+    $.id(okId).onclick = gotoActivationEntry
+
+    $.id(generateActivationId).onclick = gotoActivationGenerate
+
+  }
+
+
+
+  const gotoActivationGenerate = () => {
+    stopSoundIntervals()
+    const baseNote = new SoundSrc('square')
+    baseNote.note(150, 600)
+
+    $.id(containerId).innerHTML = page4
+
+
+    let gtBalance = 0
+    let activationCharPrice = 10
+    let gtGeneratorPrice = 10
+
+    const activationCodeGenerated = []
+    const displayActivationCode = () => {
+      $.id(generatedActivationCodeId).innerHTML = activationCodeGenerated.map(x => x + ' ').join('').padEnd(16, ' _')
+    }
+
+
+    const render = () => {
+      $.id(generationTokenBalanceId).innerHTML = gtBalance
+      $.id(activationCharPriceId).innerHTML = activationCharPrice
+      $.id(gtGeneratorPriceId).innerHTML = gtGeneratorPrice
+      if (gtBalance >= activationCharPrice) {
+        $.id(gtCharErrId).innerHTML = ''
+      }
+      if (gtBalance >= gtGeneratorPrice) {
+        $.id(buyGeneretorErrId).innerHTML = ''
+      }
+      displayActivationCode()
+    }
+
+    render()
+
+    function buyGenerator() {
+      $.id(generatorSection).innerHTML += '.....'
+    }
+
+
+    $.id(generateCharId).onclick = () => {
+      if (gtBalance >= activationCharPrice) {
+        gtBalance -= activationCharPrice
+        activationCodeGenerated.push('x')
+      } else {
+        $.id(gtCharErrId).innerHTML = 'INSUFFICIENT GT BALANCE'
+        baseNote.note(600, 300)
+      }
+
+      render()
+    }
+
+    $.id(addGTId).onclick = () => {
+      gtBalance += 1
+      render()
+    }
+
+    $.id(buyGeneratorId).onclick = () => {
+
+      if (gtBalance >= gtGeneratorPrice) {
+        gtBalance -= gtGeneratorPrice
+
+        buyGenerator()
+        // activationCodeGenerated.push('x')
+      } else {
+        $.id(buyGeneretorErrId).innerHTML = 'INSUFFICIENT GT BALANCE'
+        baseNote.note(600, 300)
+      }
+
+      render()
+    }
+
+
+
+
+
+
 
   }
 
