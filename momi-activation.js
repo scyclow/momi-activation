@@ -286,14 +286,14 @@ const page4 = `
         </tr>
         <tr>
           <td>
-            <button id="${generateTokenId}" class="momi-button" style="font-size: 12px">+1 ACTIVATION TOKEN</button>
+            <button id="${generateTokenId}" class="momi-button" style="font-size: 12px">+1 AT</button>
           </td>
           <td>0 AT</td>
         </tr>
 
         <tr>
           <td>
-            <button id="${addAutoGeneratorId}" class="momi-button" style="font-size: 12px; ">AUTO-GENERATE (1 AT/s)</button>
+            <button id="${addAutoGeneratorId}" class="momi-button" style="font-size: 12px; ">+1 AT/s</button>
           </td>
           <td>
             <div style=""><span id="${autoGeneratorPriceId}"></span> AT</div>
@@ -302,7 +302,7 @@ const page4 = `
 
         <tr>
           <td>
-            <button id="${generateActivationCodeId}" class="momi-button" style="font-size: 12px; ">GENERATE CODE</button>
+            <button id="${generateActivationCodeId}" class="momi-button" style="font-size: 12px; ">GENERATE</button>
           </td>
           <td>
             <div style="">10000 AT</div>
@@ -537,9 +537,6 @@ function mountPageTakeover() {
       $.id(activationTokenBalanceId).innerHTML = String(atBalance).padStart(5, '0')
       $.id(autoGeneratorPriceId).innerHTML = autoGeneratorPrice
 
-      if (atBalance >= autoGeneratorPrice) {
-        $.id(addAutoGeneratorErrId).innerHTML = ''
-      }
       const p1 = getCanvasProgress(atProgress1Id)
       const p2 = getCanvasProgress(atProgress2Id)
       const p3 = getCanvasProgress(atProgress3Id)
@@ -612,6 +609,9 @@ function mountPageTakeover() {
         }, 1000))
       } else {
         $.id(addAutoGeneratorErrId).innerHTML = 'INSUFFICIENT AT BALANCE'
+        setTimeout(() => {
+          $.id(addAutoGeneratorErrId).innerHTML = ''
+        }, 4000)
       }
 
       render()
