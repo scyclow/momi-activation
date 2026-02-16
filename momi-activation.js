@@ -152,16 +152,23 @@ const generateActivationId = 'momi-takeover-generate-activation'
 const okId = 'momi-activation-ok'
 const activationCodeErrorId = 'momi-activation-code-error'
 const activationCodeInputId = 'momi-activation-code-input'
-const generatedActivationCodeId = 'momi-generated-activation-code'
-const generationTokenBalanceId = 'momi-generation-token-balance-code'
-const addGTId = 'momi-add-gt'
-const generateCharId = 'momi-generate-activation-char'
-const activationCharPriceId = 'momi-activation-char-price'
-const gtCharErrId = 'momi-gt-char-error'
-const gtGeneratorPriceId = 'momi-gt-generator-price'
-const buyGeneratorId = 'momi-buy-generator'
-const buyGeneretorErrId = 'momi-buy-generator-error'
-const generatorSection = 'momi-generator-section'
+const activationCodeId = 'momi-activation-code'
+const activationTokenBalanceId = 'momi-activation-token-balance-code'
+const generateTokenId = 'momi-generate-activation-token'
+
+const addAutoGeneratorId = 'momi-add-auto-generator'
+const autoGeneratorPriceId = 'momi-auto-generator-price'
+const addAutoGeneratorErrId = 'momi-auto-generator-error'
+const atPerSecondId = 'momi-at-per-second'
+const generateActivationCodeId = 'momi-generate-activation-code'
+const resetGeneratorId = 'momi-reset-generator'
+
+const atProgress1Id = 'momi-generator-progress-1'
+const atProgress2Id = 'momi-generator-progress-2'
+const atProgress3Id = 'momi-generator-progress-3'
+const atProgress4Id = 'momi-generator-progress-4'
+
+
 
 
 
@@ -242,32 +249,88 @@ const page4 = `
 
 <div style="overflow: scroll; color: #f00; ">
   <div>
-    <h3 style="margin-bottom: 16px">ACTIVATION CODE: <span id="${generatedActivationCodeId}" style="margin-left:6px; display: inline-block; font-family: monospace"></span></h3>
+    <h3 style="margin-bottom: 16px; text-align: center">GENERATE ACTIVATION CODE</h3>
 
-    <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
-      <button id="${generateCharId}" class="momi-button" style="font-size: 12px">GENERATE ACTIVATION <br>CODE CHAR</button>
-      <div style="font-weight: bold; font-size: 12px; margin-left: 12px; text-align: center">(<span id="${activationCharPriceId}"></span> GENERATION TOKENS)</div>
+    <div style="padding: 16px; border: 1px solid;">
+      <h4 style="margin-bottom: 16px; font-size: 16px">ACTIVATION TOKEN BALANCE: <span id="${activationTokenBalanceId}"></span> / 10000</h4>
+
+      <style>
+        #momi-generator-table {
+          margin: auto;
+        }
+        #momi-generator-table, #momi-generator-table td, #momi-generator-table th {
+          border: none;
+          padding-left: 0;
+        }
+
+        #momi-generator-table td, #momi-generator-table th {
+          font-weight: bold;
+          font-size: 12px;
+          text-align: center;
+          vertical-align: middle;
+        }
+
+        #momi-generator-table th {
+          font-size: 10px;
+        }
+        #momi-generator-table td:first-child {
+          text-align: left;
+        }
+
+      </style>
+
+      <table id="momi-generator-table">
+        <tr>
+          <th>ACTION</th>
+          <th>COST</th>
+        </tr>
+        <tr>
+          <td>
+            <button id="${generateTokenId}" class="momi-button" style="font-size: 12px">+1 ACTIVATION TOKEN</button>
+          </td>
+          <td>0 AT</td>
+        </tr>
+
+        <tr>
+          <td>
+            <button id="${addAutoGeneratorId}" class="momi-button" style="font-size: 12px; ">AUTO-GENERATE (1 AT/s)</button>
+          </td>
+          <td>
+            <div style=""><span id="${autoGeneratorPriceId}"></span> AT</div>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <button id="${generateActivationCodeId}" class="momi-button" style="font-size: 12px; ">GENERATE CODE</button>
+          </td>
+          <td>
+            <div style="">10000 AT</div>
+          </td>
+        </tr>
+      </table>
+
+      <div id="${addAutoGeneratorErrId}" style=" text-align: center; animation: ActivationBlink 1s steps(2, start) infinite; font-size: 10px; font-weight: bold;"></div>
+
+      <div>
+        <canvas-progress id="${atProgress1Id}"></canvas-progress>
+        <canvas-progress id="${atProgress2Id}"></canvas-progress>
+        <canvas-progress id="${atProgress3Id}"></canvas-progress>
+        <canvas-progress id="${atProgress4Id}"></canvas-progress>
+      </div>
+
+      <div style="display: flex; justify-content: space-between">
+        <h5 style="font-size: 12px; margin-bottom: 0; margin-top: 8px"> AT/s: <span id="${atPerSecondId}">0</span></h5>
+        <button id="${resetGeneratorId}" class="momi-button" style="font-size: 12px; border: none; text-decoration: underline">RESET</button>
+      </div>
     </div>
 
-    <div id="${gtCharErrId}" style="margin-bottom: 8px; text-align: center; animation: ActivationBlink 1s steps(2, start) infinite; font-size: 10px; font-weight: bold;"></div>
+      <h4 style="text-align: center; margin-top: 12px; font-size: 12px">ACTIVATION CODE: <span id="${activationCodeId}" style="margin-left:6px; display: inline-block; font-family: monospace; animation: ActivationBlink 1s steps(2, start) infinite">_ _ _ _ _ _ _ _</span></h4>
 
-    <h4 style="margin-bottom: 16px; font-size: 16px">GENERATION TOKEN BALANCE: <span id="${generationTokenBalanceId}" style="animation: ActivationBlink 1s steps(2, start) infinite"></span></h4>
 
-    <div style="display: flex; align-items: center; justify-content: center;">
-      <button id="${addGTId}" class="momi-button" style="font-size: 12px; margin: auto">+1 GENERATION TOKEN</button>
-    </div>
   </div>
 
-  <div style="margin-top: 24px">
-    <div id="${generatorSection}"></div>
 
-    <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 8px;">
-      <button id="${buyGeneratorId}" class="momi-button" style="font-size: 12px; margin: auto">+1 GT GENERATOR</button>
-      <div style="font-weight: bold; font-size: 12px; margin-left: 12px; margin-bottom:8px; text-align: center">(<span id="${gtGeneratorPriceId}"></span> GENERATION TOKENS)</div>
-    </div>
-
-    <div id="${buyGeneretorErrId}" style="margin-bottom: 8px; text-align: center; animation: ActivationBlink 1s steps(2, start) infinite; font-size: 10px; font-weight: bold;"></div>
-  </div>
 
 
 </div>
@@ -377,6 +440,8 @@ const pageTakeover = `
 
 
 const soundIntervals = []
+const autoGenerators = []
+
 const startSoundInterval = (freq=300, len=300) => {
   const s = new SoundSrc('square')
 
@@ -389,6 +454,7 @@ const startSoundInterval = (freq=300, len=300) => {
 
 const stopSoundIntervals = () => {
   soundIntervals.forEach(i => clearInterval(i))
+  autoGenerators.forEach(i => clearInterval(i))
 }
 
 
@@ -459,73 +525,135 @@ function mountPageTakeover() {
   const gotoActivationGenerate = () => {
     stopSoundIntervals()
     const baseNote = new SoundSrc('square')
-    baseNote.note(150, 600)
+    baseNote.note(220, 600)
 
     $.id(containerId).innerHTML = page4
 
 
-    let gtBalance = 0
-    let activationCharPrice = 10
-    let gtGeneratorPrice = 10
-
-    const activationCodeGenerated = []
-    const displayActivationCode = () => {
-      $.id(generatedActivationCodeId).innerHTML = activationCodeGenerated.map(x => x + ' ').join('').padEnd(16, ' _')
-    }
-
+    let atBalance = 0
+    let autoGeneratorPrice = 10
 
     const render = () => {
-      $.id(generationTokenBalanceId).innerHTML = gtBalance
-      $.id(activationCharPriceId).innerHTML = activationCharPrice
-      $.id(gtGeneratorPriceId).innerHTML = gtGeneratorPrice
-      if (gtBalance >= activationCharPrice) {
-        $.id(gtCharErrId).innerHTML = ''
+      $.id(activationTokenBalanceId).innerHTML = String(atBalance).padStart(5, '0')
+      $.id(autoGeneratorPriceId).innerHTML = autoGeneratorPrice
+
+      if (atBalance >= autoGeneratorPrice) {
+        $.id(addAutoGeneratorErrId).innerHTML = ''
       }
-      if (gtBalance >= gtGeneratorPrice) {
-        $.id(buyGeneretorErrId).innerHTML = ''
+      const p1 = getCanvasProgress(atProgress1Id)
+      const p2 = getCanvasProgress(atProgress2Id)
+      const p3 = getCanvasProgress(atProgress3Id)
+      const p4 = getCanvasProgress(atProgress4Id)
+
+      if (atBalance === 10000) {
+        p1.value = 9
+        p2.value = 9
+        p3.value = 9
+        p4.value = 9
+
+      } else {
+        p1.value = atBalance % 10
+        p2.value = Math.floor(atBalance / 10) % 10
+        p3.value = Math.floor(atBalance / 100) % 10
+        p4.value = Math.floor(atBalance / 1000) % 10
       }
-      displayActivationCode()
+
+      $.id(atPerSecondId).innerHTML = `${autoGenerators.length}`
     }
 
     render()
 
-    function buyGenerator() {
-      $.id(generatorSection).innerHTML += '.....'
+    $.id(resetGeneratorId).onclick = () => {
+      stopSoundIntervals()
+      autoGenerators.length = 0
+      atBalance = 0
+      autoGeneratorPrice = 10
+      $.id(addAutoGeneratorErrId).innerHTML = ''
+
+      const n = new SoundSrc('square')
+      const n2 = new SoundSrc('square')
+      n.note(440*0.666, 60)
+      n2.note(880*0.666, 60)
+
+      render()
     }
 
 
-    $.id(generateCharId).onclick = () => {
-      if (gtBalance >= activationCharPrice) {
-        gtBalance -= activationCharPrice
-        activationCodeGenerated.push('x')
+    $.id(addAutoGeneratorId).onclick = () => {
+      const n = new SoundSrc('square')
+
+      if (atBalance >= autoGeneratorPrice) {
+        const n = new SoundSrc('square')
+        n.note(440*1.333, 60)
+
+        atBalance -= autoGeneratorPrice
+
+        autoGeneratorPrice += 1
+
+        autoGenerators.push(setInterval(() => {
+          if (atBalance < 10000) {
+            atBalance += 1
+            if (atBalance % 1000 === 0) {
+              baseNote.note(220, 10)
+
+              setTimeout(() => {
+                baseNote.note(220, 80)
+              }, 20)
+            } else if (atBalance % 100 === 0) {
+              n.note(880, 15)
+            } else if (atBalance % 10 === 0) {
+              n.note(660, 10)
+            } else {
+              n.note(440, 10)
+            }
+          }
+
+          render()
+        }, 1000))
       } else {
-        $.id(gtCharErrId).innerHTML = 'INSUFFICIENT GT BALANCE'
-        baseNote.note(600, 300)
+        $.id(addAutoGeneratorErrId).innerHTML = 'INSUFFICIENT AT BALANCE'
       }
 
       render()
+
     }
 
-    $.id(addGTId).onclick = () => {
-      gtBalance += 1
-      render()
-    }
 
-    $.id(buyGeneratorId).onclick = () => {
 
-      if (gtBalance >= gtGeneratorPrice) {
-        gtBalance -= gtGeneratorPrice
+    $.id(generateTokenId).onclick = () => {
+      if (atBalance < 10000) {
 
-        buyGenerator()
-        // activationCodeGenerated.push('x')
+        atBalance += 1
+        if (atBalance % 1000 === 0) {
+          baseNote.note(220, 10)
+
+          setTimeout(() => {
+            baseNote.note(220, 80)
+          }, 20)
+        } else if (atBalance % 100 === 0) {
+          baseNote.note(880, 15)
+        } else if (atBalance % 10 === 0) {
+          baseNote.note(660, 10)
+        } else {
+          baseNote.note(440, 10)
+        }
       } else {
-        $.id(buyGeneretorErrId).innerHTML = 'INSUFFICIENT GT BALANCE'
-        baseNote.note(600, 300)
+        baseNote.note(220, 20)
       }
-
       render()
     }
 
+
+    $.id(generateActivationCodeId).onclick = () => {
+      if (atBalance >= 10000) {
+        atBalance -= 10000
+      } else {
+        $.id(addAutoGeneratorErrId).innerHTML = 'INSUFFICIENT AT BALANCE'
+        setTimeout(() => {
+          $.id(addAutoGeneratorErrId).innerHTML = ''
+        }, 4000)
+      }
+    }
 
 
 
@@ -949,3 +1077,96 @@ class SoundSrc {
     this.smoothGain(0)
   }
 }
+
+
+
+
+
+////// COMPONENT
+
+
+
+createComponent(
+  'canvas-progress',
+  `
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+      }
+      canvas {
+        width: 100%;
+        height: 8px;
+        display: block;
+        border: 1px solid #f00;
+      }
+
+      #wrapper {
+        padding: 8px 0;
+      }
+    </style>
+    <div id="wrapper">
+      <canvas></canvas>
+    </div>
+  `,
+  { value: 0, max: 9 },
+  ctx => {
+    const canvas = ctx.$('canvas')
+    ctx.canvas = canvas
+    ctx.ctx2d = canvas.getContext('2d')
+
+    // Handle resize
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect()
+      canvas.width = rect.width * window.devicePixelRatio
+      canvas.height = rect.height * window.devicePixelRatio
+      ctx.render()
+    }
+
+    new ResizeObserver(resize).observe(canvas)
+    resize()
+  },
+  ctx => {
+    const { canvas, ctx2d } = ctx
+    if (!ctx2d) return
+
+    const { value, max } = ctx.state
+    const ratio = max > 0 ? value / max : 0
+
+    // Clear
+    ctx2d.clearRect(0, 0, canvas.width, canvas.height)
+
+    // Draw fill
+    const fillWidth = canvas.width * ratio
+
+    if (fillWidth > 0) {
+      ctx2d.fillStyle = '#f00'
+      ctx2d.fillRect(0, 0, fillWidth, canvas.height)
+    }
+  }
+)
+
+function getCanvasProgress(id) {
+  const element = $.id(id)
+
+  return {
+    element,
+    get value() {
+      return element.state?.value ?? 0
+    },
+    set value(v) {
+      if (element.setState) {
+        element.setState({ value: v })
+      }
+    },
+    get max() {
+      return element.state?.max ?? 9
+    },
+    set max(v) {
+      if (element.setState) {
+        element.setState({ max: v })
+      }
+    }
+  }
+}
+
