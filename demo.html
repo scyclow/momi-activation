@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Components Demo</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: sans-serif;
+      background: #111;
+      color: #fff;
+      margin: 0;
+      padding: 2em;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2em;
+      font-size: 2em;
+      letter-spacing: 0.1em;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 2em;
+    }
+    .card {
+      background: #1e1e1e;
+      border: 1px solid #333;
+      border-radius: 6px;
+      padding: 1.5em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1em;
+    }
+    .card h2 {
+      font-size: 0.7em;
+      letter-spacing: 0.12em;
+      color: #888;
+      text-transform: uppercase;
+      margin: 0;
+      text-align: center;
+      width: 100%;
+    }
+    .demo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3em;
+      min-height: 80px;
+      width: 100%;
+      overflow: hidden;
+    }
+    .demo.small-font { font-size: 1.1em; min-height: 60px; }
+    .demo.tall { min-height: 120px; }
+    pre {
+      margin: 0;
+      width: 100%;
+      background: #2a2a2a;
+      border: 1px solid #444;
+      border-radius: 4px;
+      padding: 0.6em 0.8em;
+      font-size: 0.85em;
+      overflow-x: auto;
+      color: #adf;
+      white-space: pre;
+    }
+    .full-width { grid-column: 1 / -1; }
+    .full-width .demo { font-size: 1.6em; min-height: 60px; }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5em 1em;
+      width: 100%;
+    }
+    .controls label {
+      display: flex;
+      align-items: center;
+      gap: 0.3em;
+      font-size: 0.75em;
+      color: #888;
+      white-space: nowrap;
+    }
+    .controls input,
+    .controls select {
+      background: #2a2a2a;
+      border: 1px solid #555;
+      border-radius: 3px;
+      color: #ccc;
+      padding: 0.2em 0.4em;
+      font-size: 1em;
+      width: 5.5em;
+    }
+    .controls select { width: auto; }
+  </style>
+</head>
+<body>
+
+<h1>Components Demo</h1>
+
+<div class="grid">
+
+  <div class="card" data-ctrl="duration,delay,direction">
+    <h2>upgrade-blink</h2>
+    <div class="demo">
+      <upgrade-blink duration="1000">👁️</upgrade-blink>
+    </div>
+    <pre>&lt;upgrade-blink
+  duration="1000"
+  delay="0"
+  direction="1"&gt;
+  👁️
+&lt;/upgrade-blink&gt;</pre>
+  </div>
+
+  <div class="card" data-ctrl="duration,delay,direction">
+    <h2>upgrade-dance</h2>
+    <div class="demo">
+      <upgrade-dance duration="2000">💃</upgrade-dance>
+    </div>
+    <pre>&lt;upgrade-dance
+  duration="2000"
+  delay="0"
+  direction="1"&gt;
+  💃
+&lt;/upgrade-dance&gt;</pre>
+  </div>
+
+  <div class="card" data-ctrl="duration,delay,direction">
+    <h2>upgrade-grow-shrink</h2>
+    <div class="demo">
+      <upgrade-grow-shrink duration="1500">🎈</upgrade-grow-shrink>
+    </div>
+    <pre>&lt;upgrade-grow-shrink
+  duration="1500"
+  delay="0"
+  direction="1"&gt;
+  🎈
+&lt;/upgrade-grow-shrink&gt;</pre>
+  </div>
+
+  <div class="card" data-ctrl="duration,delay,direction">
+    <h2>upgrade-grow-shrink-short</h2>
+    <div class="demo">
+      <upgrade-grow-shrink-short duration="1200">🫧</upgrade-grow-shrink-short>
+    </div>
+    <pre>&lt;upgrade-grow-shrink-short
+  duration="1200"
+  delay="0"
+  direction="1"&gt;
+  🫧
+&lt;/upgrade-grow-shrink-short&gt;</pre>
+  </div>
+
+  <div class="card" data-ctrl="duration,delay,direction">
+    <h2>upgrade-spin</h2>
+    <div class="demo">
+      <upgrade-spin duration="2000">🌀</upgrade-spin>
+    </div>
+    <pre>&lt;upgrade-spin
+  duration="2000"
+  delay="0"
+  direction="1"&gt;
+  🌀
+&lt;/upgrade-spin&gt;</pre>
+  </div>
+
+  <div class="card" data-ctrl="duration,delay,direction">
+    <h2>upgrade-h-siren</h2>
+    <div class="demo">
+      <upgrade-h-siren duration="3000">🚨</upgrade-h-siren>
+    </div>
+    <pre>&lt;upgrade-h-siren
+  duration="3000"
+  delay="0"
+  direction="1"&gt;
+  🚨
+&lt;/upgrade-h-siren&gt;</pre>
+  </div>
+
+  <div class="card" data-ctrl="duration,delay,direction">
+    <h2>upgrade-v-siren</h2>
+    <div class="demo">
+      <upgrade-v-siren duration="3000">🔔</upgrade-v-siren>
+    </div>
+    <pre>&lt;upgrade-v-siren
+  duration="3000"
+  delay="0"
+  direction="1"&gt;
+  🔔
+&lt;/upgrade-v-siren&gt;</pre>
+  </div>
+
+  <div class="card" data-ctrl="duration,delay,direction">
+    <h2>upgrade-v-siren-short</h2>
+    <div class="demo">
+      <upgrade-v-siren-short duration="2500">🪩</upgrade-v-siren-short>
+    </div>
+    <pre>&lt;upgrade-v-siren-short
+  duration="2500"
+  delay="0"
+  direction="1"&gt;
+  🪩
+&lt;/upgrade-v-siren-short&gt;</pre>
+  </div>
+
+  <div class="card" data-ctrl="duration,delay,direction">
+    <h2>upgrade-h-pivot</h2>
+    <div class="demo">
+      <upgrade-h-pivot duration="2500">🪄</upgrade-h-pivot>
+    </div>
+    <pre>&lt;upgrade-h-pivot
+  duration="2500"
+  delay="0"
+  direction="1"&gt;
+  🪄
+&lt;/upgrade-h-pivot&gt;</pre>
+  </div>
+
+  <div class="card" data-ctrl="duration,delay,direction">
+    <h2>upgrade-v-pivot</h2>
+    <div class="demo">
+      <upgrade-v-pivot duration="2500">🎭</upgrade-v-pivot>
+    </div>
+    <pre>&lt;upgrade-v-pivot
+  duration="2500"
+  delay="0"
+  direction="1"&gt;
+  🎭
+&lt;/upgrade-v-pivot&gt;</pre>
+  </div>
+
+  <div class="card" data-ctrl="duration,delay,direction">
+    <h2>upgrade-h-flip</h2>
+    <div class="demo">
+      <upgrade-h-flip duration="4000">🎴</upgrade-h-flip>
+    </div>
+    <pre>&lt;upgrade-h-flip
+  duration="4000"
+  delay="0"
+  direction="1"&gt;
+  🎴
+&lt;/upgrade-h-flip&gt;</pre>
+  </div>
+
+  <div class="card" data-ctrl="duration,delay,direction">
+    <h2>upgrade-v-flip</h2>
+    <div class="demo">
+      <upgrade-v-flip duration="4000">🃏</upgrade-v-flip>
+    </div>
+    <pre>&lt;upgrade-v-flip
+  duration="4000"
+  delay="0"
+  direction="1"&gt;
+  🃏
+&lt;/upgrade-v-flip&gt;</pre>
+  </div>
+
+  <div class="card" data-ctrl="duration,delay,direction">
+    <h2>upgrade-breathe</h2>
+    <div class="demo">
+      <upgrade-breathe duration="3000">🫀</upgrade-breathe>
+    </div>
+    <pre>&lt;upgrade-breathe
+  duration="3000"
+  delay="0"
+  direction="1"&gt;
+  🫀
+&lt;/upgrade-breathe&gt;</pre>
+  </div>
+
+  <div class="card" data-ctrl="duration,delay,direction">
+    <h2>upgrade-flaming-hot</h2>
+    <div class="demo">
+      <upgrade-flaming-hot duration="1500">🔥</upgrade-flaming-hot>
+    </div>
+    <pre>&lt;upgrade-flaming-hot
+  duration="1500"
+  delay="0"
+  direction="1"&gt;
+  🔥
+&lt;/upgrade-flaming-hot&gt;</pre>
+  </div>
+
+  <div class="card" data-ctrl="duration,delay,direction">
+    <h2>upgrade-wave</h2>
+    <div class="demo">
+      <upgrade-wave duration="3500">🌊</upgrade-wave>
+    </div>
+    <pre>&lt;upgrade-wave
+  duration="3500"
+  delay="0"
+  direction="1"&gt;
+  🌊
+&lt;/upgrade-wave&gt;</pre>
+  </div>
+
+  <div class="card" data-ctrl="duration,delay,direction">
+    <h2>upgrade-climb</h2>
+    <div class="demo">
+      <upgrade-climb duration="3500">🧗</upgrade-climb>
+    </div>
+    <pre>&lt;upgrade-climb
+  duration="3500"
+  delay="0"
+  direction="1"&gt;
+  🧗
+&lt;/upgrade-climb&gt;</pre>
+  </div>
+
+  <div class="card" data-ctrl="duration,delay,direction">
+    <h2>upgrade-hexagon</h2>
+    <div class="demo">
+      <upgrade-hexagon duration="2500">⭐</upgrade-hexagon>
+    </div>
+    <pre>&lt;upgrade-hexagon
+  duration="2500"
+  delay="0"
+  direction="1"&gt;
+  ⭐
+&lt;/upgrade-hexagon&gt;</pre>
+  </div>
+
+  <div class="card" data-ctrl="duration,delay,direction">
+    <h2>upgrade-updown-long</h2>
+    <div class="demo tall">
+      <upgrade-updown-long duration="1200">🏀</upgrade-updown-long>
+    </div>
+    <pre>&lt;upgrade-updown-long
+  duration="1200"
+  delay="0"
+  direction="1"&gt;
+  🏀
+&lt;/upgrade-updown-long&gt;</pre>
+  </div>
+
+  <div class="card" data-ctrl="duration,delay,direction">
+    <h2>upgrade-left-right</h2>
+    <div class="demo">
+      <upgrade-left-right duration="2000">🏎️</upgrade-left-right>
+    </div>
+    <pre>&lt;upgrade-left-right
+  duration="2000"
+  delay="0"
+  direction="1"&gt;
+  🏎️
+&lt;/upgrade-left-right&gt;</pre>
+  </div>
+
+  <div class="card" data-ctrl="duration,offset">
+    <h2>upgrade-updown-chars</h2>
+    <div class="demo small-font">
+      <upgrade-updown-chars duration="1500" offset="100">HELLO WORLD</upgrade-updown-chars>
+    </div>
+    <pre>&lt;upgrade-updown-chars
+  duration="1500"
+  offset="100"&gt;
+  HELLO WORLD
+&lt;/upgrade-updown-chars&gt;</pre>
+  </div>
+
+  <div class="card" data-ctrl="duration,offset">
+    <h2>upgrade-blink-chars</h2>
+    <div class="demo small-font">
+      <upgrade-blink-chars duration="1500" offset="100">BLINK BLINK</upgrade-blink-chars>
+    </div>
+    <pre>&lt;upgrade-blink-chars
+  duration="1500"
+  offset="100"&gt;
+  BLINK BLINK
+&lt;/upgrade-blink-chars&gt;</pre>
+  </div>
+
+  <div class="card" data-ctrl="duration,offset">
+    <h2>upgrade-color-chars</h2>
+    <div class="demo small-font">
+      <upgrade-color-chars duration="1500" offset="100">RAINBOW TEXT</upgrade-color-chars>
+    </div>
+    <pre>&lt;upgrade-color-chars
+  duration="1500"
+  offset="100"&gt;
+  RAINBOW TEXT
+&lt;/upgrade-color-chars&gt;</pre>
+  </div>
+
+  <div class="card" data-ctrl="duration,offset">
+    <h2>upgrade-shrink-chars</h2>
+    <div class="demo small-font">
+      <upgrade-shrink-chars duration="1500" offset="100">SHRINK ME</upgrade-shrink-chars>
+    </div>
+    <pre>&lt;upgrade-shrink-chars
+  duration="1500"
+  offset="100"&gt;
+  SHRINK ME
+&lt;/upgrade-shrink-chars&gt;</pre>
+  </div>
+
+  <div class="card full-width" data-ctrl="duration,delay,direction" data-duration-unit="s" data-duration-step="1" data-duration-min="5">
+    <h2>upgrade-marquee</h2>
+    <div class="demo">
+      <upgrade-marquee duration="40" delay="0" direction="1">
+        <span>🚀 DOPAMINE MACHINE &nbsp;&nbsp;&nbsp;</span>
+      </upgrade-marquee>
+    </div>
+    <pre>&lt;upgrade-marquee
+  duration="40"
+  delay="0"
+  direction="1"&gt;
+  &lt;span&gt;🚀 DOPAMINE MACHINE&lt;/span&gt;
+&lt;/upgrade-marquee&gt;</pre>
+  </div>
+
+</div>
+
+
+<script src="./components.js"></script>
+<script>
+  const updatePre = (pre, name, val) => {
+    pre.innerHTML = pre.innerHTML.replace(
+      new RegExp(`(  ${name}=")([^"]*)(")`),
+      `$1${val}$3`
+    )
+  }
+
+  document.querySelectorAll('.card[data-ctrl]').forEach(card => {
+    const ctrlNames = card.dataset.ctrl.split(',')
+    const demo = card.querySelector('.demo')
+    const pre = card.querySelector('pre')
+    const el = demo.firstElementChild
+    const durationUnit = card.dataset.durationUnit || 'ms'
+    const durationStep = Number(card.dataset.durationStep || 100)
+    const durationMin = Number(card.dataset.durationMin || 100)
+
+    const controls = document.createElement('div')
+    controls.className = 'controls'
+
+    ctrlNames.forEach(name => {
+      const label = document.createElement('label')
+
+      if (name === 'direction') {
+        label.textContent = 'direction: '
+        const sel = document.createElement('select')
+        sel.innerHTML = '<option value="1">normal</option><option value="-1">reverse</option>'
+        sel.value = el.getAttribute('direction') ?? '1'
+        sel.addEventListener('change', () => {
+          const val = Number(sel.value)
+          el.setAttribute('direction', sel.value)
+          el.setState({ direction: val })
+          updatePre(pre, 'direction', sel.value)
+        })
+        label.appendChild(sel)
+      } else {
+        const isDelay = name === 'delay'
+        const isOffset = name === 'offset'
+        const labelText = name === 'duration' ? `duration (${durationUnit}): ` :
+                         name === 'delay' ? 'delay: ' :
+                         name === 'offset' ? 'offset: ' : name + ': '
+        label.textContent = labelText
+        const input = document.createElement('input')
+        input.type = 'number'
+        input.value = el.getAttribute(name) ?? (isDelay ? '0' : isOffset ? '100' : '')
+        input.min = isDelay || isOffset ? 0 : durationMin
+        input.step = isDelay || isOffset ? 10 : durationStep
+        input.addEventListener('change', () => {
+          const val = Number(input.value)
+          el.setAttribute(name, input.value)
+          el.setState({ [name]: val })
+          updatePre(pre, name, input.value)
+        })
+        label.appendChild(input)
+      }
+
+      controls.appendChild(label)
+    })
+
+    pre.before(controls)
+  })
+</script>
+
+</body>
+</html>

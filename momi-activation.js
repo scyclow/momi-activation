@@ -162,6 +162,7 @@ const addAutoGeneratorErrId = 'momi-auto-generator-error'
 const atPerSecondId = 'momi-at-per-second'
 const generateActivationCodeId = 'momi-generate-activation-code'
 const resetGeneratorId = 'momi-reset-generator'
+const pointerId = 'momi-pointer'
 
 const atProgress1Id = 'momi-generator-progress-1'
 const atProgress2Id = 'momi-generator-progress-2'
@@ -247,12 +248,12 @@ const page3 = `
 
 const page4 = `
 
-<div style="overflow: scroll; color: #f00; ">
+<div style="color: #f00; ">
   <div>
     <h3 style="margin-bottom: 16px; text-align: center">GENERATE ACTIVATION CODE</h3>
 
     <div style="padding: 16px; border: 1px solid;">
-      <h4 style="margin-bottom: 16px; font-size: 16px">ACTIVATION TOKEN BALANCE: <span id="${activationTokenBalanceId}"></span> / 10000</h4>
+      <h4 style="margin-bottom: 12px; font-size: 16px">ACTIVATION TOKEN BALANCE: <span id="${activationTokenBalanceId}"></span> / 10000</h4>
 
       <style>
         #momi-generator-table {
@@ -286,9 +287,9 @@ const page4 = `
         </tr>
         <tr>
           <td>
-            <button id="${generateTokenId}" class="momi-button" style="font-size: 12px">+1 AT</button>
+            <button id="${generateTokenId}" class="momi-button" style="font-size: 12px"><span id="${pointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translateX(-36px)">→</span>+1 AT</button>
           </td>
-          <td>0 AT</td>
+          <td>0</td>
         </tr>
 
         <tr>
@@ -296,7 +297,7 @@ const page4 = `
             <button id="${addAutoGeneratorId}" class="momi-button" style="font-size: 12px; ">+1 AT/s</button>
           </td>
           <td>
-            <div style=""><span id="${autoGeneratorPriceId}"></span> AT</div>
+            <div style=""><span id="${autoGeneratorPriceId}"></span></div>
           </td>
         </tr>
 
@@ -305,7 +306,7 @@ const page4 = `
             <button id="${generateActivationCodeId}" class="momi-button" style="font-size: 12px; ">GENERATE</button>
           </td>
           <td>
-            <div style="">10000 AT</div>
+            <div style="">10000</div>
           </td>
         </tr>
       </table>
@@ -525,6 +526,7 @@ function mountPageTakeover() {
   const gotoActivationGenerate = () => {
     stopSoundIntervals()
     const baseNote = new SoundSrc('square')
+    const baseNote2 = new SoundSrc('square')
     baseNote.note(220, 600)
 
     $.id(containerId).innerHTML = page4
@@ -567,26 +569,22 @@ function mountPageTakeover() {
       autoGeneratorPrice = 10
       $.id(addAutoGeneratorErrId).innerHTML = ''
 
-      const n = new SoundSrc('square')
-      const n2 = new SoundSrc('square')
-      n.note(440*0.666, 60)
-      n2.note(880*0.666, 60)
+      baseNote.note(440*0.666, 60)
+      baseNote2.note(880*0.666, 60)
 
       render()
     }
 
 
     $.id(addAutoGeneratorId).onclick = () => {
-      const n = new SoundSrc('square')
 
       if (atBalance >= autoGeneratorPrice) {
-        const n = new SoundSrc('square')
-        n.note(440*1.333, 60)
+        baseNote.note(440*1.333, 60)
 
         atBalance -= autoGeneratorPrice
-
         autoGeneratorPrice += 1
 
+        const n = new SoundSrc('square')
         autoGenerators.push(setInterval(() => {
           if (atBalance < 10000) {
             atBalance += 1
@@ -621,6 +619,7 @@ function mountPageTakeover() {
 
 
     $.id(generateTokenId).onclick = () => {
+      $.id(pointerId).style.display = 'none'
       if (atBalance < 10000) {
 
         atBalance += 1

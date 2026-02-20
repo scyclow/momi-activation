@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>WELCOME TO THE MUSEUM OF THE MOVING IMAGE WEBSITE [2.0]</title>
+
+  <style type="text/css">
+    * {
+      padding: 0;
+      margin: 0;
+      font-family: sans-serif;
+      color:  #f00;
+      text-transform: uppercase;
+    }
+
+    body {
+      animation: GreenYellow 10s linear infinite;
+    }
+
+    h1 {
+      font-size: 32px;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-top: 8px;
+      margin-bottom: 4px;
+      text-align: center;
+    }
+
+    .headerSection {
+      /*border-bottom: 5px solid;*/
+      padding: 8px;
+    }
+    header {
+      max-width: 440px;
+      width: calc(100vw - 34px);
+      margin: auto;
+      border: 5px solid;
+      overflow: hidden;
+    }
+
+    @keyframes GreenYellow {
+      0%, 100% {
+        background: #0f0;
+      }
+
+      50% {
+        background: #ff0;
+      }
+    }
+
+    @keyframes GreenYellowColor {
+      0%, 100% {
+        color: #0f0;
+      }
+
+      50% {
+        color: #ff0;
+      }
+    }
+
+    body {
+      padding: 12px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+
+    #menu-primary-nav > *, #desktop-navbar-dropdown > * {
+      display: inline-block;
+    }
+
+    #menu-primary-nav, #desktop-navbar-dropdown {
+      text-transform: uppercase;
+      text-align: center;
+      list-style: none;
+      margin-top: auto;
+
+      border: 3px solid;
+      font-weight: bold;
+      padding: 8px;
+      background: #f00;
+    }
+
+    #menu-primary-nav a, #desktop-navbar-dropdown a {
+      padding: 8px;
+      line-height: 2.2;
+      background: #f00;
+      animation: GreenYellowColor 10s linear infinite;
+    }
+    #menu-primary-nav a:hover, #desktop-navbar-dropdown a:hover {
+      animation: GreenYellow 1s linear infinite;
+      color: #f00 !important;
+      background: #0ff
+    }
+
+    #headerContainer {
+      display: flex;
+    }
+    #headerContainer > *:nth-child(2) {
+      margin-left: 12px;
+    }
+
+    nav {
+      margin-top: 12px;
+    }
+
+    footer {
+      margin-top: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer li {
+      margin: 10px 0;
+      font-weight: bold;
+    }
+    footer li a:hover {
+      text-decoration: none;
+    }
+
+    @media (max-width: 979px) {
+      #headerContainer {
+        flex-direction: column;
+      }
+
+      nav {
+        margin-top: 24px;
+        margin-left: 0 !important;
+      }
+    }
+
+
+    .flexSection > * {
+      margin-left: 8px;
+    }
+
+    .flexSection > *:first-child {
+      margin-left: 0;
+    }
+
+    @media (max-width: 700px) {
+      .flexSection {
+        flex-direction: column;
+      }
+
+      .flexSection > * {
+        margin-top: 12px;
+        margin-left: 0;
+      }
+
+      .flexSection > *:first-child {
+        margin-top: 0;
+      }
+
+    }
+
+    @media (max-width: 900px) {
+      footer {
+        flex-direction: column
+      }
+
+      footer ul {
+        text-align: center;
+      }
+    }
+
+    .sc {
+      animation: BorderBlink 1s steps(2, start) infinite;
+      padding: 8px;
+      margin-bottom: 8px;
+      display: flex;
+      flex-direction: column;
+
+    }
+    .sc-title {
+      font-size: 10px;
+      margin-bottom: 4px;
+    }
+
+    @keyframes BorderBlink {
+      0%, 100% {
+        outline: 1px dashed;
+      }
+
+      50% {
+        outline: 1px none;
+      }
+    }
+
+    .flexSection {
+      display: flex;
+      margin-top: 12px;
+    }
+
+    p {
+      margin: 8px 0;
+      font-size: 12px;
+    }
+
+
+    .momi-button {
+      font-weight: bold;
+      border: 2px solid;
+      background: none;
+      padding: 4px 16px;
+      cursor: pointer;
+      animation: GreenYellowColor 10s linear infinite;
+      border-color: #f00 !important;
+      user-select: none;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .momi-button:not(:hover) {
+      color: #f00 !important;
+    }
+    .momi-button:hover {
+      background: #f00 !important;
+    }
+
+
+  </style>
+
+
+
+</head>
+<body>
+
+  <div class="sc">
+    <div class="sc-title">SPONSORED CONTENT</div>
+    <div><a href="https://finsexy.com" target="_blank">CLICK HERE TO TALK TO SEXY SINGLES IN ASTORIA <upgrade-blink-chars duration="1200" offset="125">←←←←←</upgrade-blink-chars></a></div>
+  </div>
+
+  <section id="headerContainer">
+
+    <header style="text-align: center;">
+      <div class="headerSection">
+        <upgrade-h-pivot duration="2000" delay="0"><h1>MUSEUM</h1></upgrade-h-pivot>
+      </div>
+
+      <div class="headerSection">
+        <upgrade-v-flip duration="12000" timing-function="linear" style="width: 100%; max-width: 600px; margin: auto; text-align: left; display: block;">
+          <upgrade-left-right duration="3000"><h1>OF</h1></upgrade-left-right>
+          <upgrade-left-right duration="3000" delay="1500"><h1>THE</h1></upgrade-left-right>
+        </upgrade-v-flip>
+      </div>
+
+      <div class="headerSection">
+        <upgrade-marquee duration="10" delay="0" direction="-1"><h1>MOVING</h1></upgrade-marquee>
+      </div>
+      <div class="headerSection" style="overflow: hidden;">
+        <upgrade-blink duration="1000" delay="0" style="margin-right: 1em"><h1>IMAGE</h1></upgrade-blink>
+        <upgrade-blink duration="1000" delay="200" style="margin-right: 1em"><h1>IMAGE</h1></upgrade-blink>
+        <upgrade-blink duration="1000" delay="400" style="margin-right: 1em"><h1>IMAGE</h1></upgrade-blink>
+  <!--       <upgrade-blink duration="1000" delay="600" style="margin-right: 1em"><h1>IMAGE</h1></upgrade-blink>
+        <upgrade-blink duration="1000" delay="800" style="margin-right: 1em"><h1>IMAGE</h1></upgrade-blink>
+        <upgrade-blink duration="1000" delay="1000" style="margin-right: 1em"><h1>IMAGE</h1></upgrade-blink>
+        <upgrade-blink duration="1000" delay="1200" style="margin-right: 1em"><h1>IMAGE</h1></upgrade-blink>
+        <upgrade-blink duration="1000" delay="1400" style="margin-right: 1em"><h1>IMAGE</h1></upgrade-blink> -->
+      </div>
+
+    </header>
+
+    <nav>
+      <h2><upgrade-blink-chars duration="1200" offset="125" direction="-1">↓↓↓</upgrade-blink-chars> MENU <upgrade-blink-chars duration="1200" offset="125">↓↓↓</upgrade-blink-chars></h2>
+      <ul id="menu-primary-nav" class="desktop-primary-menu">
+        <li><a target="_blank" href="https://movingimage.org/visit/museum-admission-tickets/" title="View Tickets">Tickets</a></li>
+        <li><a target="_blank" href="https://movingimage.org/events/list/?tribe_filterbar_category_custom%5B0%5D=253&#038;tribe_filterbar_category_custom%5B1%5D=230">Calendar</a></li>
+        <li><a target="_blank" href="https://movingimage.org/join-and-support/become-a-member/">Membership</a></li>
+        <li><a target="_blank" href="https://secure.givelively.org/donate/american-museum-of-the-moving-image/it-s-a-moving-experience-campaign">Donate</a></li>
+        <li><a target="_blank" href="https://movingimage.org/about/private_events/">Rentals</a></li>
+        <li><a target="_blank" href="https://movingimage.org/join-and-support/shop/">Shop</a></li>
+      </ul>
+
+
+
+      <h2 style="margin-top: 24px"><upgrade-blink-chars duration="1200" offset="125" direction="-1">↓↓↓</upgrade-blink-chars> SUB-MENU <upgrade-blink-chars duration="1200" offset="125">↓↓↓</upgrade-blink-chars></h2>
+      <ul id="desktop-navbar-dropdown" class="landing-dropdown-menu active">
+        <li><a target="_blank" href="https://movingimage.org/visit/">VISIT</a></li>
+        <li><a target="_blank" href="https://movingimage.org/whats-on/">WHAT’S ON</a> </li>
+        <li><a target="_blank" href="https://movingimage.org/watch-read-listen/">WATCH/READ/LISTEN</a></li>
+        <li><a target="_blank" href="https://movingimage.org/education/">EDUCATION</a></li>
+        <li><a target="_blank" href="https://movingimage.org/collections/">COLLECTION</a></li>
+        <li><a target="_blank" href="https://movingimage.org/join-and-support/">JOIN &amp; SUPPORT</a></li>
+        <li><a target="_blank" href="https://movingimage.org/about/">ABOUT</a></li>
+      </ul>
+      <div class="sc" style="margin-top: 8px">
+        <div class="sc-title">SPONSORED CONTENT</div>
+        <a href="https://smarthome.steviep.xyz" target="_blank" style="flex: 1"><upgrade-blink-chars duration="1200" offset="125" direction="-1">→→→→→</upgrade-blink-chars> SMART HOME AUTOMATION AS EASY AS 1-2-3</a>
+      </div>
+    </nav>
+  </section>
+
+  <div class="flexSection">
+    <div style="border: 2px solid; padding: 8px; ">
+      <h3>BECOME A MEMBER</h3>
+      <p style="font-size: 14px;">
+        As a MoMI member, you’ll be invited to exclusive events, get behind-the-scenes insights, and experience meet-and-greet moments with special guests.
+      </p>
+      <div style="display: flex; justify-content: space-around;">
+        <a href="https://movingimage.org/join-and-support/become-a-member/" title="Link to Join Or Renew" class="momi-button">JOIN <br>OR RENEW</a>
+        <a href="https://movingimage.org/join-and-support/corporate-membership/" title="Link to CORPORATE MEMBERSHIP" class="momi-button">CORPORATE <br>MEMBERSHIP</a>
+      </div>
+    </div>
+
+
+    <div style="border: 2px solid; padding: 8px;">
+      <h3>MAKE A DONATION</h3>
+      <p style="font-size: 14px;">
+        Whether you’re helping the Museum to continue offering groundbreaking education programs, quality film screenings, innovative core and changing exhibitions, or maintain its remarkable collection, all donations are greatly appreciated.
+      </p>
+      <div>
+        <a href="https://secure.givelively.org/donate/american-museum-of-the-moving-image/it-s-a-moving-experience-campaign" title="Link to DONATE NOW" class="momi-button">DONATE NOW</a>
+
+      </div>
+    </div>
+
+
+
+
+
+  </div>
+
+
+  <footer>
+    <div>
+
+      <h3>CONTACT AND LOCATION</h3>
+      <div>36-01 35 Ave, Astoria, NY 11106</div>
+      <div><a href="tel:+1-718-777-6800">718 777 6800</a></div>
+
+      <h3 style="margin-top: 32px">MUSEUM HOURS</h3>
+      <div>Thu: 2:00–6:00 p.m.</div>
+      <div>Fri: 2:00–8:00 p.m.</div>
+      <div>Sat & Sun: 11:00 a.m.–6:00 p.m.</div>
+      <a target="_blank" href="https://movingimage.org/visit/">See holiday hours</a>
+    </div>
+
+
+    <div style="text-transform: uppercase;">
+      <ul style="list-style: none;">
+        <li><a href="https://movingimage.org/about/">About MoMI</a></li>
+        <li><a href="https://movingimage.org/visit/access-policies/">Accessibility and Policies</a></li>
+        <li><a href="https://movingimage.org/about/contact-us/">Contact Us</a></li>
+        <li><a href="https://movingimage.org/about/employment/">Employment</a></li>
+        <li><a href="https://movingimage.org/about/press-media/">Press &amp; Media</a></li>
+      </ul>
+    </div>
+
+
+    <div style="text-transform: uppercase;">
+      <ul  style="list-style: none;">
+        <li>
+          <a href="https://www.facebook.com/MovingImageMuseum" class="icon" title="Link to Facebook in new tab" target="_blank">FACEBOOK</a>
+        </li>
+        <li>
+          <a href="https://twitter.com/MovingImageNYC" class="icon" title="Link to Twitter in new tab" target="_blank">TWITTER</a>
+        </li>
+        <li>
+          <a href="https://www.google.com/search?q=museum+of+the+moving+image&amp;source=hp&amp;ei=EgyLYMyRFNSp0PEP-ted4A8&amp;iflsig=AINFCbYAAAAAYIsaIrYhBu4_N3OTnf0upp6DnWNYoLQK&amp;oq=museum+of+the+moving+image&amp;gs_lcp=Cgdnd3Mtd2l6EAMyCAguELEDEJMCMgIIADICCAAyAggAMgIIADICCAAyAggAMgIIADICCAAyAggAOg4IABDqAhC0AhDZAhDlAjoFCAAQsQM6CAgAELEDEMkDOgUIABCSAzoICC4QxwEQrwE6BQguELEDOgsILhCxAxDHARCvAToLCC4QxwEQrwEQkwI6CAgAELEDEIMBOgsILhCxAxDHARCjAlDIF1i0OmCPPGgBcAB4AYABiwOIAcUikgEHNy42LjQuNpgBAKABAaoBB2d3cy13aXqwAQg&amp;sclient=gws-wiz&amp;ved=0ahUKEwjM4sqHm6TwAhXUFDQIHfprB_wQ4dUDCAk&amp;uact=5" class="icon" title="Link to Google in new tab" target="_blank">GOOGLE</a>
+        </li>
+        <li>
+          <a href="https://www.youtube.com/channel/UCjwMXCB-VixNaTW4rKafCHg/featured" class="icon" title="Link to YouTube in new tab" target="_blank">YOUTUBE</a>
+        </li>
+        <li>
+          <a href="https://instagram.com/movingimagenyc/" class="icon" title="Link to Instagram in new tab" target="_blank">INSTAGRAM</a>
+        </li>
+        <li>
+          <a href="http://www.movingimage.org/enews/" title="Link to Sign up for our newsletter">Sign up for our newsletter &gt;</a>
+        </li>
+      </ul>
+    </div>
+  </footer>
+
+  <div style="text-align: center; font-weight: bold; margin-top: 32px;">
+    © 2026 MUSEUM OF THE MOVING IMAGE
+  </div>
+
+
+  <div style="text-align: center; font-weight: bold;">
+    WEBSITE BY <a href="https//steviep.xyz" target="_blank">STEVIEP.XYZ</a>
+  </div>
+</body>
+<script src="./components.js"></script>
+</html>
