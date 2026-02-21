@@ -1,6 +1,6 @@
 
 
-const VALID_ACTIVATION_CODE = 'null'
+const VALID_ACTIVATION_CODE = 'MOMI2026'
 
 
 
@@ -147,6 +147,7 @@ const timerId = 'momi-timer'
 const takeoverId = 'momi-activation-takeover'
 const containerId = 'momi-takeover-container'
 const enterId = 'momi-takeover-enter'
+const enterGenerateId = 'momi-enter-generate'
 const noCodeId = 'momi-takeover-no-code'
 const generateActivationId = 'momi-takeover-generate-activation'
 const okId = 'momi-activation-ok'
@@ -168,6 +169,13 @@ const atProgress1Id = 'momi-generator-progress-1'
 const atProgress2Id = 'momi-generator-progress-2'
 const atProgress3Id = 'momi-generator-progress-3'
 const atProgress4Id = 'momi-generator-progress-4'
+
+
+const loadingProgress1Id = 'momi-loading-progress-1'
+const loadingProgress2Id = 'momi-loading-progress-2'
+const loadingProgress3Id = 'momi-loading-progress-3'
+const loadingProgress4Id = 'momi-loading-progress-4'
+const loadingProgress5Id = 'momi-loading-progress-5'
 
 
 
@@ -242,7 +250,7 @@ const page3 = `
 
   <button id="${okId}" class="momi-button"">ENTER CODE</button>
   <h3 style="text-align: center; color: #f00; margin: 16px 0">OR</h3>
-  <button id="${generateActivationId}" class="momi-button" style="font-size: 16px; border: none; text-decoration: underline">GENERATE NEW CODE</button>
+  <button id="${generateActivationId}" class="momi-button" style="font-size: 16px; border: none; text-decoration: underline"><span style="animation: ActivationBlink 1s steps(2, start) infinite">→</span> GENERATE NEW CODE</button>
 
 `
 
@@ -311,7 +319,7 @@ const page4 = `
         </tr>
       </table>
 
-      <div id="${addAutoGeneratorErrId}" style=" text-align: center; animation: ActivationBlink 1s steps(2, start) infinite; font-size: 10px; font-weight: bold;"></div>
+      <div id="${addAutoGeneratorErrId}" style=" text-align: center; animation: ActivationBlink 1s steps(2, start) infinite; font-size: 16px; font-weight: bold;"></div>
 
       <div>
         <canvas-progress id="${atProgress1Id}"></canvas-progress>
@@ -328,16 +336,32 @@ const page4 = `
 
       <h4 style="text-align: center; margin-top: 12px; font-size: 12px">ACTIVATION CODE: <span id="${activationCodeId}" style="margin-left:6px; display: inline-block; font-family: monospace; animation: ActivationBlink 1s steps(2, start) infinite">_ _ _ _ _ _ _ _</span></h4>
 
+      <button id="${enterGenerateId}" class="momi-button" style="display: none; margin: auto">ENTER CODE</button>
 
   </div>
-
-
-
-
 </div>
 
 `
 
+const page5 = `
+  <h1 style="text-align: center; font-size: 32px; color: #f00; font-family: sans-serif; margin-bottom: 16px">LOADING<span style="animation: ActivationBlink 1s steps(2, start) infinite">...</span></h1>
+
+  <div style="width: 80%; max-width: 850px">
+    <canvas-progress id="${loadingProgress1Id}" max="100"></canvas-progress>
+    <canvas-progress id="${loadingProgress2Id}" style="display: none; margin-top: 10px" max="100"></canvas-progress>
+    <canvas-progress id="${loadingProgress3Id}" style="display: none; margin-top: 10px" max="100"></canvas-progress>
+    <canvas-progress id="${loadingProgress4Id}" style="display: none; margin-top: 10px" max="100"></canvas-progress>
+    <canvas-progress id="${loadingProgress5Id}" style="display: none; margin-top: 10px" max="100"></canvas-progress>
+
+  </div>
+`
+
+const page6 = `
+  <h1 style="text-align: center; font-size: 32px; color: #f00; font-family: sans-serif; margin-bottom: 16px">CONGRATULATIONS<span style="animation: ActivationBlink 1s steps(2, start) infinite">!</span></h1>
+
+  <button class="momi-button" style="margin-top: 12px; font-size: 16px; border: none; text-decoration: underline">CONTINUE TO THE MOMI 2.0 WEBSITE <span style="animation: ActivationBlink 1s steps(2, start) infinite">→</span></button>
+
+`
 
 
 
@@ -460,6 +484,9 @@ const stopSoundIntervals = () => {
 
 
 function mountPageTakeover() {
+  const baseNote = new SoundSrc('square')
+  const baseNote2 = new SoundSrc('square')
+
   const takeover = $.div(pageTakeover, {
     id: takeoverId,
     style: `
@@ -474,7 +501,6 @@ function mountPageTakeover() {
 
 
   let timerInterval
-
 
 
 
@@ -498,9 +524,10 @@ function mountPageTakeover() {
 
       const enteredActivationCode = $.id(activationCodeInputId).value
 
-      if (enteredActivationCode.trim() !== VALID_ACTIVATION_CODE) {
+      if (enteredActivationCode.replaceAll(' ', '').trim() !== VALID_ACTIVATION_CODE) {
         $.id(activationCodeErrorId).innerHTML += 'INVALID ACTIVATION CODE '
       } else {
+        gotoLoadingScreen()
 
       }
     }
@@ -525,9 +552,8 @@ function mountPageTakeover() {
 
   const gotoActivationGenerate = () => {
     stopSoundIntervals()
-    const baseNote = new SoundSrc('square')
-    const baseNote2 = new SoundSrc('square')
-    baseNote.note(220, 600)
+
+    baseNote.note(220, 300)
 
     $.id(containerId).innerHTML = page4
 
@@ -575,6 +601,8 @@ function mountPageTakeover() {
       render()
     }
 
+    let totalNotes = 0
+    const allNotes = []
 
     $.id(addAutoGeneratorId).onclick = () => {
 
@@ -584,7 +612,16 @@ function mountPageTakeover() {
         atBalance -= autoGeneratorPrice
         autoGeneratorPrice += 1
 
-        const n = new SoundSrc('square')
+        let n
+
+        if (totalNotes < 40) {
+          n = new SoundSrc('square')
+          allNotes.push(n)
+        } else {
+          n = allNotes[totalNotes % 40]
+        }
+        totalNotes++
+
         autoGenerators.push(setInterval(() => {
           if (atBalance < 10000) {
             atBalance += 1
@@ -606,7 +643,7 @@ function mountPageTakeover() {
           render()
         }, 1000))
       } else {
-        $.id(addAutoGeneratorErrId).innerHTML = 'INSUFFICIENT AT BALANCE'
+        $.id(addAutoGeneratorErrId).innerHTML = 'INSUFFICIENT ACTIVATION TOKEN BALANCE'
         setTimeout(() => {
           $.id(addAutoGeneratorErrId).innerHTML = ''
         }, 4000)
@@ -642,12 +679,27 @@ function mountPageTakeover() {
       render()
     }
 
+    const randChar = () => sample('qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890!@#$%')
 
     $.id(generateActivationCodeId).onclick = () => {
       if (atBalance >= 10000) {
         atBalance -= 10000
+
+        $.id(activationCodeId).style.animation = 'none'
+
+        const changeInterval = setInterval(() => {
+          $.id(activationCodeId).innerHTML = times(8, () => randChar() + ' ').join('')
+        }, 20)
+
+        setTimeout(() => {
+          clearInterval(changeInterval)
+          $.id(activationCodeId).innerHTML = VALID_ACTIVATION_CODE.split('').join(' ')
+
+          $.id(enterGenerateId).style.display = 'block'
+        }, 3000)
+
       } else {
-        $.id(addAutoGeneratorErrId).innerHTML = 'INSUFFICIENT AT BALANCE'
+        $.id(addAutoGeneratorErrId).innerHTML = 'INSUFFICIENT ACTIVATION TOKEN BALANCE'
         setTimeout(() => {
           $.id(addAutoGeneratorErrId).innerHTML = ''
         }, 4000)
@@ -655,11 +707,97 @@ function mountPageTakeover() {
     }
 
 
+    $.id(enterGenerateId).onclick = () => {
+      stopSoundIntervals()
+      gotoActivationEntry()
+    }
+
+  }
 
 
+  const gotoLoadingScreen = () => {
+    stopSoundIntervals()
+
+    $.id(containerId).innerHTML = page5
+
+
+    const lps = [
+      getCanvasProgress(loadingProgress1Id),
+      getCanvasProgress(loadingProgress2Id),
+      getCanvasProgress(loadingProgress3Id),
+      getCanvasProgress(loadingProgress4Id),
+      getCanvasProgress(loadingProgress5Id),
+    ]
+
+    let lpIx = 0
+
+    let baseFreq = 100
+
+    const lpInterval = setInterval(() => {
+      const lp = lps[lpIx]
+
+      if (prb(0.3)) {
+        baseNote.note(baseFreq, 20)
+        setTimeout(() => baseNote2.note(baseFreq/2, 20, MAX_VOLUME * 0.75), 10)
+        lp.value += 1
+        baseFreq += 1
+      }
+
+      if (lp.value === 100) {
+        lpIx++
+
+        console.log(lpIx, lps.length)
+        if (lpIx >= lps.length) {
+          clearInterval(lpInterval)
+
+          baseNote.note(440, 100)
+          setTimeout(() => baseNote.note(440 * 1.25, 100), 125)
+          setTimeout(() => baseNote.note(440 * 1.5, 100), 250)
+          setTimeout(() => baseNote.note(440 * 2, 100), 375)
+
+          setTimeout(() => {
+            gotoCongratulationsScreen()
+          }, 1000)
+
+
+        } else {
+          lps[lpIx].element.style.display = 'block'
+        }
+
+      }
+    }, 20)
+  }
+
+  const gotoCongratulationsScreen = () => {
+    $.id(containerId).innerHTML = page6
+
+    const s = new SoundSrc('square')
+
+
+    const notes1 = [
+      [440, 2], [440, 1], [493.88, 3], [440, 3], [587.33, 3], [554.37, 6],
+      [440, 2], [440, 1], [493.88, 3], [440, 3], [659.25, 3], [587.33, 6],
+      [440, 2], [440, 1], [880, 3], [739.99, 3], [587.33, 2], [587.33, 1], [554.37, 3], [493.88, 6],
+      [783.99, 2], [783.99, 1], [739.99, 3], [587.33, 3], [659.25, 3], [587.33, 6],
+    ]
+
+    const noteLen = 667 / 3
+
+    function playNote(notes, i) {
+      const n = notes[i % notes.length]
+      s.smoothGain(MAX_VOLUME)
+      s.smoothFreq(n[0])
+
+
+      setTimeout(() => s.smoothGain(0), n[1] * noteLen - 15)
+      setTimeout(() => playNote(notes, i+1), n[1] * noteLen)
+    }
+
+    playNote(notes1, 0)
 
 
   }
+
 
 
   $.id(modalBgId).onclick = closeModal
@@ -1069,8 +1207,8 @@ class SoundSrc {
     this.smoothGain(0)
   }
 
-  async note(freq, ms) {
-    this.smoothGain(MAX_VOLUME)
+  async note(freq, ms, volume=MAX_VOLUME) {
+    this.smoothGain(volume)
     this.smoothFreq(freq)
     await waitPromise(ms)
     this.smoothGain(0)
@@ -1113,6 +1251,13 @@ createComponent(
     const canvas = ctx.$('canvas')
     ctx.canvas = canvas
     ctx.ctx2d = canvas.getContext('2d')
+
+    if (ctx.getAttribute('value') || ctx.getAttribute('max')) {
+      ctx.setState({
+        value: Number(ctx.getAttribute('value')) || 0,
+        max: Number(ctx.getAttribute('max')) || 9,
+      })
+    }
 
     // Handle resize
     const resize = () => {

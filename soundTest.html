@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+
+  <button id="start">start</button>
+
+</body>
+
+
+<script type="text/javascript">
+  document.getElementById('start').onclick = async () => {
+    const s = new SoundSrc('square')
+
+
+    // const notes = [
+    //   440, 493.88, 440, 587.33, 554.37, 554.37, 554.37,
+
+    //   440, 493.88, 440, 659.25, 587.33, 587.33, 587.33,
+
+    //   440, 880, 739.99, 587.33, 554.37, 493.88, 493.88,
+
+    //   783.99, 739.99, 587.33, 659.25, 587.33, 587.33, 587.33
+    // ]
+
+    // let i = 0
+    // setInterval(() => {
+    //   console.log(notes[i % notes.length])
+    //   s.note(notes[i % notes.length], 600)
+
+    //   i++
+    // }, 667)
+
+
+
+
+    const notes1 = [
+      [440, 2], [440, 1], [493.88, 3], [440, 3], [587.33, 3], [554.37, 6],
+      [440, 2], [440, 1], [493.88, 3], [440, 3], [659.25, 3], [587.33, 6],
+      [440, 2], [440, 1], [880, 3], [739.99, 3], [587.33, 2], [587.33, 1], [554.37, 3], [493.88, 6],
+      [783.99, 2], [783.99, 1], [739.99, 3], [587.33, 3], [659.25, 3], [587.33, 6],
+    ]
+
+    const noteLen = 667 / 3
+
+    function playNote(notes, i) {
+      const n = notes[i % notes.length]
+      s.smoothGain(MAX_VOLUME)
+      s.smoothFreq(n[0])
+
+
+      setTimeout(() => s.smoothGain(0), n[1] * noteLen - 15)
+      setTimeout(() => playNote(notes, i+1), n[1] * noteLen)
+    }
+
+    playNote(notes1, 0)
+
+  }
+
+
+
+
+
+
+
+
+function waitPromise(ms) {
+  return new Promise(res => setTimeout(res, ms))
+}
+
+
+
+
+
+const MAX_VOLUME = 0.04
+
+function createSource(waveType = 'square', startingFreq=3000) {
+  const AudioContext = window.AudioContext || window.webkitAudioContext
+  const ctx = new AudioContext()
+
+  const source = ctx.createOscillator()
+  const gain = ctx.createGain()
+  const panner = new StereoPannerNode(ctx)
+
+  source.connect(gain)
+  gain.connect(panner)
+  panner.connect(ctx.destination)
+
+  gain.gain.value = 0
+  source.type = waveType
+  source.frequency.value = startingFreq
+  source.start()
+
+  const smoothFreq = (value, timeInSeconds=0.001) => {
+    source.frequency.exponentialRampToValueAtTime(
+      value,
+      ctx.currentTime + timeInSeconds
+    )
+  }
+
+  const smoothPanner = (value, timeInSeconds=0.001) => {
+    panner.pan.exponentialRampToValueAtTime(
+      value,
+      ctx.currentTime + timeInSeconds
+    )
+  }
+
+  let volume = 0
+  const smoothGain = (value, timeInSeconds=0.001) => {
+    volume = value || 0
+
+    gain.gain.setTargetAtTime(
+      Math.min(value, MAX_VOLUME),
+      ctx.currentTime,
+      timeInSeconds
+    )
+  }
+
+  const mute = () => {
+    gain.gain.setTargetAtTime(
+      Math.min(0, MAX_VOLUME),
+      ctx.currentTime,
+      0.001
+    )
+  }
+  const unmute = () => {
+    gain.gain.setTargetAtTime(
+      Math.min(volume, MAX_VOLUME),
+      ctx.currentTime,
+      0.001
+    )
+  }
+
+  const src = {
+    source, gain, panner,smoothFreq, smoothGain, smoothPanner, originalSrcType: source.type, mute, unmute,
+    stop() {
+      source.stop()
+      this.isStopped = true
+    }
+  }
+
+
+  return src
+}
+
+
+
+
+// EXPERIMENTAL
+
+
+class SoundSrc {
+  constructor(waveType='sine', startingFreq=440) {
+    Object.assign(this, createSource(waveType, startingFreq))
+  }
+
+  max() {
+    this.smoothGain(MAX_VOLUME)
+  }
+
+  silent() {
+    this.smoothGain(0)
+  }
+
+  async note(freq, ms, volume=MAX_VOLUME) {
+    this.smoothGain(volume)
+    this.smoothFreq(freq)
+    await waitPromise(ms)
+    this.smoothGain(0)
+  }
+}
+
+
+
+
+</script>
+</html>
