@@ -140,9 +140,17 @@
       margin-left: 0;
     }
 
+    .flexSlim {
+      width: 90%;
+    }
+
     @media (max-width: 700px) {
       .flexSection {
         flex-direction: column;
+      }
+
+      .flexSlim {
+        width: inherit;
       }
 
       .flexSection > * {
@@ -159,6 +167,9 @@
     @media (max-width: 900px) {
       footer {
         flex-direction: column
+      }
+      footer > *:first-child {
+        margin-bottom: 24px;
       }
 
       footer ul {
@@ -191,6 +202,7 @@
 
     .flexSection {
       display: flex;
+      justify-content: space-evenly;
       margin-top: 12px;
     }
 
@@ -237,7 +249,7 @@
 
   <div class="sc">
     <div class="sc-title">SPONSORED CONTENT</div>
-    <div><a href="https://finsexy.com" target="_blank">CLICK HERE TO TALK TO SEXY SINGLES IN ASTORIA, NY <upgrade-blink-chars duration="1200" offset="125">←←←←←</upgrade-blink-chars></a></div>
+    <div><a href="https://0ms.co/sexydating" target="_blank">CLICK HERE TO TALK TO SEXY SINGLES NEAR ASTORIA, NY <upgrade-blink-chars duration="1200" offset="125">←←←←←</upgrade-blink-chars></a></div>
   </div>
 
   <section id="headerContainer">
@@ -295,34 +307,46 @@
       </ul>
       <div class="sc" style="margin-top: 8px; animation-delay: 200ms;">
         <div class="sc-title">SPONSORED CONTENT</div>
-        <a href="https://smarthome.steviep.xyz" target="_blank" style="flex: 1"><upgrade-blink-chars duration="1200" offset="125" direction="-1">→→→→→</upgrade-blink-chars> SMART HOME AUTOMATION AS EASY AS 1-2-3</a>
+        <a href="https://fastcashmoneyplus.biz" target="_blank" style="flex: 1"><upgrade-blink-chars duration="1200" offset="125" direction="-1">→→→→→</upgrade-blink-chars> MAKE FAST CASH NOW IN 7 DAYS OR LESS</a>
       </div>
     </nav>
   </section>
 
   <div class="flexSection">
-    <div style="border: 2px solid; padding: 8px; ">
-      <h3 style="text-align: center;"><upgrade-blink delay="400">☺︎</upgrade-blink> BECOME A MEMBER <upgrade-blink delay="600">☺︎</upgrade-blink></h3>
-      <p style="font-size: 14px;">
-        As a MoMI member, you’ll be invited to exclusive events, get behind-the-scenes insights, and experience meet-and-greet moments with special guests.
-      </p>
-      <div style="display: flex; justify-content: space-around;">
+    <div>
+      <div class="sc" style="margin-top: 8px; animation-delay: 200ms;">
+        <div class="sc-title">SPONSORED CONTENT</div>
+        <a href="https://ronamerch.co" target="_blank" style="flex: 1">
+          <div>
+            <upgrade-blink-chars duration="1200" offset="125" direction="-1" delay="500">↓↓↓↓↓</upgrade-blink-chars><upgrade-blink-chars duration="1200" offset="125" direction="1" delay="500">↓↓↓↓↓</upgrade-blink-chars>
+          </div>
+          50% OFF THE HOTTEST MERCH</a>
+      </div>
 
-        <a href="https://movingimage.org/join-and-support/become-a-member/" title="Link to Join Or Renew" class="momi-button" style="margin-top: 12px"><upgrade-blink style="position: absolute; transform: translate(8px, -24px);">↓</upgrade-blink>JOIN <br>OR RENEW</a>
+      <div style="border: 2px solid; padding: 8px; ">
+        <h3 style="text-align: center;"><upgrade-blink delay="400">☺︎</upgrade-blink> BECOME A MEMBER <upgrade-blink delay="600">☺︎</upgrade-blink></h3>
+        <p style="font-size: 14px;">
+          As a MoMI member, you’ll be invited to exclusive events, get behind-the-scenes insights, and experience meet-and-greet moments with special guests.
+        </p>
+        <div style="display: flex; justify-content: space-around;">
 
-        <a href="https://movingimage.org/join-and-support/corporate-membership/" title="Link to CORPORATE MEMBERSHIP" class="momi-button" style="margin-top: 12px"><upgrade-blink style="position: absolute; transform: translate(31px, -24px);" delay="200">↓</upgrade-blink>CORPORATE <br>MEMBERSHIP</a>
+          <a href="https://movingimage.org/join-and-support/become-a-member/" title="Link to Join Or Renew" class="momi-button" style="margin-top: 12px"><upgrade-blink style="position: absolute; transform: translate(8px, -24px);">↓</upgrade-blink>JOIN <br>OR RENEW</a>
+
+          <a href="https://movingimage.org/join-and-support/corporate-membership/" title="Link to CORPORATE MEMBERSHIP" class="momi-button" style="margin-top: 12px"><upgrade-blink style="position: absolute; transform: translate(31px, -24px);" delay="200">↓</upgrade-blink>CORPORATE <br>MEMBERSHIP</a>
+        </div>
       </div>
     </div>
 
 
-    <div style="border: 2px solid; padding: 8px; display: flex; flex-direction: column;">
+    <div style="border: 2px solid; padding: 8px; display: flex; flex-direction: column; justify-content: space-evenly;" class="flexSlim">
       <h3 style="text-align: center;"><upgrade-blink>$</upgrade-blink> MAKE A DONATION <upgrade-blink delay="800">$</upgrade-blink></h3>
+
       <p style="font-size: 14px;">
         Whether you’re helping the Museum to continue offering groundbreaking education programs, quality film screenings, innovative core and changing exhibitions, or maintain its remarkable collection, all donations are greatly appreciated.
       </p>
-      <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
+      <div style="display: flex; justify-content: center; align-items: center;">
         <upgrade-blink style="margin-right: 8px;" delay="400">→</upgrade-blink>
-        <a href="https://secure.givelively.org/donate/american-museum-of-the-moving-image/it-s-a-moving-experience-campaign" title="Link to DONATE NOW" class="momi-button" style="font-size: 14px">DONATE NOW</a>
+        <a href="https://secure.givelively.org/donate/american-museum-of-the-moving-image/it-s-a-moving-experience-campaign" title="Link to DONATE NOW" class="momi-button" style="font-size: 16px">DONATE NOW</a>
 
       </div>
     </div>
@@ -336,7 +360,7 @@
 
     <div class="sc" style="margin-top: 8px; animation-delay: 600ms">
       <div class="sc-title">SPONSORED CONTENT</div>
-      <a href="https://fastcashmoneyplus.biz" target="_blank" style="flex: 1"><upgrade-blink-chars duration="1200" offset="125" direction="-1">→→→→→</upgrade-blink-chars> MAKE FAST CASH NOW IN 7 DAYS OR LESS</a>
+      <a href="https://smarthome.steviep.xyz" target="_blank" style="flex: 1"><upgrade-blink-chars duration="1200" offset="125" direction="-1">→→→→→</upgrade-blink-chars> SMART HOME AUTOMATION: EASY AS 1-2-3</a>
     </div>
 
 <!--       <div class="sc" style="margin-top: 8px; animation-delay: 600ms">
@@ -353,16 +377,12 @@
       <div>36-01 35 Ave, <br>Astoria, NY 11106</div>
       <div><a href="tel:+1-718-777-6800">718 777 6800</a></div>
 
-<!--       <div class="sc" style="margin-top: 8px; animation-delay: 600ms">
-        <div class="sc-title">SPONSORED CONTENT</div>
-        <a href="https://fastcashmoneyplus.biz" target="_blank" style="flex: 1"><upgrade-blink-chars duration="1200" offset="125" direction="-1">→→→→→</upgrade-blink-chars> MAKE FAST CASH NOW IN 7 DAYS OR LESS</a>
-      </div> -->
 
       <h3 style="margin-top: 32px">MUSEUM HOURS</h3>
       <div>Thu: 2:00–6:00 p.m.</div>
       <div>Fri: 2:00–8:00 p.m.</div>
       <div>Sat & Sun: 11:00 a.m.–6:00 p.m.</div>
-      <a target="_blank" href="https://movingimage.org/visit/" style="font-size: 12px">See holiday hours</a>
+      <a target="_blank" href="https://movingimage.org/visit/" style="font-size: 12px"><strong>See holiday hours</strong></a>
     </div>
 
 
@@ -380,14 +400,17 @@
     <div style="text-transform: uppercase;">
       <ul  style="list-style: none;">
         <li>
+          <a href="https://friendworld.social" title="Link to Friendworld in new tab" target="_blank">FRIENDWORLD</a>
+        </li>
+        <li>
           <a href="https://www.facebook.com/MovingImageMuseum" class="icon" title="Link to Facebook in new tab" target="_blank">FACEBOOK</a>
         </li>
         <li>
           <a href="https://twitter.com/MovingImageNYC" class="icon" title="Link to Twitter in new tab" target="_blank">TWITTER</a>
         </li>
-        <li>
+<!--         <li>
           <a href="https://www.google.com/search?q=museum+of+the+moving+image&amp;source=hp&amp;ei=EgyLYMyRFNSp0PEP-ted4A8&amp;iflsig=AINFCbYAAAAAYIsaIrYhBu4_N3OTnf0upp6DnWNYoLQK&amp;oq=museum+of+the+moving+image&amp;gs_lcp=Cgdnd3Mtd2l6EAMyCAguELEDEJMCMgIIADICCAAyAggAMgIIADICCAAyAggAMgIIADICCAAyAggAOg4IABDqAhC0AhDZAhDlAjoFCAAQsQM6CAgAELEDEMkDOgUIABCSAzoICC4QxwEQrwE6BQguELEDOgsILhCxAxDHARCvAToLCC4QxwEQrwEQkwI6CAgAELEDEIMBOgsILhCxAxDHARCjAlDIF1i0OmCPPGgBcAB4AYABiwOIAcUikgEHNy42LjQuNpgBAKABAaoBB2d3cy13aXqwAQg&amp;sclient=gws-wiz&amp;ved=0ahUKEwjM4sqHm6TwAhXUFDQIHfprB_wQ4dUDCAk&amp;uact=5" class="icon" title="Link to Google in new tab" target="_blank">GOOGLE</a>
-        </li>
+        </li> -->
         <li>
           <a href="https://www.youtube.com/channel/UCjwMXCB-VixNaTW4rKafCHg/featured" class="icon" title="Link to YouTube in new tab" target="_blank">YOUTUBE</a>
         </li>
@@ -400,6 +423,20 @@
       </ul>
     </div>
   </footer>
+
+  <div class="flexSection">
+    <div class="sc" style="margin-top: 8px; animation-delay: 600ms">
+      <div class="sc-title">SPONSORED CONTENT</div>
+      <a href="https://0ms.co/cruise-winner.html" target="_blank" style="flex: 1"><upgrade-blink-chars duration="1200" offset="125" direction="-1">→→→→→</upgrade-blink-chars> CONGRATULATIONS! YOU'RE A FREE CRUISE WINNER!</a>
+    </div>
+
+    <div class="sc" style="margin-top: 8px; animation-delay: 600ms">
+      <div class="sc-title">SPONSORED CONTENT</div>
+      <a href="https://finsexy.com" target="_blank" style="flex: 1">WARNING: THESE FINDOMs WILL SUCK YOUR WALLET DRY <upgrade-blink-chars duration="1200" offset="125" direction="1">←←←←←</upgrade-blink-chars></a>
+    </div>
+
+  </div>
+
 
   <div style="text-align: center; font-weight: bold; margin-top: 32px;">
     © 2026 MUSEUM OF THE MOVING IMAGE

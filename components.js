@@ -144,16 +144,16 @@ defineAnimatingComponent('upgrade-v-siren-short', 'VSirenShort', `
 
 defineAnimatingComponent('upgrade-h-pivot', 'HPivot', `
   @keyframes HPivot {
-    0%, 100% { transform: perspective(500px) rotate3d(0,2,0, 30deg) translateZ(20vmin) scale(0.75) }
-    50% { transform: perspective(500px) rotate3d(0,2,0, -30deg) translateZ(20vmin) scale(0.75) }
+    0%, 100% { transform: perspective(500px) rotate3d(0,2,0, 30deg) translateZ(160px) scale(0.75) }
+    50% { transform: perspective(500px) rotate3d(0,2,0, -30deg) translateZ(160px) scale(0.75) }
   }
 `, 'cubic-bezier(0.58, 0.06, 0.44, 0.98)', 2000)
 
 
 defineAnimatingComponent('upgrade-v-pivot', 'VPivot', `
   @keyframes VPivot {
-    0%, 100% { transform: perspective(500px) rotate3d(2,0,0, 30deg) translateZ(20vmin) scale(0.5) }
-    50% { transform: perspective(500px) rotate3d(2,0,0, -30deg) translateZ(20vmin) scale(0.5) }
+    0%, 100% { transform: perspective(500px) rotate3d(2,0,0, 30deg) translateZ(160px) scale(0.5) }
+    50% { transform: perspective(500px) rotate3d(2,0,0, -30deg) translateZ(160px) scale(0.5) }
   }
 `, 'cubic-bezier(0.58, 0.06, 0.44, 0.98)', 2000)
 
