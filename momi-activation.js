@@ -1,4 +1,4 @@
-
+// add an x on the modal
 
 const VALID_ACTIVATION_CODE = 'MOMI2026'
 
