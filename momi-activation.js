@@ -1,4 +1,8 @@
-// add an x on the modal
+// TODO: add an x on the modal
+// TODO: is there a way to not zoom in on phone when you click stuff in the clicker game?
+// TODO: is there a way to make the audio work on iphone?
+// TODO: on insufficient AT, make cost cell blink solid red
+
 
 const VALID_ACTIVATION_CODE = 'MOMI2026'
 
@@ -785,11 +789,11 @@ function mountPageTakeover() {
 
     function playNote(notes, i) {
       const n = notes[i % notes.length]
-      s.smoothGain(MAX_VOLUME)
-      s.smoothFreq(n[0])
+      baseNote.smoothGain(MAX_VOLUME)
+      baseNote.smoothFreq(n[0])
 
 
-      setTimeout(() => s.smoothGain(0), n[1] * noteLen - 15)
+      setTimeout(() => baseNote.smoothGain(0), n[1] * noteLen - 15)
       setTimeout(() => playNote(notes, i+1), n[1] * noteLen)
     }
 
