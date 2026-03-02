@@ -2,6 +2,7 @@
 // TODO: is there a way to not zoom in on phone when you click stuff in the clicker game?
 // TODO: is there a way to make the audio work on iphone?
 // TODO: on insufficient AT, make cost cell blink solid red
+// TODO: each progress bar completion should have a special completion beep on top of the increasing tone
 
 
 const VALID_ACTIVATION_CODE = 'MOMI2026'
@@ -77,6 +78,10 @@ function mountPopup() {
 setTimeout(() => {
   mountPopup()
   css(`
+    * {
+      touch-action: manipulation;
+    }
+
     @keyframes ActivationBlink {
       to {
         visibility: hidden;
@@ -1121,11 +1126,22 @@ function createThrottler(ms) {
 
 
 
+const forceResume = (c) => {
+  if (c.state === 'interrupted' || c.state === 'suspended') {
+    c.resume()
+  }
+}
+
 const MAX_VOLUME = 0.04
 
 function createSource(waveType = 'square', startingFreq=3000) {
   const AudioContext = window.AudioContext || window.webkitAudioContext
   const ctx = new AudioContext()
+
+
+  ctx.onstatechange = () => forceResume(ctx)
+
+  forceResume(ctx)
 
   const source = ctx.createOscillator()
   const gain = ctx.createGain()
@@ -1181,7 +1197,7 @@ function createSource(waveType = 'square', startingFreq=3000) {
   }
 
   const src = {
-    source, gain, panner,smoothFreq, smoothGain, smoothPanner, originalSrcType: source.type, mute, unmute,
+    source, gain, panner,smoothFreq, smoothGain, smoothPanner, originalSrcType: source.type, mute, unmute, ctx,
     stop() {
       source.stop()
       this.isStopped = true
@@ -1212,6 +1228,7 @@ class SoundSrc {
   }
 
   async note(freq, ms, volume=MAX_VOLUME) {
+    forceResume(this.ctx)
     this.smoothGain(volume)
     this.smoothFreq(freq)
     await waitPromise(ms)
