@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
+
+<!--     <link rel='stylesheet' id='wp-block-library-css' href='https://movingimage.org/wp-includes/css/dist/block-library/style.min.css?ver=6.8.3' type='text/css' media='all' />
+    <link rel='stylesheet' id='main-stylesheet-css' href='https://movingimage.org/wp-content/themes/momi-custom-theme/style.min.css?1769054330&#038;ver=6.8.3' type='text/css' media='all' /> -->
+
+    <title>MOMI UPGRADE ACTIVATION</title>
+
+    <style>
+      * {
+        touch-action: manipulation;
+        padding: 0;
+        margin: 0;
+        /*font-family: sans-serif;*/
+        font-family: Roboto, sans-serif
+      }
+
+
+      a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video
+      {
+        margin:0;
+        padding:0;
+        border:0;
+        font-size:100%;
+        vertical-align:baseline;
+        line-height: 1;
+        font-style: normal;
+      }
+
+      button,input,select,textarea {
+          font-size: 100%;
+          margin: 0;
+          vertical-align: baseline;
+      }
+
+
+      h1, h2, h3, h4, h5, h6 {
+        line-height: 1.1;
+        margin: 0 0 20px;
+        font-weight: 900;
+      }
+
+      table td, table th {
+        overflow: visible;
+        padding: 6px 12px;
+      }
+
+      table {
+        border-spacing: 0;
+      }
+
+      @keyframes ActivationBlink {
+        to {
+          visibility: hidden;
+        }
+      }
+
+
+      @keyframes GreenYellow {
+        0%, 100% {
+          background: #0f0;
+        }
+
+        50% {
+          background: #ff0;
+        }
+      }
+
+      @keyframes GreenYellowColor {
+        0%, 100% {
+          color: #0f0;
+        }
+
+        50% {
+          color: #ff0;
+        }
+      }
+
+      @keyframes BorderBlink {
+        0%, 100% {
+          outline: 3px solid;
+        }
+
+        50% {
+          outline: 3px none;
+        }
+      }
+
+      ::selection {
+          background: #000;
+          color: #fff
+      }
+    </style>
+
+  </head>
+
+  <body></body>
+
+  <script type="module">
+    import {mountPageTakeover} from './takeover.js'
+
+    mountPageTakeover(document.body, () => {
+      top.document.querySelector('.momileakout-modal').classList.remove('active')
+    })
+  </script>
+</html>
