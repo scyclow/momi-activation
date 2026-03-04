@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
+
+  <title></title>
+
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+      touch-action: manipulation;
+      font-family: Roboto, sans-serif
+    }
+
+    body {
+      animation: GreenYellow 10s linear infinite;
+    }
+
+    main {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    #warning {
+      max-height: 85vh;
+      max-width: 85vw;
+    }
+
+
+    @keyframes ActivationBlink {
+      to {
+        visibility: hidden;
+      }
+    }
+
+
+    @keyframes GreenYellow {
+      0%, 100% {
+        background: #0f0;
+      }
+
+      50% {
+        background: #ff0;
+      }
+    }
+
+    @keyframes GreenYellowColor {
+      0%, 100% {
+        color: #0f0;
+      }
+
+      50% {
+        color: #ff0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main>
+
+    <svg id="warning" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <mask id="AC1">
+          <polygon points="50,6 94,86 6,86" fill="white"/>
+          <rect x="46" y="35" width="8" height="27" fill="black"/>
+          <circle cx="50" cy="72" r="4" fill="black"/>
+        </mask>
+      </defs>
+      <polygon points="50,6 94,86 6,86" fill="#f00" mask="url(#AC1)"/>
+    </svg>
+  </main>
+
+
+</body>
+
+<script type="module">
+  import {$, SoundSrc, getQueryParam, css} from './utils.js'
+
+
+  const interval = Number(getQueryParam('interval')) || 1000
+  const freq = Number(getQueryParam('freq')) || 300
+
+  const freqLen = Math.min(300, interval/2)
+
+
+  let clicked
+  document.onclick = () => {
+    if (!clicked) {
+      clicked = true
+      const s = new SoundSrc('square')
+      setInterval(() => {
+        s.note(freq, freqLen)
+      }, interval)
+
+      const warning = $.id('warning')
+      warning.style.animation = `ActivationBlink ${interval}ms steps(2, start) infinite`
+
+    }
+  }
+
+</script>
+</html>

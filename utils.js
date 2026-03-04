@@ -82,6 +82,11 @@ export const deepEquals = (a, b) => (
   && Object.keys(a).every(aKey => a[aKey] === b[aKey])
 )
 
+export const getQueryParam = (param) => {
+  const params = new URLSearchParams(window.location.search)
+  return params.get(param)
+}
+
 export function times(t, fn) {
   const out = []
   for (let i = 0; i < t; i++) out.push(fn(i))
@@ -238,6 +243,16 @@ export class SoundSrc {
     this.smoothGain(volume)
     this.smoothFreq(freq)
     await waitPromise(ms)
+    this.smoothGain(0)
+  }
+
+  play(freq, v=1) {
+    forceResume(this.ctx)
+    this.smoothGain(Math.min(v, 1) * MAX_VOLUME)
+    this.smoothFreq(freq)
+  }
+
+  pause() {
     this.smoothGain(0)
   }
 }
