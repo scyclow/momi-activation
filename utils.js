@@ -152,12 +152,13 @@ export const MAX_VOLUME = 0.04
 
 export function createSource(waveType = 'square', startingFreq=3000) {
 
-  if (navigator.audioSession) {
-    try {
+  // Hack to get this shit to work on iphone
+  try {
+    if (navigator.audioSession) {
       navigator.audioSession.type = 'playback'
-    } catch (e) {
-      console.log(r)
     }
+  } catch (e) {
+    console.log(e)
   }
 
   const AudioContext = window.AudioContext || window.webkitAudioContext
