@@ -21,13 +21,12 @@
       vertical-align: baseline;
     }
 
-
     * {
       padding: 0;
       margin: 0;
       font-family: Roboto, sans-serif;
 
-      color:  #f00;
+      animation: RedOppositeColor 45s linear infinite;
       text-transform: uppercase;
     }
 
@@ -39,7 +38,7 @@
       padding: 12px;
       max-width: 1200px;
       margin: auto;
-      animation: BGColorAnimation 10s linear infinite;
+      animation: BGColorAnimation 45s linear infinite;
     }
 
     h1 {
@@ -66,24 +65,125 @@
     }
 
     @keyframes BGColorAnimation {
-      0%, 100% {
+      0% {
+        background: #f00;
+      }
+      16.67% {
+        background: #ff0;
+      }
+      33.33% {
         background: #0f0;
       }
-
       50% {
-        background: #ff0;
+        background: #0ff;
+      }
+      66.67% {
+        background: #00f;
+      }
+      83.33% {
+        background: #f0f;
+      }
+      100% {
+        background: #f00;
       }
     }
 
     @keyframes ColorAnimation {
-      0%, 100% {
-        color: #0f0;
+      0% {
+        color: #f00;
       }
-
-      50% {
+      16.67% {
         color: #ff0;
       }
+      33.33% {
+        color: #0f0;
+      }
+      50% {
+        color: #0ff;
+      }
+      66.67% {
+        color: #00f;
+      }
+      83.33% {
+        color: #f0f;
+      }
+      100% {
+        color: #f00;
+      }
     }
+
+    @keyframes RedOpposite {
+      0% {
+        background: #0ff;
+      }
+      16.67% {
+        background: #00f;
+      }
+      33.33% {
+        background: #f0f;
+      }
+      50% {
+        background: #f00;
+      }
+      66.67% {
+        background: #ff0;
+      }
+      83.33% {
+        background: #0f0;
+      }
+      100% {
+        background: #0ff;
+      }
+    }
+
+    @keyframes RedOppositeColor {
+      0% {
+        color: #0ff;
+      }
+      16.67% {
+        color: #00f;
+      }
+      33.33% {
+        color: #f0f;
+      }
+      50% {
+        color: #f00;
+      }
+      66.67% {
+        color: #ff0;
+      }
+      83.33% {
+        color: #0f0;
+      }
+      100% {
+        color: #0ff;
+      }
+    }
+
+    @keyframes RedOppositeBorder {
+      0% {
+        border-color: #0ff;
+      }
+      16.67% {
+        border-color: #00f;
+      }
+      33.33% {
+        border-color: #f0f;
+      }
+      50% {
+        border-color: #f00;
+      }
+      66.67% {
+        border-color: #ff0;
+      }
+      83.33% {
+        border-color: #0f0;
+      }
+      100% {
+        border-color: #0ff;
+      }
+    }
+
 
 
 
@@ -100,25 +200,23 @@
       border: 3px solid;
       font-weight: bold;
       padding: 8px;
-      background: #f00;
+      animation: RedOpposite 45s linear infinite;
     }
 
 /*    #newsletter-signup {
       background: #f00;
     }
     #newsletter-signup a, #newsletter-signup h2 {
-      animation: ColorAnimation 10s linear infinite;
+      animation: ColorAnimation 45s linear infinite;
     }*/
 
     #menu-primary-nav a, #desktop-navbar-dropdown a {
       padding: 8px;
       line-height: 2.2;
-      background: #f00;
-      animation: ColorAnimation 10s linear infinite;
+      animation: RedOpposite 45s linear infinite, ColorAnimation 45s linear infinite;
     }
     #menu-primary-nav a:hover, #desktop-navbar-dropdown a:hover {
-      animation: BGColorAnimation 1s linear infinite;
-      color: #f00 !important;
+      animation: BGColorAnimation 1s linear infinite, RedOppositeColor 1s linear infinite;
       background: #0ff
     }
 
@@ -248,8 +346,7 @@
       background: none;
       padding: 4px 16px;
       cursor: pointer;
-      animation: ColorAnimation 10s linear infinite;
-      border-color: #f00 !important;
+      animation: ColorAnimation 45s linear infinite, RedOppositeBorder 45s linear infinite;
       user-select: none;
       text-decoration: none;
       display: inline-block;
@@ -258,10 +355,10 @@
     }
 
     .momi-button:not(:hover) {
-      color: #f00 !important;
+      animation: RedOppositeColor 45s linear infinite, RedOppositeBorder 45s linear infinite !important;
     }
     .momi-button:hover {
-      background: #f00 !important;
+      animation: RedOpposite 45s linear infinite, RedOppositeBorder 45s linear infinite !important;
     }
 
 
@@ -556,14 +653,13 @@
   import {mountPopupTimeout} from './momi-activation.js'
 
   mountPopupTimeout(15000)
-
 </script>
 <style type="text/css">
   #momi-activation-popup {
-    animation: BGColorAnimation 2.5s linear infinite;
+    animation: BGColorAnimation 10s linear infinite, ColorAnimation 10s linear infinite;
     box-shadow: 2px 2px 0 #000;
+    text-shadow: 2px 2px 0 #000;
 
   }
 </style>
-
 </html>

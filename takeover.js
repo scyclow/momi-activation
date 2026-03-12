@@ -1,6 +1,8 @@
 import { $, times, random, sample, prb, SoundSrc, MAX_VOLUME, getCanvasProgress } from './utils.js'
 
-export const VALID_ACTIVATION_CODE = 'MOMI2026'
+export const VALID_ACTIVATION_CODE1 = 'MOMI2026'
+export const VALID_ACTIVATION_CODE2 = 'MOMI2026!'
+let UPGRADE_URL
 
 
 const warningSvg = () => {
@@ -21,6 +23,7 @@ const warningSvg = () => {
 
 
 const modalBgId = 'momi-modal-bg'
+const xCloseId = 'momi-x-close'
 const ignoreId = 'momi-ignore-button'
 const continueId = 'momi-continue-button'
 const timerId = 'momi-timer'
@@ -44,6 +47,10 @@ const atPerSecondId = 'momi-at-per-second'
 const generateActivationCodeId = 'momi-generate-activation-code'
 const resetGeneratorId = 'momi-reset-generator'
 const pointerId = 'momi-pointer'
+const secondPointerId = 'momi-second-pointer'
+const thirdPointerId = 'momi-third-pointer'
+const autoGeneratorCostCellId = 'momi-auto-generator-cost-cell'
+const generateActivationCodeCostId = 'momi-generator-activation-code-cost'
 
 const atProgress1Id = 'momi-generator-progress-1'
 const atProgress2Id = 'momi-generator-progress-2'
@@ -56,6 +63,9 @@ const loadingProgress2Id = 'momi-loading-progress-2'
 const loadingProgress3Id = 'momi-loading-progress-3'
 const loadingProgress4Id = 'momi-loading-progress-4'
 const loadingProgress5Id = 'momi-loading-progress-5'
+
+const upgradeContinueId = 'momi-upgrade-continue'
+const stopMusicId = 'momi-stop-music'
 
 
 const page1 = `
@@ -112,7 +122,7 @@ const page2 = `
 const page3 = `
   <h1 class="momi-page3-h1" style="text-align: center; font-size: 36px; color: #f00; font-family: sans-serif; max-width: 500px; margin-bottom: 36px">PLEASE VISIT THE "ACTIVATION CENTER" AT:</h1>
 
-    <address style="animation: BorderBlink 1s linear infinite; padding: 24px; max-width: 750px; text-align: center; color: #f00; font-size: 24px; margin-bottom: 36px">
+    <address style="animation: BorderBlink 1s linear infinite; padding: 24px; max-width: 750px; text-align: center; color: #f00; font-size: 24px; margin-bottom: 36px; font-style: normal">
       <div style="margin-bottom: 6px">MUSEUM OF MOVING IMAGE</div>
       <div style="margin-bottom: 6px">36-01 35 AVE</div>
       <div>ASTORIA, NY 11106</div>
@@ -142,10 +152,10 @@ const page4 = `
       <style>
         #momi-generator-table {
           margin: auto;
+          border-spacing: 0;
         }
         #momi-generator-table, #momi-generator-table td, #momi-generator-table th {
           border: none;
-          padding-left: 0;
         }
 
         #momi-generator-table td, #momi-generator-table th {
@@ -153,6 +163,9 @@ const page4 = `
           font-size: 12px;
           text-align: center;
           vertical-align: middle;
+          overflow: visible;
+          padding: 6px 12px;
+          padding-left: 0;
         }
 
         #momi-generator-table th {
@@ -178,24 +191,24 @@ const page4 = `
 
         <tr>
           <td>
-            <button id="${addAutoGeneratorId}" class="momi-button" style="font-size: 12px; ">+1 AT/s</button>
+            <button id="${addAutoGeneratorId}" class="momi-button" style="font-size: 12px; text-transform: none;"><span id="${secondPointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translateX(-36px); display: none;">→</span>+1 AT/s</button>
           </td>
           <td>
-            <div style=""><span id="${autoGeneratorPriceId}"></span></div>
+            <div id="${autoGeneratorCostCellId}" style="padding: 4px"><span id="${autoGeneratorPriceId}"></span></div>
           </td>
         </tr>
 
         <tr>
           <td>
-            <button id="${generateActivationCodeId}" class="momi-button" style="font-size: 12px; ">GENERATE</button>
+            <button id="${generateActivationCodeId}" class="momi-button" style="font-size: 12px; "><span id="${thirdPointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translateX(-36px); display: none;">→</span>GENERATE</button>
           </td>
           <td>
-            <div style="">10000</div>
+            <div id="${generateActivationCodeCostId}" style="padding: 4px">10000</div>
           </td>
         </tr>
       </table>
 
-      <div id="${addAutoGeneratorErrId}" style=" text-align: center; animation: ActivationBlink 1s steps(2, start) infinite; font-size: 16px; font-weight: bold;"></div>
+      <div id="${addAutoGeneratorErrId}" style=" text-align: center; font-size: 16px; font-weight: bold;"></div>
 
       <div>
         <canvas-progress id="${atProgress1Id}"></canvas-progress>
@@ -205,7 +218,7 @@ const page4 = `
       </div>
 
       <div style="display: flex; justify-content: space-between">
-        <h5 style="font-size: 12px; margin-bottom: 0; margin-top: 8px"> AT/s: <span id="${atPerSecondId}">0</span></h5>
+        <h5 style="font-size: 12px; margin-bottom: 0; margin-top: 8px; text-transform: none"> AT/s: <span id="${atPerSecondId}">0</span></h5>
         <button id="${resetGeneratorId}" class="momi-button" style="font-size: 12px; border: none; text-decoration: underline">RESET</button>
       </div>
     </div>
@@ -215,6 +228,18 @@ const page4 = `
       <button id="${enterGenerateId}" class="momi-button" style="display: none; margin: auto">ENTER CODE</button>
 
   </div>
+
+  <style>
+      @keyframes ErrorBlink {
+        0%, 49.9%, 100% {
+          background: #f00;
+        }
+
+        50%, 99.9% {
+          background: none;
+        }
+      }
+  </style>
 </div>
 
 `
@@ -235,7 +260,9 @@ const page5 = `
 const page6 = `
   <h1 style="text-align: center; font-size: 32px; color: #f00; font-family: sans-serif; margin-bottom: 16px">CONGRATULATIONS<span style="animation: ActivationBlink 1s steps(2, start) infinite">!</span></h1>
 
-  <button class="momi-button" style="margin-top: 12px; font-size: 16px; border: none; text-decoration: underline">CONTINUE TO THE MOMI 2.0 WEBSITE <span style="animation: ActivationBlink 1s steps(2, start) infinite">→</span></button>
+  <a id="${upgradeContinueId}" class="momi-button" style="margin-top: 12px; font-size: 16px; border: none; text-decoration: underline">CONTINUE TO THE MOMI 2.0 WEBSITE <span style="animation: ActivationBlink 1s steps(2, start) infinite">→</span></a>
+
+  <button class="momi-button" id="${stopMusicId}" style="display: none; margin-top: 24px">OK</button>
 
 `
 
@@ -248,6 +275,7 @@ const pageTakeover = `
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column
     "
   >
     <div
@@ -266,6 +294,9 @@ const pageTakeover = `
     ></div>
 
 
+    <div style="height: 0; display: flex; justify-content: end; z-index: 999; width: 95vw">
+      <div id="${xCloseId}" style="cursor: pointer; color: #f00; padding: 12px; height: 16px">Ｘ</div>
+    </div>
     <div
       id="${containerId}"
       style="
@@ -357,6 +388,10 @@ export function mountPageTakeover($element, closeAll=()=>{}) {
   const baseNote = new SoundSrc('square')
   const baseNote2 = new SoundSrc('square')
 
+  setTimeout(() => {
+    $.id(xCloseId).onclick = closeModal
+  }, 30)
+
   const takeover = $.div(pageTakeover, {
     id: takeoverId,
     style: `
@@ -395,11 +430,16 @@ export function mountPageTakeover($element, closeAll=()=>{}) {
 
       const enteredActivationCode = $.id(activationCodeInputId).value
 
-      if (enteredActivationCode.replaceAll(' ', '').trim() !== VALID_ACTIVATION_CODE) {
-        $.id(activationCodeErrorId).innerHTML += 'INVALID ACTIVATION CODE '
-      } else {
+      if (enteredActivationCode.replaceAll(' ', '').trim() === VALID_ACTIVATION_CODE1) {
         gotoLoadingScreen()
+        UPGRADE_URL = 'https://steviep.xyz/momi-activation/upgrade'
 
+      } else if (enteredActivationCode.replaceAll(' ', '').trim() === VALID_ACTIVATION_CODE2) {
+        gotoLoadingScreen()
+        UPGRADE_URL = 'https://steviep.xyz/momi-activation/upgrade2'
+
+      } else {
+        $.id(activationCodeErrorId).innerHTML += 'INVALID ACTIVATION CODE '
       }
     }
 
@@ -428,6 +468,9 @@ export function mountPageTakeover($element, closeAll=()=>{}) {
 
     $.id(containerId).innerHTML = page4
 
+    $.id(xCloseId).style.display = 'none'
+
+
 
     let atBalance = 0
     let autoGeneratorPrice = 10
@@ -455,6 +498,10 @@ export function mountPageTakeover($element, closeAll=()=>{}) {
       }
 
       $.id(atPerSecondId).innerHTML = `${autoGenerators.length}`
+
+      if (atBalance >= 10000) {
+        $.id(thirdPointerId).style.display = 'inline-block'
+      }
     }
 
     render()
@@ -471,6 +518,7 @@ export function mountPageTakeover($element, closeAll=()=>{}) {
 
       render()
     }
+    let errorTimeout
 
     let totalNotes = 0
     const allNotes = []
@@ -478,6 +526,9 @@ export function mountPageTakeover($element, closeAll=()=>{}) {
     $.id(addAutoGeneratorId).onclick = () => {
 
       if (atBalance >= autoGeneratorPrice) {
+
+        $.id(secondPointerId).style.display = 'none'
+
         baseNote.note(440*1.333, 60)
 
         atBalance -= autoGeneratorPrice
@@ -513,10 +564,26 @@ export function mountPageTakeover($element, closeAll=()=>{}) {
 
           render()
         }, 1000))
+
+        clearTimeout(errorTimeout)
+
+        $.id(addAutoGeneratorErrId).innerHTML = ''
+        $.id(autoGeneratorCostCellId).style.animation = ''
+        $.id(generateActivationCodeCostId).style.animation = ''
+        $.id(activationTokenBalanceId).style.animation = ''
+
       } else {
         $.id(addAutoGeneratorErrId).innerHTML = 'INSUFFICIENT ACTIVATION TOKEN BALANCE'
-        setTimeout(() => {
+        $.id(autoGeneratorCostCellId).style.animation = 'ErrorBlink 1s steps(2, start) infinite'
+        $.id(activationTokenBalanceId).style.animation = 'ErrorBlink 1s steps(2, start) -0.5s infinite'
+
+        clearTimeout(errorTimeout)
+
+        errorTimeout = setTimeout(() => {
           $.id(addAutoGeneratorErrId).innerHTML = ''
+          $.id(autoGeneratorCostCellId).style.animation = ''
+          $.id(generateActivationCodeCostId).style.animation = ''
+          $.id(activationTokenBalanceId).style.animation = ''
         }, 4000)
       }
 
@@ -525,11 +592,12 @@ export function mountPageTakeover($element, closeAll=()=>{}) {
     }
 
 
+    let secondPointerDisplayed
 
     $.id(generateTokenId).onclick = () => {
       $.id(pointerId).style.display = 'none'
-      if (atBalance < 10000) {
 
+      if (atBalance < 10000) {
         atBalance += 1
         if (atBalance % 1000 === 0) {
           baseNote.note(220, 10)
@@ -547,6 +615,18 @@ export function mountPageTakeover($element, closeAll=()=>{}) {
       } else {
         baseNote.note(220, 20)
       }
+
+      if (!secondPointerDisplayed && atBalance >= autoGeneratorPrice) {
+        secondPointerDisplayed = true
+        $.id(secondPointerId).style.display = 'inline-block'
+      }
+
+      clearTimeout(errorTimeout)
+      $.id(addAutoGeneratorErrId).innerHTML = ''
+      $.id(autoGeneratorCostCellId).style.animation = ''
+      $.id(generateActivationCodeCostId).style.animation = ''
+      $.id(activationTokenBalanceId).style.animation = ''
+
       render()
     }
 
@@ -554,6 +634,9 @@ export function mountPageTakeover($element, closeAll=()=>{}) {
 
     $.id(generateActivationCodeId).onclick = () => {
       if (atBalance >= 10000) {
+
+        $.id(thirdPointerId).style.display = 'none'
+
         atBalance -= 10000
 
         $.id(activationCodeId).style.animation = 'none'
@@ -564,15 +647,30 @@ export function mountPageTakeover($element, closeAll=()=>{}) {
 
         setTimeout(() => {
           clearInterval(changeInterval)
-          $.id(activationCodeId).innerHTML = VALID_ACTIVATION_CODE.split('').join(' ')
+          $.id(activationCodeId).innerHTML = VALID_ACTIVATION_CODE1.split('').join(' ')
 
           $.id(enterGenerateId).style.display = 'block'
         }, 3000)
 
+        clearTimeout(errorTimeout)
+
+        $.id(addAutoGeneratorErrId).innerHTML = ''
+        $.id(autoGeneratorCostCellId).style.animation = ''
+        $.id(generateActivationCodeCostId).style.animation = ''
+        $.id(activationTokenBalanceId).style.animation = ''
+
       } else {
         $.id(addAutoGeneratorErrId).innerHTML = 'INSUFFICIENT ACTIVATION TOKEN BALANCE'
-        setTimeout(() => {
+        $.id(generateActivationCodeCostId).style.animation = 'ErrorBlink 1s steps(2, start) infinite'
+        $.id(activationTokenBalanceId).style.animation = 'ErrorBlink 1s steps(2, start) -0.5s infinite'
+
+        clearTimeout(errorTimeout)
+
+        errorTimeout = setTimeout(() => {
           $.id(addAutoGeneratorErrId).innerHTML = ''
+          $.id(autoGeneratorCostCellId).style.animation = ''
+          $.id(generateActivationCodeCostId).style.animation = ''
+          $.id(activationTokenBalanceId).style.animation = ''
         }, 4000)
       }
     }
@@ -631,6 +729,7 @@ export function mountPageTakeover($element, closeAll=()=>{}) {
 
 
         } else {
+          baseNote.note(440 * (1 + (lpIx-1) * 0.25), 100)
           lps[lpIx].element.style.display = 'block'
         }
 
@@ -640,6 +739,8 @@ export function mountPageTakeover($element, closeAll=()=>{}) {
 
   const gotoCongratulationsScreen = () => {
     $.id(containerId).innerHTML = page6
+
+    $.id(upgradeContinueId).href = UPGRADE_URL
 
     const s = new SoundSrc('square')
 
@@ -653,17 +754,29 @@ export function mountPageTakeover($element, closeAll=()=>{}) {
 
     const noteLen = 667 / 3
 
+    let stopMusic = false
+
     function playNote(notes, i) {
       const n = notes[i % notes.length]
-      baseNote.smoothGain(MAX_VOLUME)
+      baseNote.smoothGain(stopMusic ? 0 : MAX_VOLUME)
       baseNote.smoothFreq(n[0])
 
-
-      setTimeout(() => baseNote.smoothGain(0), n[1] * noteLen - 15)
-      setTimeout(() => playNote(notes, i+1), n[1] * noteLen)
+      if (!stopMusic) {
+        setTimeout(() => baseNote.smoothGain(0), n[1] * noteLen - 15)
+        setTimeout(() => playNote(notes, i+1), n[1] * noteLen)
+      }
     }
 
     playNote(notes1, 0)
+
+    // $.id(upgradeContinueId).onclick = () => {
+    //   $.id(stopMusicId).style.display = 'block'
+    // }
+
+    // $.id(stopMusicId).onclick = () => {
+    //   stopMusic = true
+    //   $.id(stopMusicId).style.display = 'none'
+    // }
 
 
   }

@@ -6,59 +6,23 @@
 </head>
 <body>
 
-  <button id="start">start</button>
+  <button id="test1">test1</button>
+  <button id="test2">test2</button>
+  <button id="test3">test3</button>
+  <button id="test4">test4</button>
+  <button id="test5">test5</button>
+  <button id="test6">test6</button>
+
+
+
+
+
+  <button id="happyBirthday">happy birthday</button>
 
 </body>
 
 
 <script type="text/javascript">
-  document.getElementById('start').onclick = async () => {
-    const s = new SoundSrc('square')
-
-
-    // const notes = [
-    //   440, 493.88, 440, 587.33, 554.37, 554.37, 554.37,
-
-    //   440, 493.88, 440, 659.25, 587.33, 587.33, 587.33,
-
-    //   440, 880, 739.99, 587.33, 554.37, 493.88, 493.88,
-
-    //   783.99, 739.99, 587.33, 659.25, 587.33, 587.33, 587.33
-    // ]
-
-    // let i = 0
-    // setInterval(() => {
-    //   console.log(notes[i % notes.length])
-    //   s.note(notes[i % notes.length], 600)
-
-    //   i++
-    // }, 667)
-
-
-
-
-    const notes1 = [
-      [440, 2], [440, 1], [493.88, 3], [440, 3], [587.33, 3], [554.37, 6],
-      [440, 2], [440, 1], [493.88, 3], [440, 3], [659.25, 3], [587.33, 6],
-      [440, 2], [440, 1], [880, 3], [739.99, 3], [587.33, 2], [587.33, 1], [554.37, 3], [493.88, 6],
-      [783.99, 2], [783.99, 1], [739.99, 3], [587.33, 3], [659.25, 3], [587.33, 6],
-    ]
-
-    const noteLen = 667 / 3
-
-    function playNote(notes, i) {
-      const n = notes[i % notes.length]
-      s.smoothGain(MAX_VOLUME)
-      s.smoothFreq(n[0])
-
-
-      setTimeout(() => s.smoothGain(0), n[1] * noteLen - 15)
-      setTimeout(() => playNote(notes, i+1), n[1] * noteLen)
-    }
-
-    playNote(notes1, 0)
-
-  }
 
 
 
@@ -175,6 +139,117 @@ class SoundSrc {
 
 
 
+
+
+
+
+
+
+
+
+
+let test2, test3
+
+document.body.onclick = () => {
+  if (!test2) {
+    const test2 = new SoundSrc('square')
+    const test3 = new SoundSrc('square')
+  }
+
+  console.log('sdfads')
+}
+
+
+
+
+
+    document.getElementById('test1').onclick = async () => {
+      const test1 = new SoundSrc('square')
+      test1.note(440, 2000)
+
+    }
+    document.getElementById('test2').onclick = async () => {
+      test2.note(440, 2000)
+    }
+
+
+    document.getElementById('test3').onclick = async () => {
+      test2.note(440, 2000)
+      setTimeout(() => test3.note(220, 2000), 500)
+    }
+
+    document.getElementById('test4').onclick = async () => {
+      const test4 = new SoundSrc('square')
+      const test4b = new SoundSrc('square')
+      test4.note(440, 2000)
+      setTimeout(() => test4b.note(220, 2000), 500)
+    }
+
+    document.getElementById('test5').onclick = async () => {
+      const int = setInterval(() => {
+        test2.note(440, 300)
+      }, 500)
+
+      setTimeout(() => clearInterval(int), 4000)
+    }
+
+    document.getElementById('test6').onclick = async () => {
+      const test6 = new SoundSrc('square')
+      const int = setInterval(() => {
+        test6.note(440, 300)
+      }, 500)
+
+      setTimeout(() => clearInterval(int), 4000)
+    }
+
+
+  document.getElementById('happyBirthday').onclick = async () => {
+    const s = new SoundSrc('square')
+
+
+    // const notes = [
+    //   440, 493.88, 440, 587.33, 554.37, 554.37, 554.37,
+
+    //   440, 493.88, 440, 659.25, 587.33, 587.33, 587.33,
+
+    //   440, 880, 739.99, 587.33, 554.37, 493.88, 493.88,
+
+    //   783.99, 739.99, 587.33, 659.25, 587.33, 587.33, 587.33
+    // ]
+
+    // let i = 0
+    // setInterval(() => {
+    //   console.log(notes[i % notes.length])
+    //   s.note(notes[i % notes.length], 600)
+
+    //   i++
+    // }, 667)
+
+
+
+
+    const notes1 = [
+      [440, 2], [440, 1], [493.88, 3], [440, 3], [587.33, 3], [554.37, 6],
+      [440, 2], [440, 1], [493.88, 3], [440, 3], [659.25, 3], [587.33, 6],
+      [440, 2], [440, 1], [880, 3], [739.99, 3], [587.33, 2], [587.33, 1], [554.37, 3], [493.88, 6],
+      [783.99, 2], [783.99, 1], [739.99, 3], [587.33, 3], [659.25, 3], [587.33, 6],
+    ]
+
+    const noteLen = 667 / 3
+
+    function playNote(notes, i) {
+      const n = notes[i % notes.length]
+      s.smoothGain(MAX_VOLUME)
+      s.smoothFreq(n[0])
+
+
+      setTimeout(() => s.smoothGain(0), n[1] * noteLen - 15)
+      setTimeout(() => playNote(notes, i+1), n[1] * noteLen)
+    }
+
+    playNote(notes1, 0)
+
+  }
 
 </script>
 </html>

@@ -25,9 +25,15 @@
     main {
       width: 100vw;
       height: 100vh;
-      max-width: 680px;
-      max-height: 386px;
       margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #mainBox {
+      height: 480px;
+      max-width: 800px;
     }
 
     .box {
@@ -38,16 +44,17 @@
 
       box-sizing: border-box;
       flex: 1;
-      padding: 5px;
+      padding: 7px;
+      border: 7px solid;
     }
 
       @keyframes BorderBlink {
         0%, 49.99% {
-          border: 5px solid;
+          border: 7px solid;
         }
 
         50%, 100% {
-          border: 5px solid transparent;
+          border: 7px solid transparent;
         }
       }
 
@@ -56,12 +63,12 @@
     }
 
     h1 {
-      font-size: 32px;
+      font-size: 34px;
 
     }
 
     h2 {
-      font-size: 26px;
+      font-size: 29px;
     }
 
 
@@ -72,7 +79,7 @@
     code {
       font-family: monospace;
       font-weight: 900;
-      font-size: 24px;
+      font-size: 28px;
       display: block;
       text-align: center;
       letter-spacing: 1px;
@@ -123,21 +130,23 @@
 </head>
 <body>
 
-  <main id="main" class="box">
-    <div class="box">
+  <main id="main">
+    <div id="mainBox" class="box">
       <div class="box">
         <div class="box">
-          <h1>WELCOME TO THE MUSEUM OF MOVING IMAGE "ACTIVATION CENTER"</h1>
+          <div class="box">
+            <h1 style="width: 688px">WELCOME TO THE MUSEUM OF MOVING <br>IMAGE "ACTIVATION CENTER"</h1>
 
-          <div id="display-code" style="margin: 24px 0; padding: 12px;">
-            <div style="font-weight: bold; font-size: 14px; text-align: center;">ACTIVATION CODE:</div>
-            <code style="margin-top: 4px">MOMI2026!</code>
-          </div>
+            <div id="display-code" style="margin: 27px 0; padding: 12px;">
+              <div style="font-weight: bold; font-size: 16px; text-align: center;">ACTIVATION CODE:</div>
+              <code style="margin-top: 4px">MOMI2026!</code>
+            </div>
 
-          <div>
-            <h2>PLEASE ENTER</h2>
-            <h2>THE ACTIVATION CODE ON THE</h2>
-            <h2><a>MOVINGIMAGE.ORG</a> ACTIVATION ENTRY PAGE</h2>
+            <div>
+              <h2>PLEASE ENTER</h2>
+              <h2>THE ACTIVATION CODE ON THE</h2>
+              <h2><a>MOVINGIMAGE.ORG</a> ACTIVATION ENTRY PAGE</h2>
+            </div>
           </div>
         </div>
       </div>
