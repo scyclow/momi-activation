@@ -151,6 +151,15 @@ export const forceResume = (c) => {
 export const MAX_VOLUME = 0.04
 
 export function createSource(waveType = 'square', startingFreq=3000) {
+
+  if (navigator.audioSession) {
+    try {
+      navigator.audioSession.type = 'playback'
+    } catch (e) {
+      console.log(r)
+    }
+  }
+
   const AudioContext = window.AudioContext || window.webkitAudioContext
   const ctx = new AudioContext()
 
