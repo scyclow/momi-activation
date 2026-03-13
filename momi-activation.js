@@ -33,7 +33,7 @@ const updatePopup = `
   </div>
 `
 
-export function mountPopupTimeout(popupWait) {
+export function mountPopupTimeout(popupWait, takeoverOptions={}) {
 
   const closePopup = (permanantClose=false) => {
     $.id(popupId).remove()
@@ -66,7 +66,7 @@ export function mountPopupTimeout(popupWait) {
 
     $.id('momi-activation-popup').onclick = () => {
       if (ignoreMount) return
-      mountPageTakeover(document.body, closePopup)
+      mountPageTakeover(document.body, closePopup, takeoverOptions)
       closePopup(true)
     }
   }

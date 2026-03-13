@@ -88,7 +88,7 @@ const page1 = `
 
 
 const page2 = `
-  <h1 id="${timerId}" style="text-align: center; font-size: 45px; color: #f00; font-family: sans-serif; margin-bottom: 16px"></h1>
+  <h1 id="${timerId}" style="text-align: center; font-size: 45px; color: #f00; font-family: sans-serif; margin-bottom: 16px; text-transform: none"></h1>
 
   <div style="margin-bottom: 6px; font-size: 20px">
 
@@ -184,14 +184,14 @@ const page4 = `
         </tr>
         <tr>
           <td>
-            <button id="${generateTokenId}" class="momi-button" style="font-size: 12px"><span id="${pointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translateX(-36px)">→</span>+1 AT</button>
+            <button id="${generateTokenId}" class="momi-button" style="font-size: 12px"><span id="${pointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translate(-40px, -4px); font-size: 18px">→</span>+1 AT</button>
           </td>
           <td>0</td>
         </tr>
 
         <tr>
           <td>
-            <button id="${addAutoGeneratorId}" class="momi-button" style="font-size: 12px; text-transform: none;"><span id="${secondPointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translateX(-36px); display: none;">→</span>+1 AT/s</button>
+            <button id="${addAutoGeneratorId}" class="momi-button" style="font-size: 12px; text-transform: none;"><span id="${secondPointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translate(-40px, -4px); font-size: 18px; display: none;">→</span>+1 AT/s</button>
           </td>
           <td>
             <div id="${autoGeneratorCostCellId}" style="padding: 4px"><span id="${autoGeneratorPriceId}"></span></div>
@@ -200,7 +200,7 @@ const page4 = `
 
         <tr>
           <td>
-            <button id="${generateActivationCodeId}" class="momi-button" style="font-size: 12px; "><span id="${thirdPointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translateX(-36px); display: none;">→</span>GENERATE</button>
+            <button id="${generateActivationCodeId}" class="momi-button" style="font-size: 12px; "><span id="${thirdPointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translate(-40px, -4px); font-size: 18px; display: none;">→</span>GENERATE</button>
           </td>
           <td>
             <div id="${generateActivationCodeCostId}" style="padding: 4px">10000</div>
@@ -225,7 +225,7 @@ const page4 = `
 
       <h4 style="text-align: center; margin-top: 12px; font-size: 12px">ACTIVATION CODE: <span id="${activationCodeId}" style="margin-left:6px; display: inline-block; font-family: monospace; animation: ActivationBlink 1s steps(2, start) infinite">_ _ _ _ _ _ _ _</span></h4>
 
-      <button id="${enterGenerateId}" class="momi-button" style="display: none; margin: auto">ENTER CODE</button>
+      <button id="${enterGenerateId}" class="momi-button" style="display: none; margin: auto; margin-top: 8px">ENTER CODE</button>
 
   </div>
 
@@ -284,7 +284,6 @@ const pageTakeover = `
         width: 100vw;
         height: 100vh;
         background: #000;
-        opacity: 0.7;
 
         position: fixed;
         left: 0;
@@ -295,7 +294,7 @@ const pageTakeover = `
 
 
     <div style="height: 0; display: flex; justify-content: end; z-index: 999; width: 95vw">
-      <div id="${xCloseId}" style="cursor: pointer; color: #f00; padding: 12px; height: 16px">Ｘ</div>
+      <div id="${xCloseId}" style="cursor: pointer; color: #f00; padding: 16px; height: 64px; font-size: 32px; user-select: none">Ｘ</div>
     </div>
     <div
       id="${containerId}"
@@ -384,13 +383,10 @@ const stopSoundIntervals = () => {
 }
 
 
-export function mountPageTakeover($element, closeAll=()=>{}) {
+export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
   const baseNote = new SoundSrc('square')
   const baseNote2 = new SoundSrc('square')
 
-  setTimeout(() => {
-    $.id(xCloseId).onclick = closeModal
-  }, 30)
 
   const takeover = $.div(pageTakeover, {
     id: takeoverId,
@@ -405,15 +401,23 @@ export function mountPageTakeover($element, closeAll=()=>{}) {
   startSoundInterval()
 
 
+  $.id(modalBgId).style.opacity = options.opacity || 0
+
+
   let timerInterval
-
-
 
   const closeModal = () => {
     stopSoundIntervals()
     clearInterval(timerInterval)
     takeover.remove()
     closeAll()
+  }
+
+
+  if (options.displayX) {
+    $.id(xCloseId).onclick = closeModal
+  } else {
+    $.id(xCloseId).style.display = 'none'
   }
 
 
@@ -467,8 +471,6 @@ export function mountPageTakeover($element, closeAll=()=>{}) {
     baseNote.note(220, 300)
 
     $.id(containerId).innerHTML = page4
-
-    $.id(xCloseId).style.display = 'none'
 
 
 
