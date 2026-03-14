@@ -96,6 +96,8 @@
 
     mountPageTakeover(document.body, () => {
       top.document.querySelector('.momileakout-modal').classList.remove('active')
+      top.document.querySelector('.momileakout-attribution').classList.add('active')
+      top.document.querySelector('#momi_leakout_toggle').style.display = 'none'
     }, {
       opacity: 0,
       displayX: true,

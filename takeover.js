@@ -110,7 +110,7 @@ const page2 = `
     </div>
   </div>
 
-  <div id="${activationCodeErrorId}" style="color: #f00; margin-bottom: 12px; max-width: 900px"></div>
+  <div id="${activationCodeErrorId}" style="color: #f00; margin-bottom: 12px; max-width: 900px; font-size: 16px"></div>
 
   <div style="display: flex; justify-content: center; align-items: center; flex-direction: column">
     <button id="${enterId}" class="momi-button"">ENTER</button>

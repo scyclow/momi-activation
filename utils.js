@@ -150,24 +150,29 @@ export const forceResume = (c) => {
 
 export const MAX_VOLUME = 0.04
 
-export function createSource(waveType = 'square', startingFreq=3000) {
 
-  // Hack to get this shit to work on iphone
-  try {
-    if (navigator.audioSession) {
-      navigator.audioSession.type = 'playback'
+let sharedAudioContext
+function getAudioContext() {
+  if (!sharedAudioContext) {
+    // Hack to get this shit to work on iphone
+    try {
+      if (navigator.audioSession) {
+        navigator.audioSession.type = 'playback'
+      }
+    } catch (e) {
+      console.log(e)
     }
-  } catch (e) {
-    console.log(e)
+
+    const AudioContext = window.AudioContext || window.webkitAudioContext
+    sharedAudioContext = new AudioContext()
+    sharedAudioContext.onstatechange = () => forceResume(sharedAudioContext)
+    forceResume(sharedAudioContext)
   }
+  return sharedAudioContext
+}
 
-  const AudioContext = window.AudioContext || window.webkitAudioContext
-  const ctx = new AudioContext()
-
-
-  ctx.onstatechange = () => forceResume(ctx)
-
-  forceResume(ctx)
+export function createSource(waveType = 'square', startingFreq=3000) {
+  const ctx = getAudioContext()
 
   const source = ctx.createOscillator()
   const gain = ctx.createGain()
