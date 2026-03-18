@@ -7,6 +7,7 @@
 import { $, random, css } from './utils.js'
 import { mountPageTakeover } from './takeover.js'
 
+import './components.js'
 
 const popupId = 'momi-activation-popup'
 const updatePopup = `
@@ -88,6 +89,24 @@ export function mountPopupTimeout(popupWait, takeoverOptions={}) {
     }
   }
 
+  const tombstoneMarquee = $.div(`
+            <upgrade-marquee duration="700" delay="0" direction="-1"><h1 style="font-size: 20px">THIS SITE INTERRUPTION IS BROUGHT TO YOU BY: Steve Pikelny <upgrade-blink duration="1000">→</upgrade-blink> b. 1989, United States <upgrade-blink duration="1000">→</upgrade-blink> <em>MoMI Upgrade Activation</em>, 2026 <upgrade-blink duration="1000">→</upgrade-blink> JavaScript, HTML/CSS, Webpage <upgrade-blink duration="1000">→</upgrade-blink> Learn more about the series at MoMI <a href="#" style="text-decoration: underline; color: #000;">here</a>.</h1></upgrade-marquee>
+  `, {
+    style: `
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100vw;
+      background: #fff;
+      border: 2px solid;
+      opacity: 0;
+      transition: 300ms;
+    `
+  })
+
+  document.body.appendChild(tombstoneMarquee)
+
   setTimeout(() => {
     mountPopup()
     css(`
@@ -131,10 +150,14 @@ export function mountPopupTimeout(popupWait, takeoverOptions={}) {
           outline: 3px none;
         }
       }
-
-
     `)
+
+    setTimeout(() => {
+      tombstoneMarquee.style.opacity = 1
+    }, 2000)
   }, popupWait)
+
+
 
 }
 
