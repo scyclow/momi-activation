@@ -22,8 +22,8 @@ const updatePopup = `
       cursor: pointer;
     "
   >
-    <div style="text-align: right; font-family: sans-serif;">
-      <span id="closePopup" style="cursor: pointer; font-size: 16px; user-select: none">X</span>
+    <div style="text-align: right; font-family: sans-serif; height: 18px">
+      <span id="closePopup" style="cursor: pointer; font-size: 18px; user-select: none; padding: 14px; transform: translate(10px, -10px); display: inline-block;">X</span>
     </div>
     <h1 style="font-size: 32px;">→ CLICK <a href="#" style="animation: ActivationBlink 1s steps(2, start) infinite; color: #00e; text-decoration: underline">HERE</a> TO UPGRADE MOMI WEBSITE</h1>
 
@@ -70,6 +70,20 @@ export function mountPopupTimeout(popupWait, takeoverOptions={}) {
     $.id('momi-activation-popup').onclick = () => {
       if (ignoreMount) return
       mountPageTakeover(document.body, closePopup, takeoverOptions)
+
+
+  //     const takeover = $.div(`<iframe id="blah" src="./upgrade-iframe.html" style="position: absolute; top: 0; left: 0; width: 50vw; height: 50vh"></iframe>`, {
+  //   id: 'takeoverId',
+  //   style: `
+  //     z-index: 5000;
+  //     position: fixed;
+  //     top: 0;
+  //     left: 0;
+  //   `
+  // })
+  // document.body.appendChild(takeover)
+
+  // console.log('blah', takeover)
       closePopup(true)
     }
   }
