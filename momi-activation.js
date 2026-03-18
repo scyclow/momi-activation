@@ -23,7 +23,7 @@ const updatePopup = `
     "
   >
     <div style="text-align: right; font-family: sans-serif;">
-      <span id="closePopup" style="cursor: pointer; font-size: 12px; user-select: none">X</span>
+      <span id="closePopup" style="cursor: pointer; font-size: 16px; user-select: none">X</span>
     </div>
     <h1 style="font-size: 32px;">→ CLICK <a href="#" style="animation: ActivationBlink 1s steps(2, start) infinite; color: #00e; text-decoration: underline">HERE</a> TO UPGRADE MOMI WEBSITE</h1>
 
@@ -36,10 +36,12 @@ const updatePopup = `
 export function mountPopupTimeout(popupWait, takeoverOptions={}) {
 
   const closePopup = (permanantClose=false) => {
-    $.id(popupId).remove()
+    if ($.id(popupId)) $.id(popupId).remove()
     if (!permanantClose) {
-      popupWait *= 3
-      setTimeout(mountPopup, popupWait)
+      if (!takeoverOptions.constantPopupTime) {
+        popupWait *= 3
+        setTimeout(mountPopup, popupWait)
+      }
     }
   }
 
@@ -50,8 +52,8 @@ export function mountPopupTimeout(popupWait, takeoverOptions={}) {
       style: `
         z-index: 4000;
         position: fixed;
-        left: ${random(0, window.innerWidth - 250)}px;
-        top: ${random(0, window.innerHeight - 250)}px;
+        left: ${takeoverOptions.popupXOverride || random(0, window.innerWidth - 250) + 'px'};
+        top: ${takeoverOptions.popupYOverride || random(0, window.innerHeight - 250) + 'px'};
       `
     })
     document.body.appendChild(popup)
@@ -61,6 +63,7 @@ export function mountPopupTimeout(popupWait, takeoverOptions={}) {
     $.id('closePopup').onclick = () => {
       ignoreMount = true
       closePopup()
+      if (takeoverOptions.onClose) takeoverOptions.onClose()
       setTimeout(() => ignoreMount = false, 100)
     }
 

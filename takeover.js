@@ -147,7 +147,7 @@ const page4 = `
     <h3 style="margin-bottom: 16px; text-align: center; font-size: 24px">GENERATE ACTIVATION CODE</h3>
 
     <div style="padding: 16px; border: 1px solid;">
-      <h4 style="margin-bottom: 12px; font-size: 16px">ACTIVATION TOKEN BALANCE: <span id="${activationTokenBalanceId}"></span> / 10000</h4>
+      <h4 style="margin-bottom: 12px; font-size: 16px; text-align: center">ACTIVATION TOKEN BALANCE: <span style="display: inline-block"><span id="${activationTokenBalanceId}"></span> / 10000</span></h4>
 
       <style>
         #momi-generator-table {
@@ -184,14 +184,14 @@ const page4 = `
         </tr>
         <tr>
           <td>
-            <button id="${generateTokenId}" class="momi-button" style="font-size: 12px"><span id="${pointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translate(-40px, -4px); font-size: 18px">→</span>+1 AT</button>
+            <button id="${generateTokenId}" class="momi-button" style="font-size: 12px"><span id="${pointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translate(-40px, -4px); font-size: 18px; color: #f00">→</span>+1 AT</button>
           </td>
           <td>0</td>
         </tr>
 
         <tr>
           <td>
-            <button id="${addAutoGeneratorId}" class="momi-button" style="font-size: 12px; text-transform: none;"><span id="${secondPointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translate(-40px, -4px); font-size: 18px; display: none;">→</span>+1 AT/s</button>
+            <button id="${addAutoGeneratorId}" class="momi-button" style="font-size: 12px; text-transform: none;"><span id="${secondPointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translate(-40px, -4px); font-size: 18px; color: #f00; display: none;">→</span>+1 AT/sec</button>
           </td>
           <td>
             <div id="${autoGeneratorCostCellId}" style="padding: 4px"><span id="${autoGeneratorPriceId}"></span></div>
@@ -200,7 +200,7 @@ const page4 = `
 
         <tr>
           <td>
-            <button id="${generateActivationCodeId}" class="momi-button" style="font-size: 12px; "><span id="${thirdPointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translate(-40px, -4px); font-size: 18px; display: none;">→</span>GENERATE</button>
+            <button id="${generateActivationCodeId}" class="momi-button" style="font-size: 12px; "><span id="${thirdPointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translate(-40px, -4px); font-size: 18px; color: #f00; display: none;">→</span>GENERATE</button>
           </td>
           <td>
             <div id="${generateActivationCodeCostId}" style="padding: 4px">10000</div>
@@ -218,7 +218,7 @@ const page4 = `
       </div>
 
       <div style="display: flex; justify-content: space-between">
-        <h5 style="font-size: 12px; margin-bottom: 0; margin-top: 8px; text-transform: none"> AT/s: <span id="${atPerSecondId}">0</span></h5>
+        <h5 style="font-size: 12px; margin-bottom: 0; margin-top: 8px; text-transform: none"> AT/sec: <span id="${atPerSecondId}">0</span></h5>
         <button id="${resetGeneratorId}" class="momi-button" style="font-size: 12px; border: none; text-decoration: underline">RESET</button>
       </div>
     </div>
@@ -411,6 +411,7 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
     clearInterval(timerInterval)
     takeover.remove()
     closeAll()
+    if (options.onClose) options.onClose()
   }
 
 
@@ -477,9 +478,13 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
     let atBalance = 0
     let autoGeneratorPrice = 10
 
+    const getGeneratorPrice = () => options.stableGeneratorPrice
+        ? 10
+        : autoGeneratorPrice
+
     const render = () => {
       $.id(activationTokenBalanceId).innerHTML = String(atBalance).padStart(5, '0')
-      $.id(autoGeneratorPriceId).innerHTML = autoGeneratorPrice
+      $.id(autoGeneratorPriceId).innerHTML = getGeneratorPrice()
 
       const p1 = getCanvasProgress(atProgress1Id)
       const p2 = getCanvasProgress(atProgress2Id)
@@ -527,7 +532,8 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
 
     $.id(addAutoGeneratorId).onclick = () => {
 
-      if (atBalance >= autoGeneratorPrice) {
+      // if (atBalance >= autoGeneratorPrice) {
+      if (atBalance >= 1) {
 
         $.id(secondPointerId).style.display = 'none'
 
@@ -618,7 +624,7 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
         baseNote.note(220, 20)
       }
 
-      if (!secondPointerDisplayed && atBalance >= autoGeneratorPrice) {
+      if (!secondPointerDisplayed && atBalance >= getGeneratorPrice()) {
         secondPointerDisplayed = true
         $.id(secondPointerId).style.display = 'inline-block'
       }
