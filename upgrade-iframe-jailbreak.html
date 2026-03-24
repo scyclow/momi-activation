@@ -117,11 +117,12 @@
       doc.querySelector('.momileakout-modal-iframe').style.pointerEvents = 'none'
     },
     onPopupAction: (doc) => {
-      doc.getElementById('momi-activation-popup').style.display = 'none'
+      // doc.getElementById('momi-activation-popup').style.display = 'none'
+      doc.querySelector('.momileakout-attribution').style.pointerEvents = 'all'
       doc.querySelector('.momileakout-modal').style.pointerEvents = 'all'
       doc.querySelector('.momileakout-modal-iframe').style.pointerEvents = 'all'
     },
-    onClose: () => {
+    onClose: (doc) => {
 
       const xSVG = `
         <svg id="xSVG" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000" version="1.1" viewBox="0 0 460.775 460.775" xml:space="preserve">
@@ -211,6 +212,8 @@
 
       const close = () => {
         document.getElementById('tombstoneOverlay').remove()
+        doc.querySelector('.momileakout-modal').classList.remove('active')
+
       }
 
       document.getElementById('tombstoneOpacity').onclick = close

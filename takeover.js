@@ -413,7 +413,7 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
     clearInterval(timerInterval)
     takeover.remove()
     closeAll()
-    if (options.onClose) options.onClose()
+    if (options.onClose) options.onClose(options.topDocument)
   }
 
 
@@ -534,8 +534,8 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
 
     $.id(addAutoGeneratorId).onclick = () => {
 
-      // if (atBalance >= autoGeneratorPrice) {
-      if (atBalance >= 1) {
+      if (atBalance >= getGeneratorPrice()) {
+      // if (atBalance >= 1) {
 
         $.id(secondPointerId).style.display = 'none'
 
@@ -749,6 +749,7 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
 
   const gotoCongratulationsScreen = () => {
     $.id(containerId).innerHTML = page6
+    stopMusic = false
 
     $.id(upgradeContinueId).href = UPGRADE_URL
 

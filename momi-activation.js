@@ -165,7 +165,7 @@ export function mountPopupTimeout(popupWait, takeoverOptions={}) {
     $.id('closePopup', topDocument).onclick = () => {
       ignoreMount = true
       closePopup()
-      if (takeoverOptions.onClose) takeoverOptions.onClose()
+      if (takeoverOptions.onClose) takeoverOptions.onClose(topDocument)
       if (takeoverOptions.onPopupAction) takeoverOptions.onPopupAction(topDocument)
       setTimeout(() => ignoreMount = false, 100)
     }
