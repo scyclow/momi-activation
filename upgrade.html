@@ -584,9 +584,10 @@
     WEBSITE BY <a href="https://steviep.xyz" target="_blank">STEVE PIKELNY</a>
   </div>
 </body>
-<script src="./components.js"></script>
+<!-- <script src="./components.js"></script> -->
 
 <script type="module">
+  import './components.js'
   import {mountPopupTimeout} from './momi-activation.js'
 
   mountPopupTimeout(15000, { opacity: 0.7, displayX: false})

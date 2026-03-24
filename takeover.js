@@ -364,6 +364,7 @@ const pageTakeover = `
 `
 
 
+let stopMusic = false
 const soundIntervals = []
 const autoGenerators = []
 
@@ -380,6 +381,7 @@ const startSoundInterval = (freq=300, len=300) => {
 const stopSoundIntervals = () => {
   soundIntervals.forEach(i => clearInterval(i))
   autoGenerators.forEach(i => clearInterval(i))
+  stopMusic = true
 }
 
 
@@ -761,8 +763,6 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
     ]
 
     const noteLen = 667 / 3
-
-    let stopMusic = false
 
     function playNote(notes, i) {
       const n = notes[i % notes.length]
