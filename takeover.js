@@ -541,7 +541,7 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
 
         baseNote.note(440*1.333, 60)
 
-        atBalance -= autoGeneratorPrice
+        atBalance -= getGeneratorPrice()
         autoGeneratorPrice += 1
 
         let n
