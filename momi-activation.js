@@ -84,7 +84,7 @@ export function mountPopupTimeout(popupWait, takeoverOptions={}) {
   }
 
   const closePopup = (permanantClose=false) => {
-    if ($.id(popupId)) $.id(popupId).remove()
+    if ($.id(popupId, domElement)) $.id(popupId, domElement).remove()
     if (!permanantClose) {
       if (!takeoverOptions.constantPopupTime) {
         popupWait *= 3
@@ -154,13 +154,13 @@ export function mountPopupTimeout(popupWait, takeoverOptions={}) {
         top: ${takeoverOptions.popupYOverride || random(100, window.innerHeight - 300) + 'px'};
       `
     })
-    top.document.body.appendChild(popup)
+    domElement.body.appendChild(popup)
 
 
 
 
     let ignoreMount
-    $.id('closePopup').onclick = () => {
+    $.id('closePopup', domElement).onclick = () => {
       ignoreMount = true
       closePopup()
       if (takeoverOptions.onClose) takeoverOptions.onClose()
@@ -168,7 +168,7 @@ export function mountPopupTimeout(popupWait, takeoverOptions={}) {
       setTimeout(() => ignoreMount = false, 100)
     }
 
-    $.id('momi-activation-popup').onclick = () => {
+    $.id('momi-activation-popup', domElement).onclick = () => {
       if (ignoreMount) return
       mountPageTakeover(top.document.body, closePopup, takeoverOptions)
       if (takeoverOptions.onPopupAction) takeoverOptions.onPopupAction()
