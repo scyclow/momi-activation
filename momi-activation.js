@@ -56,6 +56,7 @@ const updatePopup = `
 export function mountPopupTimeout(popupWait, takeoverOptions={}) {
 
   const domElement = takeoverOptions.domElement || document
+  const domWindow = domElement.defaultView || window
 
 
   if (takeoverOptions.onLoad) {
@@ -184,8 +185,8 @@ export function mountPopupTimeout(popupWait, takeoverOptions={}) {
 
   if (takeoverOptions.pageYOffsetMount) {
     domElement.onscroll = () => {
-      console.log(window.pageYOffset, takeoverOptions.pageYOffsetMount)
-      if (window.pageYOffset >= takeoverOptions.pageYOffsetMount) {
+      console.log(domWindow.pageYOffset, takeoverOptions.pageYOffsetMount)
+      if (domWindow.pageYOffset >= takeoverOptions.pageYOffsetMount) {
         setTimeout(() => {
           mountPopup()
         }, 1000)
