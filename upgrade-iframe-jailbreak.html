@@ -107,19 +107,19 @@
     pageYOffsetMount: 565 - (
       Math.min(1, Math.max((900 - (1220 - window.innerWidth))/900, 0)) * 100
     ),
-    onLoad: () => {
-      top.document.querySelector('.momileakout-modal').classList.add('active')
-      top.document.querySelector('.momileakout-modal-close').style.display = 'none'
-      top.document.querySelector('.momileakout-attribution').classList.remove('active')
-      top.document.querySelector('#momi_leakout_toggle').style.display = 'block'
-      top.document.querySelector('.momileakout-modal-tint').style.display = 'none'
-      top.document.querySelector('.momileakout-modal').style.pointerEvents = 'none'
-      top.document.querySelector('.momileakout-modal-iframe').style.pointerEvents = 'none'
+    onLoad: (doc) => {
+      doc.querySelector('.momileakout-modal').classList.add('active')
+      doc.querySelector('.momileakout-modal-close').style.display = 'none'
+      doc.querySelector('.momileakout-attribution').classList.remove('active')
+      doc.querySelector('#momi_leakout_toggle').style.display = 'block'
+      doc.querySelector('.momileakout-modal-tint').style.display = 'none'
+      doc.querySelector('.momileakout-modal').style.pointerEvents = 'none'
+      doc.querySelector('.momileakout-modal-iframe').style.pointerEvents = 'none'
     },
-    onPopupAction: () => {
-      document.getElementById('momi-activation-popup', top.document).style.display = 'none'
-      top.document.querySelector('.momileakout-modal').style.pointerEvents = 'all'
-      top.document.querySelector('.momileakout-modal-iframe').style.pointerEvents = 'all'
+    onPopupAction: (doc) => {
+      doc.getElementById('momi-activation-popup').style.display = 'none'
+      doc.querySelector('.momileakout-modal').style.pointerEvents = 'all'
+      doc.querySelector('.momileakout-modal-iframe').style.pointerEvents = 'all'
     },
     onClose: () => {
 

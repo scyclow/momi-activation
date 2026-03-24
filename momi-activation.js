@@ -61,7 +61,7 @@ export function mountPopupTimeout(popupWait, takeoverOptions={}) {
 
 
   if (takeoverOptions.onLoad) {
-    takeoverOptions.onLoad()
+    takeoverOptions.onLoad(topDocument)
   }
 
   let tombstoneMarquee
@@ -166,14 +166,14 @@ export function mountPopupTimeout(popupWait, takeoverOptions={}) {
       ignoreMount = true
       closePopup()
       if (takeoverOptions.onClose) takeoverOptions.onClose()
-      if (takeoverOptions.onPopupAction) takeoverOptions.onPopupAction()
+      if (takeoverOptions.onPopupAction) takeoverOptions.onPopupAction(topDocument)
       setTimeout(() => ignoreMount = false, 100)
     }
 
     $.id('momi-activation-popup', topDocument).onclick = () => {
       if (ignoreMount) return
       mountPageTakeover(iframeDocument.body, closePopup, takeoverOptions)
-      if (takeoverOptions.onPopupAction) takeoverOptions.onPopupAction()
+      if (takeoverOptions.onPopupAction) takeoverOptions.onPopupAction(topDocument)
       closePopup(true)
     }
 
