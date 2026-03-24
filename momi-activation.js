@@ -55,8 +55,9 @@ const updatePopup = `
 
 export function mountPopupTimeout(popupWait, takeoverOptions={}) {
 
-  const domElement = takeoverOptions.domElement || document
-  const domWindow = domElement.defaultView || window
+  const topDocument = takeoverOptions.topDocument || document
+  const topWindow = topDocument.defaultView || window
+  const iframeDocument = document
 
 
   if (takeoverOptions.onLoad) {
@@ -81,11 +82,11 @@ export function mountPopupTimeout(popupWait, takeoverOptions={}) {
         z-index: 2;
       `
     })
-    top.document.body.appendChild(tombstoneMarquee)
+    topDocument.body.appendChild(tombstoneMarquee)
   }
 
   const closePopup = (permanantClose=false) => {
-    if ($.id(popupId, domElement)) $.id(popupId, domElement).remove()
+    if ($.id(popupId, topDocument)) $.id(popupId, topDocument).remove()
     if (!permanantClose) {
       if (!takeoverOptions.constantPopupTime) {
         popupWait *= 3
@@ -155,13 +156,13 @@ export function mountPopupTimeout(popupWait, takeoverOptions={}) {
         top: ${takeoverOptions.popupYOverride || random(100, window.innerHeight - 300) + 'px'};
       `
     })
-    domElement.body.appendChild(popup)
+    topDocument.body.appendChild(popup)
 
 
 
 
     let ignoreMount
-    $.id('closePopup', domElement).onclick = () => {
+    $.id('closePopup', topDocument).onclick = () => {
       ignoreMount = true
       closePopup()
       if (takeoverOptions.onClose) takeoverOptions.onClose()
@@ -169,9 +170,9 @@ export function mountPopupTimeout(popupWait, takeoverOptions={}) {
       setTimeout(() => ignoreMount = false, 100)
     }
 
-    $.id('momi-activation-popup', domElement).onclick = () => {
+    $.id('momi-activation-popup', topDocument).onclick = () => {
       if (ignoreMount) return
-      mountPageTakeover(top.document.body, closePopup, takeoverOptions)
+      mountPageTakeover(iframeDocument.body, closePopup, takeoverOptions)
       if (takeoverOptions.onPopupAction) takeoverOptions.onPopupAction()
       closePopup(true)
     }
@@ -184,9 +185,8 @@ export function mountPopupTimeout(popupWait, takeoverOptions={}) {
   }
 
   if (takeoverOptions.pageYOffsetMount) {
-    domElement.onscroll = () => {
-      console.log(domWindow.pageYOffset, takeoverOptions.pageYOffsetMount)
-      if (domWindow.pageYOffset >= takeoverOptions.pageYOffsetMount) {
+    topDocument.onscroll = () => {
+      if (topWindow.pageYOffset >= takeoverOptions.pageYOffsetMount) {
         setTimeout(() => {
           mountPopup()
         }, 1000)
