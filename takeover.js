@@ -184,14 +184,14 @@ const page4 = `
         </tr>
         <tr>
           <td>
-            <button id="${generateTokenId}" class="momi-button" style="font-size: 12px"><span id="${pointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translate(-40px, -4px); font-size: 18px; color: #f00">→</span>+1 AT</button>
+            <button id="${generateTokenId}" class="momi-button" style="font-size: 12px"><span id="${pointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translate(-40px, -4px); font-size: 18px; color: #f00; font-weight: bold;">→</span>+1 AT</button>
           </td>
           <td>0</td>
         </tr>
 
         <tr>
           <td>
-            <button id="${addAutoGeneratorId}" class="momi-button" style="font-size: 12px; text-transform: none;"><span id="${secondPointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translate(-40px, -4px); font-size: 18px; color: #f00; display: none;">→</span>+1 AT/sec</button>
+            <button id="${addAutoGeneratorId}" class="momi-button" style="font-size: 12px; text-transform: none;"><span id="${secondPointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translate(-40px, -4px); font-size: 18px; color: #f00; display: none; font-weight: bold;">→</span>+1 AT/sec</button>
           </td>
           <td>
             <div id="${autoGeneratorCostCellId}" style="padding: 4px"><span id="${autoGeneratorPriceId}"></span></div>
@@ -200,7 +200,7 @@ const page4 = `
 
         <tr>
           <td>
-            <button id="${generateActivationCodeId}" class="momi-button" style="font-size: 12px; "><span id="${thirdPointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translate(-40px, -4px); font-size: 18px; color: #f00; display: none;">→</span>GENERATE</button>
+            <button id="${generateActivationCodeId}" class="momi-button" style="font-size: 12px; "><span id="${thirdPointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translate(-40px, -4px); font-size: 18px; color: #f00; display: none; font-weight: bold;">→</span>GENERATE</button>
           </td>
           <td>
             <div id="${generateActivationCodeCostId}" style="padding: 4px">10000</div>
@@ -626,7 +626,7 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
         baseNote.note(220, 20)
       }
 
-      if (!secondPointerDisplayed && atBalance >= getGeneratorPrice()) {
+      if (!secondPointerDisplayed && atBalance >= 1) {
         secondPointerDisplayed = true
         $.id(secondPointerId).style.display = 'inline-block'
       }
