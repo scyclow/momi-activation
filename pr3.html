@@ -55,19 +55,34 @@
         text-align: center;
         margin: 8px 0;
       }
-
-
   </style>
 </head>
 <body>
 
   <main style="display: flex; justify-content: center; align-items: center; height: 100vh;">
 
-    <div style="border: 5px solid; padding: 16px; animation: GreenYellow 10s linear infinite;">
+    <div style="border: 10px solid; padding: 16px; animation: GreenYellow 10s linear infinite; width: 324px; height: 576px; display: flex; flex-direction: column; justify-content: space-evenly; box-sizing: border-box;">
 
-      <h1><span class="blink1">→</span> MoMI <span class="blink1">←</span></h1>
-      <h1>SITE INTERRUPTIONS</h1>
-      <h1><span class="blink2">→</span> 4/16 <span class="blink2">←</span></h1>
+      <h1 style="font-size: 86px;">MoMI</h1>
+
+    <svg class="blink2" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <mask id="AC1">
+          <polygon points="50,6 94,86 6,86" fill="white"/>
+          <rect x="46" y="35" width="8" height="27" fill="black"/>
+          <circle cx="50" cy="72" r="4" fill="black"/>
+        </mask>
+      </defs>
+      <polygon points="50,6 94,86 6,86" fill="#f00" mask="url(#AC1)"/>
+    </svg>
+
+
+      <div style="padding-bottom: 20px;">
+        <h1 style="font-size: 36px">SITE</h1>
+        <h1 style="font-size: 36px">INTERRUPTION</h1>
+      </div>
+
+      <h1 ><span class="blink1">→</span> 4/16 <span class="blink1">←</span></h1>
 
     </div>
   </main>
@@ -75,6 +90,7 @@
 
 
 </body>
+
 <script type="module">
   import {$, SoundSrc, getQueryParam, css} from './utils.js'
 
@@ -110,4 +126,5 @@
   }
 
 </script>
+
 </html>
