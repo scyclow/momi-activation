@@ -355,6 +355,43 @@ const pageTakeover = `
         padding: 20px !important;
       }
     }
+
+      @keyframes ActivationBlink {
+        to {
+          visibility: hidden;
+        }
+      }
+
+
+      @keyframes GreenYellow {
+        0%, 100% {
+          background: #0f0;
+        }
+
+        50% {
+          background: #ff0;
+        }
+      }
+
+      @keyframes GreenYellowColor {
+        0%, 100% {
+          color: #0f0;
+        }
+
+        50% {
+          color: #ff0;
+        }
+      }
+
+      @keyframes BorderBlink {
+        0%, 100% {
+          outline: 3px solid;
+        }
+
+        50% {
+          outline: 3px none;
+        }
+      }
   </style>
 
 
