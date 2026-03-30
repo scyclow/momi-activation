@@ -4,7 +4,7 @@
   - conosle.logs
 */
 
-import { $, random, css } from './utils.js'
+import { $, random, css, getQueryParam } from './utils.js'
 import { mountPageTakeover } from './takeover.js'
 
 import './components.js'
@@ -53,6 +53,11 @@ const updatePopup = `
   </style>
 `
 
+
+const tombstoneMarkup = `
+  <upgrade-marquee duration="700" delay="0" direction="-1" style="transition: 1s; z-index: 2;"><h1 style="font-size: 18px">THIS SITE INTERRUPTION IS BROUGHT TO YOU BY: Steve Pikelny <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em">→</upgrade-blink> b. 1989, United States <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em">→</upgrade-blink> <em>MoMI Upgrade Activation</em>, 2026 <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em">→</upgrade-blink> JavaScript, HTML/CSS, Webpage <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em">→</upgrade-blink> Learn more about the series at MoMI <a href="#" style="text-decoration: underline; color: #000;">here</a>. <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em;">→</upgrade-blink></h1></upgrade-marquee>
+`
+
 export function mountPopupTimeout(popupWait, takeoverOptions={}) {
 
   const topDocument = takeoverOptions.topDocument || document
@@ -66,9 +71,7 @@ export function mountPopupTimeout(popupWait, takeoverOptions={}) {
 
   let tombstoneMarquee
   if (takeoverOptions.showTombstoneMarquee) {
-    tombstoneMarquee = $.div(`
-      <upgrade-marquee duration="700" delay="0" direction="-1" style="transition: 1s; z-index: 2;"><h1 style="font-size: 18px">THIS SITE INTERRUPTION IS BROUGHT TO YOU BY: Steve Pikelny <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em">→</upgrade-blink> b. 1989, United States <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em">→</upgrade-blink> <em>MoMI Upgrade Activation</em>, 2026 <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em">→</upgrade-blink> JavaScript, HTML/CSS, Webpage <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em">→</upgrade-blink> Learn more about the series at MoMI <a href="#" style="text-decoration: underline; color: #000;">here</a>. <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em;">→</upgrade-blink></h1></upgrade-marquee>
-    `, {
+    tombstoneMarquee = $.div(tombstoneMarkup, {
       style: `
         position: fixed;
         bottom: 0;
@@ -170,7 +173,7 @@ export function mountPopupTimeout(popupWait, takeoverOptions={}) {
       setTimeout(() => ignoreMount = false, 100)
     }
 
-    $.id('momi-activation-popup', topDocument).onclick = () => {
+    $.id(popupId, topDocument).onclick = () => {
       if (ignoreMount) return
       mountPageTakeover(iframeDocument.body, closePopup, takeoverOptions)
       if (takeoverOptions.onPopupAction) takeoverOptions.onPopupAction(topDocument)
@@ -202,3 +205,100 @@ export function mountPopupTimeout(popupWait, takeoverOptions={}) {
 
 }
 
+
+
+
+
+export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
+
+  const topDocument = takeoverOptions.topDocument || document
+  const topWindow = topDocument.defaultView || window
+  const iframeDocument = document
+
+
+  if (takeoverOptions.onLoad) {
+    takeoverOptions.onLoad(topDocument)
+  }
+
+
+  const bannerId = 'momi-activation-steviep-banner'
+
+  setTimeout(() => {
+
+    const bottomBanner = $.div(`
+      <style>
+        @keyframes GreenYellow {
+          0%, 100% {
+            background: #0f0;
+          }
+
+          50% {
+            background: #ff0;
+          }
+        }
+
+        @keyframes ActivationBlink {
+          to {
+            visibility: hidden;
+          }
+        }
+
+        .momi-activation-steviep-mobile {
+          display: none;
+        }
+
+        @media (max-width: 560px) {
+          .momi-activation-steviep-desktop {
+            display: none;
+          }
+          .momi-activation-steviep-mobile {
+            display: block;
+          }
+        }
+      </style>
+
+      <div>
+        <div style="width: 100vw; background: #fff; border-top: 2px solid;">
+          <upgrade-marquee duration="700" delay="0" direction="-1" style="transition: 1s; z-index: 2;"><h1 style="font-size: 16px; margin: 0.25em">THIS SITE INTERRUPTION IS BROUGHT TO YOU BY: Steve Pikelny <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em">↓</upgrade-blink> b. 1989, United States <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em">↓</upgrade-blink> <em>MoMI Upgrade Activation</em>, 2026 <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em">↓</upgrade-blink> JavaScript, HTML/CSS, Webpage <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em">↓</upgrade-blink> Learn more about the series at MoMI <a href="#" style="text-decoration: underline; color: #000;">here</a>. <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em;">↓</upgrade-blink></h1></upgrade-marquee>
+        </div>
+
+        <div style="width: 100vw; border-top: 4px solid; padding: 6px; color: #f00; animation: GreenYellow 10s linear infinite; text-align: center;">
+          <h1 style="font-size: 20px; margin: 0">
+           <upgrade-blink-chars class="momi-activation-steviep-desktop" duration="1200" offset="125" direction="-1" delay="500">→→→→→</upgrade-blink-chars><span style="display: inline-block; text-align: center">CLICK <a href="#" style="color: #f00; text-decoration: underline; font-weight: 900; animation: ActivationBlink 1s steps(2, start) infinite;">HERE</a> TO UPGRADE MOMI WEBSITE</span><upgrade-blink-chars  class="momi-activation-steviep-desktop" duration="1200" offset="125" direction="1">←←←←←</upgrade-blink-chars>
+           </h1>
+
+        </div>
+      </div>
+    `, {
+      id: bannerId,
+      style: `
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #fff;
+        opacity: 0;
+        transition: 1000ms;
+        z-index: 3;
+        cursor: pointer;
+        user-select: none;
+      `
+    })
+    topDocument.body.appendChild(bottomBanner)
+
+    setTimeout(() => {
+      bottomBanner.style.opacity = '1'
+    }, 100)
+
+
+    const closePopup = () => {
+      // bottomBanner.style.display = 'none'
+    }
+
+    $.id(bannerId, topDocument).onclick = () => {
+      mountPageTakeover(iframeDocument.body, closePopup, takeoverOptions)
+      if (takeoverOptions.onPopupAction) takeoverOptions.onPopupAction(topDocument)
+      closePopup()
+    }
+  }, mountWait)
+}
