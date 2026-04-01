@@ -365,8 +365,7 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
 
     if (topWindow.visualViewport) {
       topWindow.visualViewport.addEventListener('resize', updateHeight)
-      topWindow.visualViewport.addEventListener('scroll', updateHeight)
-      topWindow.addEventListener('scroll', updateHeight)
+      topWindow.addEventListener('scroll', updateDebug)
       updateHeight()
     }
 
