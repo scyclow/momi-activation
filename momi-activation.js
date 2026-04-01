@@ -264,7 +264,7 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
 
         <div style="width: 100vw; border-top: 4px solid; padding: 6px; color: #f00; animation: GreenYellow 10s linear infinite; text-align: center;">
           <h1 style="font-size: 20px; margin: 0">
-           <upgrade-blink-chars class="momi-activation-steviep-desktop" duration="1200" offset="125" direction="-1" delay="500">→→→→→</upgrade-blink-chars><span style="display: inline-block; text-align: center">CLICK <a href="#" style="color: #f00; text-decoration: underline; font-weight: 900; animation: ActivationBlink 1s steps(2, start) infinite;">HERE</a> TO UPGRADE MOMI WEBSITE</span><upgrade-blink-chars  class="momi-activation-steviep-desktop" duration="1200" offset="125" direction="1">←←←←←</upgrade-blink-chars>
+           <upgrade-blink-chars class="momi-activation-steviep-desktop" duration="1200" offset="125" direction="-1" delay="500">→→→→→</upgrade-blink-chars><span style="display: inline-block; text-align: center">CLICK <a href="#" style="color: #f00; text-decoration: underline; font-weight: 900; animation: ActivationBlink 1s steps(2, start) infinite;">HERE</a> TO UP*GRADE MOMI WEBSITE</span><upgrade-blink-chars  class="momi-activation-steviep-desktop" duration="1200" offset="125" direction="1">←←←←←</upgrade-blink-chars>
            </h1>
 
         </div>
@@ -272,30 +272,39 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
     `, {
       id: bannerId,
       style: `
-        position: fixed;
+        position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
         background: #fff;
         opacity: 0;
         transition: opacity 1000ms;
-        z-index: 3;
         cursor: pointer;
         user-select: none;
+        pointer-events: auto;
       `
     })
-    topDocument.body.appendChild(bottomBanner)
 
-    const updatePosition = () => {
-      const vv = topWindow.visualViewport
-      if (vv) {
-        bottomBanner.style.bottom = (topWindow.innerHeight - vv.height - vv.offsetTop) + 'px'
-      }
-    }
+    const bannerWrapper = $.div('', {
+      style: `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100dvh;
+        pointer-events: none;
+        z-index: 3;
+        transition: height 0.15s;
+      `
+    })
+    bannerWrapper.appendChild(bottomBanner)
+    topDocument.body.appendChild(bannerWrapper)
 
     if (topWindow.visualViewport) {
-      topWindow.visualViewport.addEventListener('resize', updatePosition)
-      updatePosition()
+      topWindow.visualViewport.addEventListener('resize', () => {
+        const vv = topWindow.visualViewport
+        bannerWrapper.style.height = vv.height >= topWindow.innerHeight ? '100vh' : '100dvh'
+      })
     }
 
     setTimeout(() => {
