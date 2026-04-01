@@ -92,24 +92,20 @@
   <body></body>
 
   <script type="module">
-  import {mountPopupTimeout} from './momi-activation.js'
+  // import {mountPopupTimeout} from './momi-activation.js'
+  import {mountBottomBanner} from './momi-activation.js'
   import {mountTombstone} from './tombstone.js'
 
 
   const onClose = (doc) => {
-    mountTombstone(document.body)
-
-    const close = () => {
-      document.getElementById('tombstoneOverlay').remove()
+    mountTombstone(document.body, () => {
       doc.querySelector('.momileakout-modal').classList.remove('active')
-    }
+    })
 
-    document.getElementById('tombstoneOpacity').onclick = close
-    document.getElementById('xCloseTombstone').onclick = close
+
   }
 
   const onLoad = (doc) => {
-    doc.querySelector('.momileakout-modal').classList.add('active')
     doc.querySelector('.momileakout-modal-close').style.display = 'none'
     doc.querySelector('.momileakout-attribution').classList.remove('active')
     doc.querySelector('#momi_leakout_toggle').style.display = 'block'
@@ -120,6 +116,7 @@
 
   const onPopupAction = (doc) => {
     // doc.getElementById('momi-activation-popup').style.display = 'none'
+    doc.querySelector('.momileakout-modal').classList.add('active')
     doc.querySelector('.momileakout-attribution').style.pointerEvents = 'all'
     doc.querySelector('.momileakout-modal').style.pointerEvents = 'all'
     doc.querySelector('.momileakout-modal-iframe').style.pointerEvents = 'all'
