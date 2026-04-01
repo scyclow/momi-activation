@@ -269,6 +269,13 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
 
         </div>
       </div>
+
+
+      <style>
+        .heading-title h2 a {
+          word-wrap: break-word;
+        }
+      </style>
     `, {
       id: bannerId,
       style: `
