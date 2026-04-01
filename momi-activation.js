@@ -299,56 +299,28 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
     const lvh = lvhMeasure.offsetHeight
     lvhMeasure.remove()
 
-    const debugPanel = $.div('', {
-      style: `
-        position: fixed;
-        top: 0;
-        right: 0;
-        background: rgba(0,0,0,0.8);
-        color: #0f0;
-        font-family: monospace;
-        font-size: 12px;
-        padding: 8px;
-        z-index: 99999;
-        white-space: pre;
-      `
-    })
-    topDocument.body.appendChild(debugPanel)
-
     let lastScrollY = topWindow.scrollY
     let hasScrolledPastThreshold = false
     const updatePosition = () => {
-      const vv = topWindow.visualViewport
-      if (vv) {
-        if (!hasScrolledPastThreshold) {
-          if (topWindow.scrollY > 50) hasScrolledPastThreshold = true
-          lastScrollY = topWindow.scrollY
-          return
-        }
-        const scrollingDown = topWindow.scrollY > lastScrollY
-        lastScrollY = topWindow.scrollY
-        bottomBanner.style.bottom = scrollingDown ? Math.max(0, lvh - vv.height) + 'px' : '0px'
-      }
-    }
-
-    const updateDebug = () => {
-      const vv = topWindow.visualViewport
-      debugPanel.textContent = [
-        `vv.height:      ${vv ? vv.height.toFixed(1) : 'N/A'}`,
-        `innerHeight:    ${topWindow.innerHeight}`,
-        `scrollY:        ${topWindow.scrollY.toFixed(2)}`,
-        `lvh (const):    ${lvh}`,
-        `bottom:         ${bottomBanner.style.bottom}`,
-      ].join('\n')
+      // const vv = topWindow.visualViewport
+      // if (vv) {
+      //   if (!hasScrolledPastThreshold) {
+      //     if (topWindow.scrollY > 50) hasScrolledPastThreshold = true
+      //     lastScrollY = topWindow.scrollY
+      //     return
+      //   }
+      //   const scrollingDown = topWindow.scrollY > lastScrollY
+      //   lastScrollY = topWindow.scrollY
+      //   bottomBanner.style.bottom = scrollingDown ? Math.max(0, lvh - vv.height) + 'px' : '0px'
+      // }
     }
 
     if (topWindow.visualViewport) {
-      topWindow.visualViewport.addEventListener('resize', () => { updatePosition(); updateDebug() })
-      topWindow.visualViewport.addEventListener('scroll', () => { updatePosition(); updateDebug() })
+      topWindow.visualViewport.addEventListener('resize', updatePosition)
+      topWindow.visualViewport.addEventListener('scroll', updatePosition)
     }
-    topWindow.addEventListener('scroll', () => { updatePosition(); updateDebug() })
+    topWindow.addEventListener('scroll', updatePosition)
     updatePosition()
-    updateDebug()
 
     setTimeout(() => {
       bottomBanner.style.opacity = '1'
