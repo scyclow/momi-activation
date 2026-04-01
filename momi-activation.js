@@ -315,13 +315,16 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
     })
     topDocument.body.appendChild(debugPanel)
 
-    let lastScrollY = topWindow.scrollY
+    let lastVvHeight = topWindow.visualViewport?.height || 0
     const updatePosition = () => {
       const vv = topWindow.visualViewport
       if (vv) {
-        const scrollingDown = topWindow.scrollY > lastScrollY
-        lastScrollY = topWindow.scrollY
-        bottomBanner.style.bottom = scrollingDown ? Math.max(0, lvh - vv.height) + 'px' : '0px'
+        if (vv.height > lastVvHeight) {
+          bottomBanner.style.bottom = Math.max(0, lvh - vv.height) + 'px'
+        } else if (vv.height < lastVvHeight) {
+          bottomBanner.style.bottom = '0px'
+        }
+        lastVvHeight = vv.height
       }
     }
 
