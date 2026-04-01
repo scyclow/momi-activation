@@ -279,34 +279,20 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
     `, {
       id: bannerId,
       style: `
-        position: absolute;
-        bottom: 0;
+        position: fixed;
+        bottom: calc(100vh - 100dvh);
         left: 0;
         right: 0;
         background: #fff;
         opacity: 0;
         transition: opacity 1000ms;
+        z-index: 3;
         cursor: pointer;
         user-select: none;
-        pointer-events: auto;
       `
     })
+    topDocument.body.appendChild(bottomBanner)
 
-    const bannerWrapper = $.div('', {
-      style: `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100dvh;
-        pointer-events: none;
-        z-index: 3;
-      `
-    })
-    bannerWrapper.appendChild(bottomBanner)
-    topDocument.body.appendChild(bannerWrapper)
-
-    let mode = 'vv.height'
     const debugPanel = $.div('', {
       style: `
         position: fixed;
@@ -323,51 +309,21 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
     })
     topDocument.body.appendChild(debugPanel)
 
-    let manualOverride = false
-    const toggleBtn = $.div('[ toggle: vv.height / vh / dvh ]', {
-      style: `
-        cursor: pointer;
-        margin-top: 6px;
-        color: #ff0;
-        pointer-events: auto;
-      `
-    })
-    toggleBtn.onclick = () => {
-      manualOverride = !manualOverride
-      if (manualOverride) {
-        mode = mode === '100dvh' ? '100vh' : '100dvh'
-        bannerWrapper.style.height = mode
-      } else {
-        mode = 'vv.height'
-      }
-      updateDebug()
-    }
-
     const updateDebug = () => {
       const vv = topWindow.visualViewport
-      debugPanel.innerHTML = ''
-      debugPanel.appendChild(document.createTextNode([
+      debugPanel.textContent = [
         `vv.height:      ${vv ? vv.height.toFixed(1) : 'N/A'}`,
         `innerHeight:    ${topWindow.innerHeight}`,
         `scrollY:        ${topWindow.scrollY}`,
-        `wrapper height: ${bannerWrapper.offsetHeight}px`,
-        `mode:           ${mode}`,
-      ].join('\n')))
-      debugPanel.appendChild(toggleBtn)
-    }
-
-    const updateHeight = () => {
-      if (!manualOverride && topWindow.visualViewport) {
-        bannerWrapper.style.height = topWindow.visualViewport.height + 'px'
-      }
-      updateDebug()
+        `mode:           calc(100vh - 100dvh)`,
+      ].join('\n')
     }
 
     if (topWindow.visualViewport) {
-      topWindow.visualViewport.addEventListener('resize', updateHeight)
-      topWindow.addEventListener('scroll', updateDebug)
-      updateHeight()
+      topWindow.visualViewport.addEventListener('resize', updateDebug)
     }
+    topWindow.addEventListener('scroll', updateDebug)
+    updateDebug()
 
     setTimeout(() => {
       bottomBanner.style.opacity = '1'
