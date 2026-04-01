@@ -301,14 +301,12 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
         height: 100dvh;
         pointer-events: none;
         z-index: 3;
-        transition: height 0.15s;
-        background: rgba(0,0,255, 0.5)
       `
     })
     bannerWrapper.appendChild(bottomBanner)
     topDocument.body.appendChild(bannerWrapper)
 
-    let currentUnit = '100dvh'
+    let mode = 'vv.height'
     const debugPanel = $.div('', {
       style: `
         position: fixed;
@@ -326,7 +324,7 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
     topDocument.body.appendChild(debugPanel)
 
     let manualOverride = false
-    const toggleBtn = $.div('[ toggle vh/dvh ]', {
+    const toggleBtn = $.div('[ toggle: vv.height / vh / dvh ]', {
       style: `
         cursor: pointer;
         margin-top: 6px;
@@ -335,9 +333,13 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
       `
     })
     toggleBtn.onclick = () => {
-      manualOverride = true
-      currentUnit = currentUnit === '100dvh' ? '100vh' : '100dvh'
-      bannerWrapper.style.height = currentUnit
+      manualOverride = !manualOverride
+      if (manualOverride) {
+        mode = mode === '100dvh' ? '100vh' : '100dvh'
+        bannerWrapper.style.height = mode
+      } else {
+        mode = 'vv.height'
+      }
       updateDebug()
     }
 
@@ -349,22 +351,23 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
         `innerHeight:    ${topWindow.innerHeight}`,
         `scrollY:        ${topWindow.scrollY}`,
         `wrapper height: ${bannerWrapper.offsetHeight}px`,
-        `unit:           ${currentUnit}`,
+        `mode:           ${mode}`,
       ].join('\n')))
       debugPanel.appendChild(toggleBtn)
     }
 
-    if (topWindow.visualViewport) {
-      topWindow.visualViewport.addEventListener('resize', () => {
-        if (!manualOverride) {
-          const vv = topWindow.visualViewport
-          currentUnit = vv.height >= topWindow.innerHeight ? '100vh' : '100dvh'
-          bannerWrapper.style.height = currentUnit
-        }
-        updateDebug()
-      })
-      topWindow.addEventListener('scroll', updateDebug)
+    const updateHeight = () => {
+      if (!manualOverride && topWindow.visualViewport) {
+        bannerWrapper.style.height = topWindow.visualViewport.height + 'px'
+      }
       updateDebug()
+    }
+
+    if (topWindow.visualViewport) {
+      topWindow.visualViewport.addEventListener('resize', updateHeight)
+      topWindow.visualViewport.addEventListener('scroll', updateHeight)
+      topWindow.addEventListener('scroll', updateHeight)
+      updateHeight()
     }
 
     setTimeout(() => {
