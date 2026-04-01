@@ -293,35 +293,6 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
     })
     topDocument.body.appendChild(bottomBanner)
 
-    const lvhMeasure = document.createElement('div')
-    lvhMeasure.style.cssText = 'position:fixed;height:100lvh;visibility:hidden;pointer-events:none'
-    topDocument.body.appendChild(lvhMeasure)
-    const lvh = lvhMeasure.offsetHeight
-    lvhMeasure.remove()
-
-    let lastScrollY = topWindow.scrollY
-    let hasScrolledPastThreshold = false
-    const updatePosition = () => {
-      // const vv = topWindow.visualViewport
-      // if (vv) {
-      //   if (!hasScrolledPastThreshold) {
-      //     if (topWindow.scrollY > 50) hasScrolledPastThreshold = true
-      //     lastScrollY = topWindow.scrollY
-      //     return
-      //   }
-      //   const scrollingDown = topWindow.scrollY > lastScrollY
-      //   lastScrollY = topWindow.scrollY
-      //   bottomBanner.style.bottom = scrollingDown ? Math.max(0, lvh - vv.height) + 'px' : '0px'
-      // }
-    }
-
-    if (topWindow.visualViewport) {
-      topWindow.visualViewport.addEventListener('resize', updatePosition)
-      topWindow.visualViewport.addEventListener('scroll', updatePosition)
-    }
-    topWindow.addEventListener('scroll', updatePosition)
-    updatePosition()
-
     setTimeout(() => {
       bottomBanner.style.opacity = '1'
     }, 100)
