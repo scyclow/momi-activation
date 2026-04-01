@@ -315,11 +315,13 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
     })
     topDocument.body.appendChild(debugPanel)
 
+    let lastScrollY = topWindow.scrollY
     const updatePosition = () => {
       const vv = topWindow.visualViewport
       if (vv) {
-        const offset = Math.max(0, lvh - vv.height)
-        bottomBanner.style.bottom = offset + 'px'
+        const scrollingDown = topWindow.scrollY > lastScrollY
+        lastScrollY = topWindow.scrollY
+        bottomBanner.style.bottom = scrollingDown ? Math.max(0, lvh - vv.height) + 'px' : '0px'
       }
     }
 
@@ -328,7 +330,7 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
       debugPanel.textContent = [
         `vv.height:      ${vv ? vv.height.toFixed(1) : 'N/A'}`,
         `innerHeight:    ${topWindow.innerHeight}`,
-        `scrollY:        ${topWindow.scrollY}`,
+        `scrollY:        ${topWindow.scrollY.toFixed(2)}`,
         `lvh (const):    ${lvh}`,
         `bottom:         ${bottomBanner.style.bottom}`,
       ].join('\n')
