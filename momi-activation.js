@@ -272,19 +272,32 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
     `, {
       id: bannerId,
       style: `
-        position: fixed;
+        position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
         background: #fff;
         opacity: 0;
         transition: 1000ms;
-        z-index: 3;
         cursor: pointer;
         user-select: none;
+        pointer-events: auto;
       `
     })
-    topDocument.body.appendChild(bottomBanner)
+
+    const bannerWrapper = $.div('', {
+      style: `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100dvh;
+        pointer-events: none;
+        z-index: 3;
+      `
+    })
+    bannerWrapper.appendChild(bottomBanner)
+    topDocument.body.appendChild(bannerWrapper)
 
     setTimeout(() => {
       bottomBanner.style.opacity = '1'

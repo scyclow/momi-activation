@@ -692,10 +692,13 @@
   import './components.js'
   import {mountPopupTimeout} from './momi-activation.js'
 
-  mountPopupTimeout(15000, { opacity: 0.7, displayX: false})
+  mountPopupTimeout(30000, { opacity: 0.7, displayX: false})
 
 </script>
 <style type="text/css">
+* {
+  text-shadow: 0.5px 0.5px #000;
+}
   #momi-activation-popup {
     animation: BGColorAnimation 10s linear infinite, ColorAnimation 10s linear infinite;
     box-shadow: 2px 2px 0 #000;

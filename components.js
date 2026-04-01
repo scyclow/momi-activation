@@ -1,51 +1,5 @@
 import { createComponent } from './utils.js'
 
-// const noop = () => {}
-// const deepEquals = (a, b) => (
-//   Object.keys(a).length === Object.keys(b).length
-//   && Object.keys(a).every(aKey => a[aKey] === b[aKey])
-// )
-
-// const createComponent = (tag, templateStr, initialState, onInit, onRender, onSetState=noop) => {
-//   class ReactStyleComponent extends HTMLElement {
-//     constructor() {
-//       super()
-//       this.state = Object.assign({}, initialState)
-//       this.oldState = this.state
-//       this.events = {}
-//       const shadowRoot = this.attachShadow({ mode: 'open' })
-//       const template = document.createElement('template')
-//       template.innerHTML = templateStr
-//       shadowRoot.appendChild(template.content.cloneNode(true))
-//       const qs = shadowRoot.querySelector.bind(shadowRoot)
-//       this.$ = selector => {
-//         const e = qs(selector)
-//         if (selector[0] === '.') {
-//           return e ? Array.from(e) : []
-//         } else {
-//           return e
-//         }
-//       }
-//       this.onRender = onRender
-//       onInit(this)
-//     }
-
-//     setState(stateUpdate, force=false) {
-//       this.oldState = this.state
-//       this.state = { ...this.state, ...stateUpdate }
-//       onSetState(this.oldState, this.state, stateUpdate)
-//       if (deepEquals(this.state, this.oldState) && !force) return
-//       this.render()
-//     }
-
-//     render() { this.onRender(this) }
-//     connectedCallback() {
-//       setTimeout(() => this.render(), 0)
-//     }
-//   }
-//   customElements.define(tag, ReactStyleComponent)
-// }
-
 const defineAnimatingComponent = (tag, animName, keyframesCss, easing='linear', defaultDuration=2000) => {
   createComponent(
     tag,

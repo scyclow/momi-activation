@@ -1,7 +1,7 @@
 import { $, times, random, sample, prb, SoundSrc, MAX_VOLUME, getCanvasProgress } from './utils.js'
 
-export const VALID_ACTIVATION_CODE1 = 'MOMI2026'
-export const VALID_ACTIVATION_CODE2 = 'MOMI2026!'
+export const VALID_ACTIVATION_CODE1 = 'momi2026'
+export const VALID_ACTIVATION_CODE2 = 'momi2026!'
 let UPGRADE_URL
 
 
@@ -474,11 +474,11 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
 
       const enteredActivationCode = $.id(activationCodeInputId).value
 
-      if (enteredActivationCode.replaceAll(' ', '').trim() === VALID_ACTIVATION_CODE1) {
+      if (enteredActivationCode.replaceAll(' ', '').trim().toLowerCase() === VALID_ACTIVATION_CODE1) {
         gotoLoadingScreen()
         UPGRADE_URL = 'https://steviep.xyz/momi-activation/upgrade'
 
-      } else if (enteredActivationCode.replaceAll(' ', '').trim() === VALID_ACTIVATION_CODE2) {
+      } else if (enteredActivationCode.replaceAll(' ', '').trim().toLowerCase() === VALID_ACTIVATION_CODE2) {
         gotoLoadingScreen()
         UPGRADE_URL = 'https://steviep.xyz/momi-activation/upgrade2'
 
@@ -694,7 +694,7 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
 
         setTimeout(() => {
           clearInterval(changeInterval)
-          $.id(activationCodeId).innerHTML = VALID_ACTIVATION_CODE1.split('').join(' ')
+          $.id(activationCodeId).innerHTML = VALID_ACTIVATION_CODE1.split('').join(' ').toUpperCase()
 
           $.id(enterGenerateId).style.display = 'block'
         }, 3000)
@@ -734,6 +734,8 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
   const gotoLoadingScreen = () => {
     stopSoundIntervals()
 
+    stopMusic = false
+
     $.id(containerId).innerHTML = page5
 
 
@@ -750,6 +752,8 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
     let baseFreq = 100
 
     const lpInterval = setInterval(() => {
+      if (stopMusic) return
+
       const lp = lps[lpIx]
 
       if (prb(0.3)) {
