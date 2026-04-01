@@ -280,7 +280,7 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
       id: bannerId,
       style: `
         position: fixed;
-        bottom: calc(100vh - 100dvh);
+        bottom: 0;
         left: 0;
         right: 0;
         background: #fff;
@@ -292,6 +292,12 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
       `
     })
     topDocument.body.appendChild(bottomBanner)
+
+    const lvhMeasure = document.createElement('div')
+    lvhMeasure.style.cssText = 'position:fixed;height:100lvh;visibility:hidden;pointer-events:none'
+    topDocument.body.appendChild(lvhMeasure)
+    const lvh = lvhMeasure.offsetHeight
+    lvhMeasure.remove()
 
     const debugPanel = $.div('', {
       style: `
@@ -309,20 +315,31 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
     })
     topDocument.body.appendChild(debugPanel)
 
+    const updatePosition = () => {
+      const vv = topWindow.visualViewport
+      if (vv) {
+        const offset = Math.max(0, lvh - vv.height)
+        bottomBanner.style.bottom = offset + 'px'
+      }
+    }
+
     const updateDebug = () => {
       const vv = topWindow.visualViewport
       debugPanel.textContent = [
         `vv.height:      ${vv ? vv.height.toFixed(1) : 'N/A'}`,
         `innerHeight:    ${topWindow.innerHeight}`,
         `scrollY:        ${topWindow.scrollY}`,
-        `mode:           calc(100vh - 100dvh)`,
+        `lvh (const):    ${lvh}`,
+        `bottom:         ${bottomBanner.style.bottom}`,
       ].join('\n')
     }
 
     if (topWindow.visualViewport) {
-      topWindow.visualViewport.addEventListener('resize', updateDebug)
+      topWindow.visualViewport.addEventListener('resize', () => { updatePosition(); updateDebug() })
+      topWindow.visualViewport.addEventListener('scroll', () => { updatePosition(); updateDebug() })
     }
-    topWindow.addEventListener('scroll', updateDebug)
+    topWindow.addEventListener('scroll', () => { updatePosition(); updateDebug() })
+    updatePosition()
     updateDebug()
 
     setTimeout(() => {
