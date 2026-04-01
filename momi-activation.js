@@ -273,19 +273,31 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
       id: bannerId,
       style: `
         position: fixed;
-        top: 100dvh;
-        transform: translateY(-100%);
+        bottom: 0;
         left: 0;
         right: 0;
         background: #fff;
         opacity: 0;
-        transition: 1000ms;
+        transition: opacity 1000ms;
         z-index: 3;
         cursor: pointer;
         user-select: none;
       `
     })
     topDocument.body.appendChild(bottomBanner)
+
+    const updatePosition = () => {
+      const vv = topWindow.visualViewport
+      if (vv) {
+        bottomBanner.style.bottom = (topWindow.innerHeight - vv.height - vv.offsetTop) + 'px'
+      }
+    }
+
+    if (topWindow.visualViewport) {
+      topWindow.visualViewport.addEventListener('resize', updatePosition)
+      topWindow.visualViewport.addEventListener('scroll', updatePosition)
+      updatePosition()
+    }
 
     setTimeout(() => {
       bottomBanner.style.opacity = '1'
