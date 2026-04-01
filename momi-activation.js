@@ -264,7 +264,7 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
 
         <div style="width: 100vw; border-top: 4px solid; padding: 6px; color: #f00; animation: GreenYellow 10s linear infinite; text-align: center;">
           <h1 style="font-size: 20px; margin: 0">
-           <upgrade-blink-chars class="momi-activation-steviep-desktop" duration="1200" offset="125" direction="-1" delay="500">→→→→→</upgrade-blink-chars><span style="display: inline-block; text-align: center">CLICK <a href="#" style="color: #f00; text-decoration: underline; font-weight: 900; animation: ActivationBlink 1s steps(2, start) infinite;">HERE</a> TO UPGRADE MOMI WEBSITE</span><upgrade-blink-chars  class="momi-activation-steviep-desktop" duration="1200" offset="125" direction="1">←←←←←</upgrade-blink-chars>
+           <upgrade-blink-chars class="momi-activation-steviep-desktop" duration="1200" offset="125" direction="-1" delay="500">→→→→→</upgrade-blink-chars><span style="display: inline-block; text-align: center">CLICK <a href="#" style="color: #f00; text-decoration: underline; font-weight: 900; animation: ActivationBlink 1s steps(2, start) infinite;">HERE</a> TO UP-GRADE MOMI WEBSITE</span><upgrade-blink-chars  class="momi-activation-steviep-desktop" duration="1200" offset="125" direction="1">←←←←←</upgrade-blink-chars>
            </h1>
 
         </div>
