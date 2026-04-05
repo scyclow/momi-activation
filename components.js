@@ -438,6 +438,8 @@ const defineCharComponent = (tag, animClass, keyframesCss, durMin, durMax, timin
       const { text } = ctx.state
       const attrDuration = Number(ctx.getAttribute('duration') || 0)
       const direction = Number(ctx.getAttribute('direction') || 1)
+      const delay = -1 * Number(ctx.getAttribute('delay') || 0)
+
       const offset = Number(ctx.getAttribute('offset') || attrDuration/5)
       const timingFunction = ctx.getAttribute('timing-function') || timingFn
       const words = text.split(' ')

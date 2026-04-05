@@ -55,7 +55,7 @@ const updatePopup = `
 
 
 const tombstoneMarkup = `
-  <upgrade-marquee duration="700" delay="0" direction="-1" style="transition: 1s; z-index: 2;"><h1 style="font-size: 18px">THIS SITE INTERRUPTION IS BROUGHT TO YOU BY: Steve Pikelny <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em">→</upgrade-blink> b. 1989, United States <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em">→</upgrade-blink> <em>MoMI Upgrade Activation</em>, 2026 <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em">→</upgrade-blink> JavaScript, HTML/CSS, Webpage <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em">→</upgrade-blink> Learn more about the series at MoMI <a href="#" style="text-decoration: underline; color: #000;">here</a>. <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em;">→</upgrade-blink></h1></upgrade-marquee>
+  <upgrade-marquee duration="700" delay="0" direction="-1" style="transition: 1s; z-index: 2;"><h1 style="font-size: 16px; margin: 0.25em 0;">THIS SITE INTERRUPTION IS BROUGHT TO YOU BY: Steve Pikelny <upgrade-blink-chars duration="1000" delay="500" style="margin: 0 0.75em">↓</upgrade-blink-chars> b. 1989, United States <upgrade-blink-chars duration="1000" delay="500" style="margin: 0 0.75em">↓</upgrade-blink-chars> <em>MoMI Upgrade Activation</em>, 2026 <upgrade-blink-chars duration="1000" delay="500" style="margin: 0 0.75em">↓</upgrade-blink-chars> JavaScript, HTML/CSS, Webpage <upgrade-blink-chars duration="1000" delay="500" style="margin: 0 0.75em">↓</upgrade-blink-chars> Learn more about the series at MoMI <a href="#" style="text-decoration: underline; color: #000;">here</a>. <upgrade-blink-chars duration="1000" delay="500" style="margin-left: 0.75em;">↓</upgrade-blink-chars></h1></upgrade-marquee>
 `
 
 export function mountPopupTimeout(popupWait, takeoverOptions={}) {
@@ -259,7 +259,7 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
 
       <div>
         <div style="width: 100vw; background: #fff; border-top: 2px solid;">
-          <upgrade-marquee duration="700" delay="0" direction="-1" style="transition: 1s; z-index: 2;"><h1 style="font-size: 16px; margin: 0.25em">THIS SITE INTERRUPTION IS BROUGHT TO YOU BY: Steve Pikelny <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em">↓</upgrade-blink> b. 1989, United States <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em">↓</upgrade-blink> <em>MoMI Upgrade Activation</em>, 2026 <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em">↓</upgrade-blink> JavaScript, HTML/CSS, Webpage <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em">↓</upgrade-blink> Learn more about the series at MoMI <a href="#" style="text-decoration: underline; color: #000;">here</a>. <upgrade-blink duration="1000" delay="500" style="margin: 0 0.5em;">↓</upgrade-blink></h1></upgrade-marquee>
+          ${tombstoneMarkup}
         </div>
 
         <div style="width: 100vw; border-top: 4px solid; padding: 6px; color: #f00; animation: GreenYellow 10s linear infinite; text-align: center;">
