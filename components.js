@@ -450,7 +450,13 @@ const defineCharComponent = (tag, animClass, keyframesCss, durMin, durMax, timin
       words.forEach((word, wi) => {
         const wordEl = document.createElement('span')
         wordEl.className = 'word'
-        word.split('').forEach(char => {
+        let chars
+        try {
+          chars = Array.from(new Intl.Segmenter().segment(word), s => s.segment)
+        } catch {
+          chars = word.replace(/[\u200B-\u200D\uFE0E\uFE0F\uFEFF]/g, '').split('')
+        }
+        chars.forEach(char => {
           const charEl = document.createElement('span')
           charEl.className = 'char'
           charEl.textContent = char

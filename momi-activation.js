@@ -26,7 +26,7 @@ const updatePopup = `
     <div style="text-align: right; font-family: sans-serif; height: 18px">
       <span id="closePopup" style="cursor: pointer; font-size: 18px; user-select: none; padding: 14px; transform: translate(10px, -10px); display: inline-block;">X</span>
     </div>
-    <h1 style="font-size: 32px;">→ CLICK <a href="#" style="animation: ActivationBlink 1s steps(2, start) infinite; color: #00e; text-decoration: underline">HERE</a> TO UPGRADE MOMI WEBSITE</h1>
+    <h1 style="font-size: 32px;">→︎ CLICK <a href="#" style="animation: ActivationBlink 1s steps(2, start) infinite; color: #00e; text-decoration: underline">HERE</a> TO UPGRADE MOMI WEBSITE</h1>
 
     <!--<h1>*WARNING*: MOMI WEBSITE OUT OF DATE: CLICK HERE TO </h1> -->
     <!--<p>(By clicking this link you acknowledge that you don't have photosensitive epilepsy)</p> -->
@@ -55,7 +55,7 @@ const updatePopup = `
 
 
 const tombstoneMarkup = `
-  <upgrade-marquee duration="700" delay="0" direction="-1" style="transition: 1s; z-index: 2;"><h1 style="font-size: 16px; margin: 0.25em 0;">THIS SITE INTERRUPTION IS BROUGHT TO YOU BY: Steve Pikelny <upgrade-blink-chars duration="1000" delay="500" style="margin: 0 0.75em">↓</upgrade-blink-chars> b. 1989, United States <upgrade-blink-chars duration="1000" delay="500" style="margin: 0 0.75em">↓</upgrade-blink-chars> <em>MoMI Upgrade Activation</em>, 2026 <upgrade-blink-chars duration="1000" delay="500" style="margin: 0 0.75em">↓</upgrade-blink-chars> JavaScript, HTML/CSS, Webpage <upgrade-blink-chars duration="1000" delay="500" style="margin: 0 0.75em">↓</upgrade-blink-chars> Learn more about the series at MoMI <a href="#" style="text-decoration: underline; color: #000;">here</a>. <upgrade-blink-chars duration="1000" delay="500" style="margin-left: 0.75em;">↓</upgrade-blink-chars></h1></upgrade-marquee>
+  <upgrade-marquee duration="700" delay="0" direction="-1" style="transition: 1s; z-index: 2;"><h1 style="font-size: 16px; margin: 0.25em 0;">THIS SITE INTERRUPTION IS BROUGHT TO YOU BY: Steve Pikelny <upgrade-blink-chars duration="1000" delay="500" style="margin: 0 0.75em">↓︎</upgrade-blink-chars> b. 1989, United States <upgrade-blink-chars duration="1000" delay="500" style="margin: 0 0.75em">↓︎</upgrade-blink-chars> <em>MoMI Upgrade Activation</em>, 2026 <upgrade-blink-chars duration="1000" delay="500" style="margin: 0 0.75em">↓︎</upgrade-blink-chars> JavaScript, HTML/CSS, Webpage <upgrade-blink-chars duration="1000" delay="500" style="margin: 0 0.75em">↓︎</upgrade-blink-chars> Learn more about the series at MoMI <a href="#" style="text-decoration: underline; color: #000;">here</a>. <upgrade-blink-chars duration="1000" delay="500" style="margin-left: 0.75em;">↓︎</upgrade-blink-chars></h1></upgrade-marquee>
 `
 
 export function mountPopupTimeout(popupWait, takeoverOptions={}) {
@@ -264,7 +264,7 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
 
         <div style="width: 100vw; border-top: 4px solid; padding: 6px; color: #f00; animation: GreenYellow 10s linear infinite; text-align: center;">
           <h1 style="font-size: 20px; margin: 0">
-           <upgrade-blink-chars class="momi-activation-steviep-desktop" duration="1200" offset="125" direction="-1" delay="500">→→→→→</upgrade-blink-chars><span style="display: inline-block; text-align: center">CLICK <a href="#" style="color: #f00; text-decoration: underline; font-weight: 900; animation: ActivationBlink 1s steps(2, start) infinite;">HERE</a> TO UPGRADE MOMI WEBSITE</span><upgrade-blink-chars  class="momi-activation-steviep-desktop" duration="1200" offset="125" direction="1">←←←←←</upgrade-blink-chars>
+           <upgrade-blink-chars class="momi-activation-steviep-desktop" duration="1200" offset="125" direction="-1" delay="500">→︎→︎→︎→︎→︎</upgrade-blink-chars><span style="display: inline-block; text-align: center">CLICK <a href="#" style="color: #f00; text-decoration: underline; font-weight: 900; animation: ActivationBlink 1s steps(2, start) infinite;">HERE</a> TO UPGRADE MOMI WEBSITE</span><upgrade-blink-chars  class="momi-activation-steviep-desktop" duration="1200" offset="125" direction="1">←︎←︎←︎←︎←︎</upgrade-blink-chars>
            </h1>
 
         </div>
