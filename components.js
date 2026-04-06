@@ -1,6 +1,18 @@
 import { createComponent } from './utils.js'
 
-const defineAnimatingComponent = (tag, animName, keyframesCss, easing='linear', defaultDuration=2000) => {
+const arrowSvg = (rotation) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 78 47" fill="currentColor" stroke="currentColor" style="display:inline-block;width:0.825em;height:0.5em;vertical-align:0.1em;padding:0 0.05em;transform:rotate(${rotation}deg)"><path d="M54.5 19.207H0.5V27.707H54.5V45.707L77 23.707L54.5 1.20703V19.207Z"/></svg>`
+
+const ARROW_SVGS = {
+  '→': arrowSvg(0),
+  '←': arrowSvg(180),
+  '↓': arrowSvg(90),
+  '↑': arrowSvg(-90),
+}
+
+export { ARROW_SVGS }
+
+
+const defineAnimatingComponent =(tag, animName, keyframesCss, easing='linear', defaultDuration=2000) => {
   createComponent(
     tag,
     `
@@ -450,16 +462,14 @@ const defineCharComponent = (tag, animClass, keyframesCss, durMin, durMax, timin
       words.forEach((word, wi) => {
         const wordEl = document.createElement('span')
         wordEl.className = 'word'
-        let chars
-        try {
-          chars = Array.from(new Intl.Segmenter().segment(word), s => s.segment)
-        } catch {
-          chars = word.replace(/[\u200B-\u200D\uFE0E\uFE0F\uFEFF]/g, '').split('')
-        }
-        chars.forEach(char => {
+        word.split('').forEach(char => {
           const charEl = document.createElement('span')
           charEl.className = 'char'
-          charEl.textContent = char
+          if (ARROW_SVGS[char]) {
+            charEl.innerHTML = ARROW_SVGS[char]
+          } else {
+            charEl.textContent = char
+          }
           charEl.style.animationDuration = `${attrDuration}ms`
           charEl.style.animationDelay = `-${charIx * offset}ms`
           charEl.style.animationTimingFunction = timingFunction

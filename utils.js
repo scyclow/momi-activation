@@ -440,14 +440,14 @@ export function getCanvasProgress(id) {
 // Metadata utilities
 const $html = document.getElementsByTagName('html')[0]
 
-const addMetaTag = (args) => {
-  const meta = document.createElement('meta')
-  Object.keys(args).forEach(arg => {
-    meta[arg] = args[arg]
-  })
+// const addMetaTag = (args) => {
+//   const meta = document.createElement('meta')
+//   Object.keys(args).forEach(arg => {
+//     meta[arg] = args[arg]
+//   })
 
-  document.head.appendChild(meta)
-}
+//   document.head.appendChild(meta)
+// }
 
 export const addThumbnail = (fill) => {
   const existing = document.getElementById('favicon')
@@ -462,31 +462,36 @@ export const addThumbnail = (fill) => {
   document.head.appendChild(link)
 }
 
-function setMetadata() {
-  $html.translate = false
-  $html.lang = 'en'
-  $html.className = 'notranslate'
+// export function setMetadata() {
+//   $html.translate = false
+//   $html.lang = 'en'
+//   $html.className = 'notranslate'
 
-  addMetaTag({ name: 'google', content: 'notranslate' })
+//   addMetaTag({ name: 'google', content: 'notranslate' })
+// }
+
+
+export const hapticFeedback = (ms=50) => {
+  try {
+    if (window.navigator) window.navigator.vibrate(ms)
+  } catch(e) {}
 }
 
-setMetadata()
+// export const ls = {
+//   get(key) {
+//     try {
+//       return window.localStorage && window.localStorage.getItem && JSON.parse(window.localStorage.getItem(key))
+//     } catch (e) {
+//       console.log(e)
+//     }
+//   },
+//   set(key, value) {
+//     try {
+//       return window.localStorage.setItem(key, value)
+//     } catch (e) {
+//       console.log(e)
+//     }
+//   }
+// }
 
-export const ls = {
-  get(key) {
-    try {
-      return window.localStorage && window.localStorage.getItem && JSON.parse(window.localStorage.getItem(key))
-    } catch (e) {
-      console.log(e)
-    }
-  },
-  set(key, value) {
-    try {
-      return window.localStorage.setItem(key, value)
-    } catch (e) {
-      console.log(e)
-    }
-  }
-}
-
-window.ls = ls
+// window.ls = ls

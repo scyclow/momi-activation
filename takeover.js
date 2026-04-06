@@ -1,4 +1,5 @@
-import { $, times, random, sample, prb, SoundSrc, MAX_VOLUME, getCanvasProgress } from './utils.js'
+import { $, times, random, sample, prb, SoundSrc, MAX_VOLUME, getCanvasProgress, hapticFeedback } from './utils.js'
+import { ARROW_SVGS } from './components.js'
 
 export const VALID_ACTIVATION_CODE1 = 'momi2026'
 export const VALID_ACTIVATION_CODE2 = 'momi2026!'
@@ -82,7 +83,7 @@ const page1 = `
 
   <div style="display: flex; justify-content: center">
     <button id="${ignoreId}" class="momi-button"">IGNORE</button>
-    <button id="${continueId}" class="momi-button" style="margin-left: 24px">CONTINUE <span style="animation: ActivationBlink 1s steps(2, start) infinite;">→︎</span></button>
+    <button id="${continueId}" class="momi-button" style="margin-left: 24px">CONTINUE <span style="animation: ActivationBlink 1s steps(2, start) infinite;">${ARROW_SVGS['→']}</span></button>
   </div>
 `
 
@@ -96,17 +97,17 @@ const page2 = `
     <input id="${activationCodeInputId}" placeholder="ACTIVATION CODE" style="text-align: center; border: 1px solid #f00; border-radius: 2px; padding: 3px; font-size: 100%">
 
     <div style="display: flex; align-items: center; justify-content: space-between; font-weight: bold; margin: 12px">
-      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.5s">↑</span>
-      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.4s">↑</span>
-      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.3s">↑</span>
-      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.2s">↑</span>
-      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.1s">↑</span>
-      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.0s">↑</span>
-      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.1s">↑</span>
-      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.2s">↑</span>
-      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.3s">↑</span>
-      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.4s">↑</span>
-      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.5s">↑</span>
+      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.5s">${ARROW_SVGS['↑']}</span>
+      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.4s">${ARROW_SVGS['↑']}</span>
+      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.3s">${ARROW_SVGS['↑']}</span>
+      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.2s">${ARROW_SVGS['↑']}</span>
+      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.1s">${ARROW_SVGS['↑']}</span>
+      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.0s">${ARROW_SVGS['↑']}</span>
+      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.1s">${ARROW_SVGS['↑']}</span>
+      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.2s">${ARROW_SVGS['↑']}</span>
+      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.3s">${ARROW_SVGS['↑']}</span>
+      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.4s">${ARROW_SVGS['↑']}</span>
+      <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.5s">${ARROW_SVGS['↑']}</span>
     </div>
   </div>
 
@@ -136,7 +137,7 @@ const page3 = `
 
   <button id="${okId}" class="momi-button"">ENTER CODE</button>
   <h3 style="text-align: center; color: #f00; margin: 16px 0; font-size: 24px">OR</h3>
-  <button id="${generateActivationId}" class="momi-button" style="font-size: 16px; border: none; text-decoration: underline"><span style="animation: ActivationBlink 1s steps(2, start) infinite">→︎</span> GENERATE NEW CODE</button>
+  <button id="${generateActivationId}" class="momi-button" style="font-size: 16px; border: none; text-decoration: underline"><span style="animation: ActivationBlink 1s steps(2, start) infinite">${ARROW_SVGS['→']}</span> GENERATE NEW CODE</button>
 
 `
 
@@ -184,14 +185,14 @@ const page4 = `
         </tr>
         <tr>
           <td>
-            <button id="${generateTokenId}" class="momi-button" style="font-size: 12px"><span id="${pointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translate(-40px, -4px); font-size: 18px; color: #f00; font-weight: bold;">→︎</span>+1 AT</button>
+            <button id="${generateTokenId}" class="momi-button" style="font-size: 12px"><span id="${pointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; position: absolute; transform: translate(-40px, -4px); font-size: 18px; color: #f00; font-weight: bold;">${ARROW_SVGS['→']}</span>+1 AT</button>
           </td>
           <td>0</td>
         </tr>
 
         <tr>
           <td>
-            <button id="${addAutoGeneratorId}" class="momi-button" style="font-size: 12px; text-transform: none;"><span id="${secondPointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translate(-40px, -4px); font-size: 18px; color: #f00; display: none; font-weight: bold;">→︎</span>+1 AT/sec</button>
+            <button id="${addAutoGeneratorId}" class="momi-button" style="font-size: 12px; text-transform: none;"><span id="${secondPointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; position: absolute; transform: translate(-40px, -4px); font-size: 18px; color: #f00; display: none; font-weight: bold;">${ARROW_SVGS['→']}</span>+1 AT/sec</button>
           </td>
           <td>
             <div id="${autoGeneratorCostCellId}" style="padding: 4px"><span id="${autoGeneratorPriceId}"></span></div>
@@ -200,7 +201,7 @@ const page4 = `
 
         <tr>
           <td>
-            <button id="${generateActivationCodeId}" class="momi-button" style="font-size: 12px; "><span id="${thirdPointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; width: 0; position: absolute; transform: translate(-40px, -4px); font-size: 18px; color: #f00; display: none; font-weight: bold;">→︎</span>GENERATE</button>
+            <button id="${generateActivationCodeId}" class="momi-button" style="font-size: 12px; "><span id="${thirdPointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; position: absolute; transform: translate(-40px, -4px); font-size: 18px; color: #f00; display: none; font-weight: bold;">${ARROW_SVGS['→']}</span>GENERATE</button>
           </td>
           <td>
             <div id="${generateActivationCodeCostId}" style="padding: 4px">10000</div>
@@ -260,7 +261,7 @@ const page5 = `
 const page6 = `
   <h1 style="text-align: center; font-size: 32px; color: #f00; font-family: sans-serif; margin-bottom: 16px">CONGRATULATIONS<span style="animation: ActivationBlink 1s steps(2, start) infinite">!</span></h1>
 
-  <a id="${upgradeContinueId}" class="momi-button" style="margin-top: 12px; font-size: 16px; border: none; text-decoration: underline">CONTINUE TO THE MOMI 2.0 WEBSITE <span style="animation: ActivationBlink 1s steps(2, start) infinite">→︎</span></a>
+  <a id="${upgradeContinueId}" class="momi-button" style="margin-top: 12px; font-size: 16px; border: none; text-decoration: underline">CONTINUE TO THE MOMI 2.0 WEBSITE <span style="animation: ActivationBlink 1s steps(2, start) infinite">${ARROW_SVGS['→']}</span></a>
 
   <button class="momi-button" id="${stopMusicId}" style="display: none; margin-top: 24px">OK</button>
 
@@ -299,6 +300,7 @@ const pageTakeover = `
     <div
       id="${containerId}"
       style="
+        touch-action: manipulation;
         height: 95vh;
         width: 95vw;
         z-index: 3;
@@ -570,6 +572,8 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
     const allNotes = []
 
     $.id(addAutoGeneratorId).onclick = () => {
+      hapticFeedback()
+
 
       if (atBalance >= getGeneratorPrice()) {
       // if (atBalance >= 1) {
@@ -642,7 +646,7 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
     let secondPointerDisplayed
 
     $.id(generateTokenId).onclick = () => {
-      $.id(pointerId).style.display = 'none'
+      hapticFeedback()
 
       if (atBalance < 10000) {
         atBalance += 1
@@ -663,9 +667,10 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
         baseNote.note(220, 20)
       }
 
-      if (!secondPointerDisplayed && atBalance >= 1) {
+      if (!secondPointerDisplayed && atBalance >= 10) {
         secondPointerDisplayed = true
         $.id(secondPointerId).style.display = 'inline-block'
+        $.id(pointerId).style.display = 'none'
       }
 
       clearTimeout(errorTimeout)
@@ -680,6 +685,8 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
     const randChar = () => sample('qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890!@#$%')
 
     $.id(generateActivationCodeId).onclick = () => {
+      hapticFeedback()
+
       if (atBalance >= 10000) {
 
         $.id(thirdPointerId).style.display = 'none'
