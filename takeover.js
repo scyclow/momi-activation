@@ -96,7 +96,7 @@ const page2 = `
 
     <input id="${activationCodeInputId}" placeholder="ACTIVATION CODE" style="text-align: center; border: 1px solid #f00; border-radius: 2px; padding: 3px; font-size: 100%">
 
-    <div style="display: flex; align-items: center; justify-content: space-between; font-weight: bold; margin: 12px">
+    <div style="display: flex; align-items: center; justify-content: space-between; font-weight: bold; margin: 12px;">
       <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.5s">${ARROW_SVGS['↑']}</span>
       <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.4s">${ARROW_SVGS['↑']}</span>
       <span style="color: #f00; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: -0.3s">${ARROW_SVGS['↑']}</span>
@@ -453,7 +453,13 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
     takeover.remove()
     closeAll()
     if (options.onClose) options.onClose(options.topDocument)
+    document.removeEventListener('keydown', onEscape)
   }
+
+  const onEscape = (e) => {
+    if (e.key === 'Escape') closeModal()
+  }
+  document.addEventListener('keydown', onEscape)
 
 
   if (options.displayX) {

@@ -1,6 +1,6 @@
 import { createComponent } from './utils.js'
 
-const arrowSvg = (rotation) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 78 47" fill="currentColor" stroke="currentColor" style="display:inline-block;width:0.825em;height:0.5em;vertical-align:0.1em;padding:0 0.05em;transform:rotate(${rotation}deg)"><path d="M54.5 19.207H0.5V27.707H54.5V45.707L77 23.707L54.5 1.20703V19.207Z"/></svg>`
+const arrowSvg = (rotation) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 78 47" fill="currentColor" stroke="currentColor" style="display:inline-block;width:0.825em;height:0.5em;vertical-align:0.1em;transform:rotate(${rotation}deg)"><path d="M54.5 19.207H0.5V27.707H54.5V45.707L77 23.707L54.5 1.20703V19.207Z"/></svg>`
 
 const ARROW_SVGS = {
   '→': arrowSvg(0),
@@ -467,6 +467,9 @@ const defineCharComponent = (tag, animClass, keyframesCss, durMin, durMax, timin
           charEl.className = 'char'
           if (ARROW_SVGS[char]) {
             charEl.innerHTML = ARROW_SVGS[char]
+            if (char === '→' || char === '←') {
+              charEl.querySelector('svg').style.padding = '0 0.05em'
+            }
           } else {
             charEl.textContent = char
           }
