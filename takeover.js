@@ -66,7 +66,6 @@ const loadingProgress4Id = 'momi-loading-progress-4'
 const loadingProgress5Id = 'momi-loading-progress-5'
 
 const upgradeContinueId = 'momi-upgrade-continue'
-const stopMusicId = 'momi-stop-music'
 
 
 const page1 = `
@@ -261,10 +260,9 @@ const page5 = `
 const page6 = `
   <h1 style="text-align: center; font-size: 32px; color: #f00; font-family: sans-serif; margin-bottom: 16px">CONGRATULATIONS<span style="animation: ActivationBlink 1s steps(2, start) infinite">!</span></h1>
 
-  <a id="${upgradeContinueId}" class="momi-button" style="margin-top: 12px; font-size: 16px; border: none; text-decoration: underline">CONTINUE TO THE MOMI 2.0 WEBSITE <span style="animation: ActivationBlink 1s steps(2, start) infinite">${ARROW_SVGS['→']}</span></a>
+  <a id="${upgradeContinueId}" class="momi-button" style="margin-top: 12px; font-size: 16px; border: none; text-decoration: underline" target="_blank">CONTINUE TO THE MOMI 2.0 WEBSITE* <span style="animation: ActivationBlink 1s steps(2, start) infinite">${ARROW_SVGS['→']}</span></a>
 
-  <button class="momi-button" id="${stopMusicId}" style="display: none; margin-top: 24px">OK</button>
-
+  <div style="font-size: 8px; text-transform: uppercase; max-width: 500px; margin-top: 24px; color: #f00; text-align: justify; line-height: 1.1;">*BY CLICKING THIS LINK YOU HEREBY ACKNOWLEDGE THAT YOU ARE LEAVING THE MUSEUM OF THE MOVING IMAGE WEBSITE AND ENTERING A THIRD-PARTY WEBSITE, OWNED AND OPERATED BY AN INDEPENDENT PARTY OVER WHICH THE MUSEUM OF THE MOVING IMAGE HAS NO CONTROL. THE MUSEUM OF THE MOVING IMAGE BEARS NO RESPONSIBILITY FOR THE ACCURACY, LEGALITY, OR CONTENT OF THE EXTERNAL SITE. THE MUSEUM OF THE MOVING IMAGE DISCLAIMS ALL LIABILITY FOR ANY LOSS, DAMAGE, AND OTHER CONSEQUENCES RESULTING DIRECTLY OR INDIRECTLY FROM YOUR ACCESS TO THE THIRD-PARTY WEBSITE, INCLUDING ANY ERROR, OMISSION, OR MISREPRESENTATION ON THE THIRD-PARTY WEBSITE, THE COLLECTION, USE, SHARING, OR SALE OF YOUR PERSONAL DATA BY THE THIRD-PARTY OPERATOR, OR ANY COMPUTER VIRUS OR SYSTEM FAILURE ARISING FROM OR ASSOCIATED WITH THE THIRD-PARTY WEBSITE.</div>
 `
 
 
@@ -819,9 +817,10 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
 
     const noteLen = 667 / 3
 
+    let toneMuted = false
     function playNote(notes, i) {
       const n = notes[i % notes.length]
-      baseNote.smoothGain(stopMusic ? 0 : MAX_VOLUME)
+      baseNote.smoothGain(stopMusic || toneMuted ? 0 : MAX_VOLUME)
       baseNote.smoothFreq(n[0])
 
       if (!stopMusic) {
@@ -832,15 +831,9 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
 
     playNote(notes1, 0)
 
-    // $.id(upgradeContinueId).onclick = () => {
-    //   $.id(stopMusicId).style.display = 'block'
-    // }
-
-    // $.id(stopMusicId).onclick = () => {
-    //   stopMusic = true
-    //   $.id(stopMusicId).style.display = 'none'
-    // }
-
+    document.addEventListener('visibilitychange', () => {
+      toneMuted = !!document.hidden
+    })
 
   }
 
