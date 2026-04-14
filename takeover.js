@@ -74,11 +74,7 @@ const page1 = `
     ${times(36, i => `<div style=" display: inline-block; width: 5vw; animation: ActivationBlink 1s steps(2, start) infinite; animation-delay: ${-0.1 * i}s;">${warningSvg()}</div>`).join('')}
   </div>
 
-  <!--
-    <h1 style="text-align: center; font-size: 32px; color: #f00; font-family: sans-serif; margin: 16px 0">MALWARE DETECTED</h1>
-    -->
-
-    <div style="height: 32px"></div>
+  <div style="height: 32px"></div>
 
   <div style="display: flex; justify-content: center">
     <button id="${ignoreId}" class="momi-button"">IGNORE</button>
@@ -478,6 +474,9 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
 
       startSoundInterval(250, 200)
 
+      hapticFeedback()
+
+
       const enteredActivationCode = $.id(activationCodeInputId).value
 
       if (enteredActivationCode.replaceAll(' ', '').trim().toLowerCase() === VALID_ACTIVATION_CODE1) {
@@ -493,7 +492,10 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
       }
     }
 
-    $.id(noCodeId).onclick = gotoActivationCenter
+    $.id(noCodeId).onclick = () => {
+      gotoActivationCenter()
+      hapticFeedback()
+    }
 
   }
 
@@ -503,9 +505,15 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
     startSoundInterval(350)
     $.id(containerId).innerHTML = page3
 
-    $.id(okId).onclick = gotoActivationEntry
+    $.id(okId).onclick = () => {
+      gotoActivationEntry()
+      hapticFeedback()
+    }
 
-    $.id(generateActivationId).onclick = gotoActivationGenerate
+    $.id(generateActivationId).onclick = () => {
+      gotoActivationGenerate()
+      hapticFeedback()
+    }
 
   }
 
@@ -569,6 +577,13 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
       baseNote2.note(880*0.666, 60)
 
       render()
+
+      hapticFeedback()
+
+      setTimeout(() => {
+        stopSoundIntervals()
+        gotoLoadingScreen()
+      }, 40)
     }
     let errorTimeout
 
@@ -840,8 +855,14 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
 
 
   $.id(modalBgId).onclick = closeModal
-  $.id(ignoreId).onclick = closeModal
-  $.id(continueId).onclick = gotoActivationEntry
+  $.id(ignoreId).onclick = () => {
+    closeModal()
+    hapticFeedback()
+  }
+  $.id(continueId).onclick = () => {
+    gotoActivationEntry()
+    hapticFeedback()
+  }
 }
 
 

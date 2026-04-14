@@ -471,7 +471,7 @@ export const addThumbnail = (fill) => {
 // }
 
 
-export const hapticFeedback = (ms=50) => {
+export const hapticFeedback = (ms=35) => {
   try {
     if (window.navigator) window.navigator.vibrate(ms)
   } catch(e) {}
