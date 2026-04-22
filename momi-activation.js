@@ -184,7 +184,7 @@ export function mountPopupTimeout(popupWait, takeoverOptions={}) {
 
     $.id(popupId, topDocument).onclick = () => {
       if (ignoreMount) return
-      mountPageTakeover(iframeDocument.body, closePopup, takeoverOptions)
+      mountPageTakeover(iframeDocument.body, closePopup, {...takeoverOptions, trigger: 'popup'})
       if (takeoverOptions.onPopupAction) takeoverOptions.onPopupAction(topDocument)
       closePopup(true)
     }
@@ -246,6 +246,16 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
           }
         }
 
+        @keyframes BorderRedBlink {
+          0%, 100% {
+            border-color: #f00;
+          }
+
+          50% {
+            border-color: rgba(0,0,0,0);
+          }
+        }
+
         @keyframes ActivationBlink {
           to {
             visibility: hidden;
@@ -271,7 +281,7 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
           ${tombstoneMarkup}
         </div>
 
-        <div style="width: 100vw; border-top: 4px solid; padding: 6px; color: #f00; animation: GreenYellow 10s linear infinite; text-align: center;">
+        <div style="width: 100vw; border-top: 4px solid; padding: 6px; color: #f00; animation: BorderRedBlink 2s steps(1, start) infinite, GreenYellow 10s linear infinite; text-align: center;">
           <h1 style="font-size: 20px; margin: 0">
            <upgrade-blink-chars class="momi-activation-steviep-desktop" duration="1200" offset="125" direction="-1" delay="500">→→→→→</upgrade-blink-chars><span style="display: inline-block; text-align: center">CLICK <a href="#" style="color: #f00; text-decoration: underline; font-weight: 900; animation: ActivationBlink 1s steps(2, start) infinite;">HERE</a> TO UPGRADE MOMI WEBSITE</span><upgrade-blink-chars  class="momi-activation-steviep-desktop" duration="1200" offset="125" direction="1">←←←←←</upgrade-blink-chars>
            </h1>
@@ -306,7 +316,7 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
     }
 
     $.id(bannerId, topDocument).onclick = () => {
-      mountPageTakeover(iframeDocument.body, closePopup, takeoverOptions)
+      mountPageTakeover(iframeDocument.body, closePopup, {...takeoverOptions, trigger: 'banner'})
       if (takeoverOptions.onPopupAction) takeoverOptions.onPopupAction(topDocument)
       closePopup()
     }

@@ -477,21 +477,21 @@ export const hapticFeedback = (ms=35) => {
   } catch(e) {}
 }
 
-// export const ls = {
-//   get(key) {
-//     try {
-//       return window.localStorage && window.localStorage.getItem && JSON.parse(window.localStorage.getItem(key))
-//     } catch (e) {
-//       console.log(e)
-//     }
-//   },
-//   set(key, value) {
-//     try {
-//       return window.localStorage.setItem(key, value)
-//     } catch (e) {
-//       console.log(e)
-//     }
-//   }
-// }
+export const ls = {
+  get(key) {
+    try {
+      return window.localStorage && window.localStorage.getItem && JSON.parse(window.localStorage.getItem(key))
+    } catch (e) {
+      console.log(e)
+    }
+  },
+  set(key, value) {
+    try {
+      return window.localStorage.setItem(key, value)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+}
 
 // window.ls = ls

@@ -1,6 +1,8 @@
 import { $, times, random, sample, prb, SoundSrc, MAX_VOLUME, getCanvasProgress, hapticFeedback } from './utils.js'
 import { ARROW_SVGS } from './components.js'
 
+import { setupAnalytics, postSnapshot, teardownAnalytics } from './analytics.js'
+
 export const VALID_ACTIVATION_CODE1 = 'momi2026'
 export const VALID_ACTIVATION_CODE2 = 'momi2026!'
 let UPGRADE_URL
@@ -398,6 +400,8 @@ const pageTakeover = `
 
 
 let stopMusic = false
+let atBalance = 0
+
 const soundIntervals = []
 const autoGenerators = []
 
@@ -435,6 +439,12 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
   $element.appendChild(takeover)
   startSoundInterval()
 
+  setupAnalytics(() => ({
+    autoGeneratorCount: autoGenerators.length,
+    atBalance,
+  }), options.trigger)
+  postSnapshot({ page1: true })
+
 
   $.id(modalBgId).style.opacity = options.opacity || 0
 
@@ -442,8 +452,12 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
   let timerInterval
 
   const closeModal = () => {
+    atBalance = 0
+
     stopSoundIntervals()
     clearInterval(timerInterval)
+    postSnapshot({ modalClosed: true })
+    teardownAnalytics()
     takeover.remove()
     closeAll()
     if (options.onClose) options.onClose(options.topDocument)
@@ -470,6 +484,10 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
 
     timerInterval = triggerTimer(60812000, $.id(timerId))
 
+    postSnapshot({ page2: true })
+
+
+    let invalidCodeEntered = false
     $.id(enterId).onclick = () => {
 
       startSoundInterval(250, 200)
@@ -482,13 +500,21 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
       if (enteredActivationCode.replaceAll(' ', '').trim().toLowerCase() === VALID_ACTIVATION_CODE1) {
         gotoLoadingScreen()
         UPGRADE_URL = 'https://steviep.xyz/momi-activation/upgrade'
+        postSnapshot({ primaryCodeUsed: true })
 
       } else if (enteredActivationCode.replaceAll(' ', '').trim().toLowerCase() === VALID_ACTIVATION_CODE2) {
         gotoLoadingScreen()
         UPGRADE_URL = 'https://steviep.xyz/momi-activation/upgrade2'
+        postSnapshot({ secondaryCodeUsed: true })
 
       } else {
         $.id(activationCodeErrorId).innerHTML += 'INVALID ACTIVATION CODE '
+
+        if (!invalidCodeEntered) {
+          postSnapshot({ invalidCodeUsed: true })
+        }
+
+        invalidCodeEntered = true
       }
     }
 
@@ -504,6 +530,9 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
     clearInterval(timerInterval)
     startSoundInterval(350)
     $.id(containerId).innerHTML = page3
+
+    postSnapshot({ page3: true })
+
 
     $.id(okId).onclick = () => {
       gotoActivationEntry()
@@ -527,8 +556,9 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
     $.id(containerId).innerHTML = page4
 
 
+    postSnapshot({ page4: true })
 
-    let atBalance = 0
+
     let autoGeneratorPrice = 10
 
     const getGeneratorPrice = () => options.stableGeneratorPrice
@@ -580,7 +610,11 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
 
       hapticFeedback()
 
+      postSnapshot({ clickerReset: true, primaryCodeUsed: true })
+
+
       setTimeout(() => {
+        UPGRADE_URL = 'https://steviep.xyz/momi-activation/upgrade'
         stopSoundIntervals()
         gotoLoadingScreen()
       }, 40)
@@ -708,6 +742,12 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
 
       if (atBalance >= 10000) {
 
+        postSnapshot({
+          activationCodeGenerated: true,
+          autoGeneratorCount: autoGenerators.length,
+          atBalance,
+        })
+
         $.id(thirdPointerId).style.display = 'none'
 
         atBalance -= 10000
@@ -764,6 +804,8 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
 
     $.id(containerId).innerHTML = page5
 
+    postSnapshot({ page5: true })
+
 
     const lps = [
       getCanvasProgress(loadingProgress1Id),
@@ -816,9 +858,16 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
 
   const gotoCongratulationsScreen = () => {
     $.id(containerId).innerHTML = page6
+    postSnapshot({ page6: true })
+
     stopMusic = false
 
     $.id(upgradeContinueId).href = UPGRADE_URL
+
+    $.id(upgradeContinueId).onclick = () => {
+      postSnapshot({ upgraded: true })
+
+    }
 
     const s = new SoundSrc('square')
 
