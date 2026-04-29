@@ -25,6 +25,8 @@ const warningSvg = () => {
 }
 
 
+const curatorialTextId = 'momi-curatorial-text'
+const closeCuratorialTextId = 'momi-close-curatorial-text'
 const modalBgId = 'momi-modal-bg'
 const xCloseId = 'momi-x-close'
 const ignoreId = 'momi-ignore-button'
@@ -315,6 +317,54 @@ const pageTakeover = `
 
 
 
+  <div
+    id="${curatorialTextId}"
+    style="
+      border: 8px solid;
+      padding: 10px;
+      font-family: sans-serif;
+      background: #fff;
+      height: 310px;
+      width: 300px;
+      position: absolute;
+      right: 5%;
+      bottom: 10%;
+      z-index: 5;
+      display: none;
+    "
+  >
+    <div style="text-align: right; font-family: sans-serif; height: 18px">
+      <span id="${closeCuratorialTextId}" style="cursor: pointer; font-size: 18px; user-select: none; padding: 14px; transform: translate(10px, -10px); display: inline-block;">X</span>
+    </div>
+    <div style="overflow: scroll">
+      <h1 style="font-size: 16px;">WELCOME TO THE MOMI SITE INTERRUPTION ACTIVATION<span style="animation: ActivationBlink 1s steps(2, start) infinite">!</span></h1>
+      <p>blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah </p>
+    </div>
+
+  </div>
+  <style>
+      @keyframes ActivationBlink {
+        to {
+          visibility: hidden;
+        }
+      }
+
+
+      @media (max-width: 465px) {
+        #${curatorialTextId} {
+          transform: scale(0.85);
+        }
+
+        #closePopup {
+          font-size: 24px !important;
+        }
+      }
+
+  </style>
+
+
+
+
   <style>
     .momi-button {
       font-weight: bold;
@@ -446,6 +496,19 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
   postSnapshot({ page1: true })
 
 
+  if (options.showCuratorialText) {
+    setTimeout(() => {
+      $.id(curatorialTextId).style.display = 'flex'
+      $.id(curatorialTextId).style.flexDirection = 'column'
+    }, 750)
+
+    $.id(closeCuratorialTextId).onclick = () => {
+      baseNote.note(600, 75)
+      $.id(curatorialTextId).style.display = 'none'
+    }
+  }
+
+
   $.id(modalBgId).style.opacity = options.opacity || 0
 
 
@@ -453,6 +516,9 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
 
   const closeModal = () => {
     atBalance = 0
+
+      baseNote.note(150, 75)
+
 
     stopSoundIntervals()
     clearInterval(timerInterval)
@@ -479,6 +545,9 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
 
   const gotoActivationEntry = () => {
     startSoundInterval(250)
+
+    $.id(curatorialTextId).style.display = 'none'
+
 
     $.id(containerId).innerHTML = page2
 

@@ -64,7 +64,7 @@ const tombstoneMarkup = `
         }
       }
     </style>
-    <h1 style="font-size: 16px; margin: 0.25em 0;">THIS SITE INTERRUPTION IS BROUGHT TO YOU BY: Steve Pikelny <span style="display: inline-block; margin: 0 0.75em; animation: ActivationBlink 1s steps(2, start) infinite">${ARROW_SVGS['↓']}</span> b. 1989, United States <span style="display: inline-block; margin: 0 0.75em; animation: ActivationBlink 1s steps(2, start) infinite">${ARROW_SVGS['↓']}</span> <em>MoMI Upgrade Activation</em>, 2026 <span style="display: inline-block; margin: 0 0.75em; animation: ActivationBlink 1s steps(2, start) infinite">${ARROW_SVGS['↓']}</span> JavaScript, HTML/CSS, Webpage <span style="display: inline-block; margin: 0 0.75em; animation: ActivationBlink 1s steps(2, start) infinite">${ARROW_SVGS['↓']}</span> Learn more about the series at MoMI <a href="#" style="text-decoration: underline; color: #000;">here</a>. <span style="display: inline-block; margin-left: 0.75em; margin-right: -0.75em; animation: ActivationBlink 1s steps(2, start) infinite">${ARROW_SVGS['↓']}</span></h1></upgrade-marquee>
+    <h1 style="font-size: 16px; margin: 0.25em 0;">THIS SITE INTERRUPTION IS BROUGHT TO YOU BY: Steve Pikelny <span style="display: inline-block; margin: 0 0.75em; animation: ActivationBlink 1s steps(2, start) infinite">${ARROW_SVGS['↓']}</span> b. 1989, United States <span style="display: inline-block; margin: 0 0.75em; animation: ActivationBlink 1s steps(2, start) infinite">${ARROW_SVGS['↓']}</span> <em>MoMI Site Interruption Activation</em>, 2026 <span style="display: inline-block; margin: 0 0.75em; animation: ActivationBlink 1s steps(2, start) infinite">${ARROW_SVGS['↓']}</span> JavaScript, HTML/CSS, Webpage <span style="display: inline-block; margin: 0 0.75em; animation: ActivationBlink 1s steps(2, start) infinite">${ARROW_SVGS['↓']}</span> Learn more about the series at MoMI <a href="#" style="text-decoration: underline; color: #000;">here</a>. <span style="display: inline-block; margin-left: 0.75em; margin-right: -0.75em; animation: ActivationBlink 1s steps(2, start) infinite">${ARROW_SVGS['↓']}</span></h1></upgrade-marquee>
 `
 
 export function mountPopupTimeout(popupWait, takeoverOptions={}) {
@@ -266,7 +266,7 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
           display: none;
         }
 
-        @media (max-width: 610px) {
+        @media (max-width: 715px) {
           .momi-activation-steviep-desktop {
             display: none;
           }
@@ -283,7 +283,7 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
 
         <div style="width: 100vw; border-top: 4px solid; padding: 6px; color: #f00; animation: BorderRedBlink 2s steps(1, start) infinite, GreenYellow 10s linear infinite; text-align: center;">
           <h1 style="font-size: 20px; margin: 0">
-           <upgrade-blink-chars class="momi-activation-steviep-desktop" duration="1200" offset="125" direction="-1" delay="500">→→→→→</upgrade-blink-chars><span style="display: inline-block; text-align: center">CLICK <a href="#" style="color: #f00; text-decoration: underline; font-weight: 900; animation: ActivationBlink 1s steps(2, start) infinite;">HERE</a> TO UPGRADE MOMI WEBSITE</span><upgrade-blink-chars  class="momi-activation-steviep-desktop" duration="1200" offset="125" direction="1">←←←←←</upgrade-blink-chars>
+           <upgrade-blink-chars class="momi-activation-steviep-desktop" duration="1200" offset="125" direction="-1" delay="500">→→→→→</upgrade-blink-chars><span style="display: inline-block; text-align: center">CLICK <a href="#" style="color: #f00; text-decoration: underline; font-weight: 900; animation: ActivationBlink 1s steps(2, start) infinite;">HERE</a> TO ACTIVATE MOMI SITE INTERRUPTION</span><upgrade-blink-chars  class="momi-activation-steviep-desktop" duration="1200" offset="125" direction="1">←←←←←</upgrade-blink-chars>
            </h1>
 
         </div>
