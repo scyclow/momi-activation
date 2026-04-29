@@ -88,6 +88,12 @@
       }
     }
 
+    @keyframes ActivationBlink {
+      to {
+        visibility: hidden;
+      }
+    }
+
 
 
     #menu-primary-nav > *, #desktop-navbar-dropdown > * {
@@ -113,7 +119,7 @@
       animation: ColorAnimation 10s linear infinite;
     }*/
 
-    #menu-primary-nav a, #desktop-navbar-dropdown a {
+    #menu-primary-nav a, #desktop-navbar-dropdown a, .highlight {
       padding: 8px;
       line-height: 2.2;
       background: #f00;
@@ -306,6 +312,44 @@
     ::selection {
       background: #000;
       color: #fff;
+    }
+
+    #sc-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #sc-modal {
+      background: #ff0;
+      border: 4px solid #f00;
+      padding: 24px;
+      max-width: 400px;
+      width: 90vw;
+      text-align: center;
+      animation: BGColorAnimation 10s linear infinite;
+    }
+
+    #sc-modal h2 {
+      margin-bottom: 12px;
+    }
+
+    #sc-modal p {
+      font-size: 12px;
+      margin-bottom: 16px;
+      text-align: justify;
+      line-height: 1.4;
+    }
+
+    #sc-modal .momi-button {
+      margin: 0 4px;
     }
   </style>
 
@@ -504,14 +548,14 @@
   </div>
 
   <div style="display: flex;">
-    <div class="sc" style="margin-top: 8px; animation-duration: 2000ms; flex: 1">
+    <div class="sc" style="margin-top: 8px; animation-duration: 2000ms; flex: 1.1">
       <div class="sc-title">SPONSORED CONTENT</div>
        <a href="https://busd.steviep.xyz" target="_blank" class="sc-link" data-sc-id="12" style="flex: 1; text-align: center;"> <upgrade-blink-chars duration="1200" offset="125" direction="-1">→→→</upgrade-blink-chars> STOP FLUSHING YOUR MONEY DOWN THE TOILET WITH THIS 1 TRICK</a>
     </div>
 
     <div class="sc" style="margin-top: 8px; animation-duration: 1900ms; flex: 1; margin-left: 8px">
       <div class="sc-title">SPONSORED CONTENT</div>
-       <a href="https://terminallyonline.eth.limo" target="_blank" class="sc-link" data-sc-id="15" style="flex: 1; text-align: center;"><upgrade-blink-chars duration="1200" offset="125" direction="-1">→→→→→→→→→→→→</upgrade-blink-chars> IS THIS ALL THERE IS? YES!</a>
+       <a href="https://steviep.xyz/terminally-online" target="_blank" class="sc-link" data-sc-id="15" style="flex: 1; text-align: center;"><upgrade-blink-chars duration="1200" offset="125" direction="-1">→→→→→→→→→→→→</upgrade-blink-chars> IS THIS ALL THERE IS? YES! <upgrade-blink-chars duration="1200" offset="125" direction="1">←←</upgrade-blink-chars></a>
     </div>
   </div>
 
@@ -604,7 +648,7 @@
 <!-- <script src="./components.js"></script> -->
 
 <script type="module">
-  import './components.js'
+  import {warningSvg} from './components.js'
   import {mountPopupTimeout} from './momi-activation.js'
   import {addThumbnail, setRunInterval} from './utils.js'
   import {setupAnalytics, postSnapshot} from './upgradeAnalytics.js'
@@ -612,12 +656,55 @@
   setupAnalytics()
   postSnapshot({ upgrade1_loaded: true })
 
+
+  const linkYearLookup = {
+    1: '2019',
+    2: '2018',
+    3: '2024',
+    4: '2017',
+    5: '2025',
+    6: '2022',
+    7: '2019',
+    8: '2017',
+    9: '2020',
+    10: '2021',
+    11: '2023',
+    12: '2025',
+    13: '2024',
+    14: '2019',
+    15: '2022',
+
+  }
+
   document.querySelectorAll('.sc-link').forEach(el => {
-    el.onclick = () => {
-      postSnapshot({
-        [`sc_${el.dataset.scId}_clicked`]: true
-      })
-    }
+    el.addEventListener('click', (e) => {
+      e.preventDefault()
+      const href = el.href
+      const linkId = el.dataset.scId
+
+      const overlay = document.createElement('div')
+      overlay.id = 'sc-modal-overlay'
+      overlay.innerHTML = `
+        <div id="sc-modal">
+          <h2><span style="display: inline-block; width: 1.25em; transform: translateY(0.25em); animation: ActivationBlink 1s steps(2, start) infinite">${warningSvg()}</span> WARNING <span style="display: inline-block; width: 1.25em; transform: translateY(0.25em); animation: ActivationBlink 1s steps(2, start) infinite">${warningSvg()}</span></h2>
+          <p>THE FOLLOWING WEBSITE: <strong class="highlight" style="padding: 2px; display: inline-block; line-height: 1">${href.replace('https://', '').replace('http://', '').replace(/\/$/, '')}</strong> IS OWNED AND OPERATED BY AN INDEPENDENT THIRD-PARTY: <strong class="highlight" style="padding: 2px; display: inline-block; line-height: 1">STEVE PIKELNY ${linkYearLookup[el.dataset.scId]}</strong>. BY CLICKING "CONTINUE" YOU HEREBY ACKNOWLEDGE THAT YOU ARE LEAVING THE MUSEUM OF THE MOVING IMAGE WEBSITE OVER WHICH THE MUSEUM OF THE MOVING IMAGE HAS NO CONTROL. THE MUSEUM OF THE MOVING IMAGE BEARS NO RESPONSIBILITY FOR THE ACCURACY, LEGALITY, OR CONTENT OF THE EXTERNAL SITE.</p>
+          <div>
+            <button class="momi-button" id="sc-modal-cancel">CANCEL</button>
+            <button class="momi-button" id="sc-modal-continue">CONTINUE</button>
+          </div>
+        </div>
+      `
+      document.body.appendChild(overlay)
+
+      document.getElementById('sc-modal-cancel').onclick = () => overlay.remove()
+      overlay.onclick = (e) => { if (e.target === overlay) overlay.remove() }
+
+      document.getElementById('sc-modal-continue').onclick = () => {
+        postSnapshot({ [`sc_${linkId}_clicked`]: true })
+        overlay.remove()
+        window.open(href, '_blank')
+      }
+    })
   })
 
   document.getElementById('steviep-link').onclick = () => {

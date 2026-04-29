@@ -12,6 +12,23 @@ const ARROW_SVGS = {
 export { ARROW_SVGS }
 
 
+export const warningSvg = () => {
+  const maskId = 'warningMask' + Math.random().toString(36).substr(2, 9)
+  return `
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <mask id="${maskId}">
+          <polygon points="50,6 94,86 6,86" fill="white"/>
+          <rect x="46" y="35" width="8" height="27" fill="black"/>
+          <circle cx="50" cy="72" r="4" fill="black"/>
+        </mask>
+      </defs>
+      <polygon points="50,6 94,86 6,86" fill="#f00" mask="url(#${maskId})"/>
+    </svg>
+  `
+}
+
+
 const defineAnimatingComponent =(tag, animName, keyframesCss, easing='linear', defaultDuration=2000) => {
   createComponent(
     tag,
