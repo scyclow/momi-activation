@@ -305,24 +305,28 @@ const pageTakeover = `
     id="${curatorialTextId}"
     style="
       border: 8px solid;
-      padding: 10px;
+      padding: 16px;
       font-family: sans-serif;
       background: #fff;
-      height: 310px;
-      width: 300px;
+      height: 425px;
+      width: 500px;
+      max-width: 90vw;
+      max-height: 90vh;
       position: absolute;
-      right: 5%;
-      bottom: 10%;
+      bottom: 16%;
+      transform: translateX(8vw);
       z-index: 5;
       display: none;
+      text-align: justify;
     "
   >
     <div style="text-align: right; font-family: sans-serif; height: 18px">
       <span id="${closeCuratorialTextId}" style="cursor: pointer; font-size: 18px; user-select: none; padding: 14px; transform: translate(10px, -10px); display: inline-block;">X</span>
     </div>
     <div style="overflow: scroll">
-      <h1 style="font-size: 16px;">WELCOME TO THE MOMI SITE INTERRUPTION ACTIVATION<span style="animation: ActivationBlink 1s steps(2, start) infinite">!</span></h1>
-      <p>blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah </p>
+      <h1 style="font-size: 16px; text-align: center; padding: 0 10px">WELCOME TO THE MOMI SITE INTERRUPTION ACTIVATION<span style="animation: ActivationBlink 1s steps(2, start) infinite">!</span></h1>
+      <p style="text-indent: 16px;">Welcome to the MoMI Site Interuption placeholder curatorial text blurb. This is the placeholder text for the MoMI Site Interruption Activation. It will change at some point. I can really put whatever you guys want in here. I don't have a strong opinion about it. As long as it's text-based, the sky's the limit. You're the boss. But for the time being I just need some text to sit inside this box. This is all subject to change. I still need some more text in the box to illustrate that it can scroll, but I'm running out of things to say. I don't want to just use Lorem Ipsum text. That's pretty uninspired. I can do better than that. </p>
+      <p style="margin-top: 6px; text-indent: 16px">Anyhow, I'm going to throw another paragraph in here to break things up. I wonder if anyone will actually even read this far. If anyone is reading this, then let me further reassure you that this is all placeholder text, and will all be replaced by Regina's insightful curatorial text. That actually sounds like a hard job. I could never do that. Hopefully she gets a raise at some point. She deserves it. Anyhow, I've almost written enough text that it will overflow into something that scrolls. Actually, if I just add a bit more padding to this little window then it will push the text down. Yeah, there we go. That actually looks a lot better anyhow. I think I'll keep it. Okay, I'm feeling pretty good about this now. I think I'm done writing.</p>
     </div>
 
   </div>
@@ -484,7 +488,9 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
     setTimeout(() => {
       $.id(curatorialTextId).style.display = 'flex'
       $.id(curatorialTextId).style.flexDirection = 'column'
-    }, 750)
+
+    // TODO change back to 750
+    }, 500)
 
     $.id(closeCuratorialTextId).onclick = () => {
       baseNote.note(600, 75)
