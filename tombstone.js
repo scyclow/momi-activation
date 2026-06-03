@@ -70,7 +70,7 @@ export function mountTombstone(mountEl, onClose=noop) {
           <p style="text-align: center"><em>MoMI Upgrade Activation</em>, 2026</p>
           <p style="text-align: center">JavaScript, HTML/CSS, Webpage</p>
 
-          <p style="text-align: center; margin-top: 1em">Learn more about the series at MoMI <a href="#" style="text-decoration: underline; color: #000;">here</a>.</p>
+          <p style="text-align: center; margin-top: 1em">Learn more about the series at MoMI <a href="https://steviep.xyz/something" target="_blank" style="text-decoration: underline; color: #000;">here</a>.</p>
         </div>
       </div>
 

@@ -248,11 +248,11 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
 
         @keyframes BorderRedBlink {
           0%, 100% {
-            border-color: #f00;
+            border-color: rgba(0,0,0,0);
           }
 
           50% {
-            border-color: rgba(0,0,0,0);
+            border-color: #f00;
           }
         }
 
@@ -320,5 +320,42 @@ export function mountBottomBanner(mountWait=0, takeoverOptions={}) {
       if (takeoverOptions.onPopupAction) takeoverOptions.onPopupAction(topDocument)
       closePopup()
     }
+
+    // On narrow screens, scroll the banner out of view once the user passes the
+    // halfway point of the page. It tracks the scroll 1:1: every pixel scrolled
+    // down moves the banner down by a pixel (clamped to its own height, fully
+    // hidden), and scrolling back up brings it back to its load position.
+    let translateY = 0
+    let lastScrollY = topWindow.scrollY
+
+    const clamp = (n, min, max) => Math.min(Math.max(n, min), max)
+
+    const onBannerScroll = () => {
+      // Only engage once the visitor has been on the site for 20s+ and the
+      // viewport is narrow. performance.now() is ms since page load.
+      if (topWindow.innerWidth >= 500 || topWindow.performance.now() < 20000) {
+        translateY = 0
+        bottomBanner.style.transform = ''
+        lastScrollY = topWindow.scrollY
+        return
+      }
+
+      const scrollY = topWindow.scrollY
+      const maxScroll = topDocument.documentElement.scrollHeight - topWindow.innerHeight
+      const threshold = maxScroll * 0.5
+
+      if (scrollY <= threshold) {
+        translateY = 0
+      } else {
+        const delta = scrollY - Math.max(lastScrollY, threshold)
+        translateY = clamp(translateY + delta, 0, bottomBanner.offsetHeight)
+      }
+
+      lastScrollY = scrollY
+      bottomBanner.style.transform = `translateY(${translateY}px)`
+    }
+
+    topWindow.addEventListener('scroll', onBannerScroll, { passive: true })
+    topWindow.addEventListener('resize', onBannerScroll)
   }, mountWait)
 }

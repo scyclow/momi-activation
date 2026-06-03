@@ -308,30 +308,37 @@ const pageTakeover = `
 
       font-family: sans-serif;
       background: #fff;
-      height: 425px;
-      width: 500px;
-      max-width: 90vw;
+      height: 65vh;
+      width: 43vw;
+      min-width: 300px;
+      min-height: 450px
+      max-width: 550px;
       max-height: 90vh;
       position: absolute;
-      bottom: 16%;
-      transform: translateX(8vw);
       z-index: 5;
       display: none;
       text-align: justify;
+      bottom: 16%;
+      transform: translateX(2vw);
     "
   >
     <div style="text-align: right; font-family: sans-serif; height: 0px">
-      <span id="${closeCuratorialTextId}" style="cursor: pointer; font-size: 18px; user-select: none; padding: 14px; transform: translate(10px, -10px); display: inline-block;">X</span>
+      <span id="${closeCuratorialTextId}" style="cursor: pointer; font-size: 18px; user-select: none; padding: 14px; transform: translate(5px, -5px); display: inline-block;">X</span>
     </div>
-    <div style="overflow: scroll; padding: 16px;">
+    <div style="overflow: scroll; padding: 16px; display: flex; justify-content: center; align-items: center; height: 100%">
+      <div style="width: 500px; height: 425px;">
+        <p style="text-align: center; font-weight: bold; font-size: 14px; margin-bottom: 2px">Steve Pikelny (b. 1989, United States) </p>
+        <p style="text-align: center; font-weight: bold; font-size: 14px; margin-bottom: 2px">MoMI Upgrade Activation, 2026</p>
+        <p style="text-align: center; font-weight: bold; font-size: 14px; margin-bottom: 2px">JavaScript, HTML/CSS, webpage with sound </p>
 
-      <h1 style="font-size: 16px; text-transform: uppercase; text-align: center; padding: 0 10px; margin-top: 16px"><span style="animation: ActivationBlink 1s steps(2, start) infinite">ATTN:</span> The Museum of the Moving Image website has been “upgraded” by artists</h1>
+        <h1 style="font-size: 20px; text-transform: uppercase; text-align: center; padding: 0 10px; margin-top: 16px"><span style="animation: ActivationBlink 1s steps(2, start) infinite">ATTN:</span> The Museum of the Moving Image website has been “upgraded” by artists</h1>
 
-      <p style="text-indent: 16px; text-indent: 16px; line-height: 1.3">Don’t worry. We asked for this, as part of Site Interruptions, a series of artist projects that unfold across MoMI’s homepage and in unexpected locations throughout the Museum from June 2026 to June 2027.</p>
+        <p style="line-height: 1.3;">Don’t worry. We asked for this, as part of Site Interruptions, a series of artist projects that unfold across MoMI’s homepage and in unexpected locations throughout the Museum from June 2026 to June 2027.</p>
 
-      <p style="margin-top: 16px; text-indent: 16px; line-height: 1.3">Pikelny is an artist and engineer whose websites channel the spammy, conspiratorial, and aggressively monetized corners of the internet. For this project, he has turned our homepage into something between a browser hijacker and a clicker game, evoking an earlier web overrun by scams, pop-ups, and dubious promises.</p>
+        <p style="margin-top: 16px; line-height: 1.3;">Pikelny is an artist and engineer whose websites channel the spammy, conspiratorial, and aggressively monetized corners of the internet. For this project, he has turned our homepage into something between a browser hijacker and a clicker game, evoking an earlier web overrun by scams, pop-ups, and dubious promises.</p>
 
-      <p style="margin-top: 16px; text-indent: 16px; line-height: 1.3">All of it is intentional and none of it is real. The homepage has not been hacked but it has been commissioned!</p>
+        <p style="margin-top: 16px; line-height: 1.3;">All of it is intentional and none of it is real. The homepage has not been hacked but it has been commissioned!</p>
+      </div>
 
     </div>
 
@@ -495,7 +502,6 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
       $.id(curatorialTextId).style.display = 'flex'
       $.id(curatorialTextId).style.flexDirection = 'column'
 
-    // TODO change back to 750
     }, 500)
 
     $.id(closeCuratorialTextId).onclick = () => {
@@ -513,7 +519,7 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
   const closeModal = () => {
     atBalance = 0
 
-      baseNote.note(150, 75)
+    baseNote.note(150, 75)
 
 
     stopSoundIntervals()
@@ -539,6 +545,20 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
   }
 
 
+
+
+  $.id(modalBgId).onclick = closeModal
+  $.id(ignoreId).onclick = () => {
+    closeModal()
+    hapticFeedback()
+  }
+  $.id(continueId).onclick = () => {
+    gotoActivationEntry()
+    baseNote.note(450, 50)
+    hapticFeedback()
+  }
+
+
   const gotoActivationEntry = () => {
     startSoundInterval(250)
 
@@ -556,6 +576,8 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
     $.id(enterId).onclick = () => {
 
       startSoundInterval(250, 200)
+      baseNote.note(450, 50)
+
 
       hapticFeedback()
 
@@ -585,6 +607,7 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
 
     $.id(noCodeId).onclick = () => {
       gotoActivationCenter()
+      baseNote.note(450, 50)
       hapticFeedback()
     }
 
@@ -601,6 +624,7 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
 
     $.id(okId).onclick = () => {
       gotoActivationEntry()
+      baseNote.note(450, 50)
       hapticFeedback()
     }
 
@@ -966,17 +990,6 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
 
   }
 
-
-
-  $.id(modalBgId).onclick = closeModal
-  $.id(ignoreId).onclick = () => {
-    closeModal()
-    hapticFeedback()
-  }
-  $.id(continueId).onclick = () => {
-    gotoActivationEntry()
-    hapticFeedback()
-  }
 }
 
 
