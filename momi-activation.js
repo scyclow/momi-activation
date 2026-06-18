@@ -1,9 +1,3 @@
-/*
-  - larger screen sizing
-  - css media for photosensitive people
-  - conosle.logs
-*/
-
 import { $, random, css, getQueryParam } from './utils.js'
 import { mountPageTakeover } from './takeover.js'
 import { ARROW_SVGS } from './components.js'
