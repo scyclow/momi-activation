@@ -208,7 +208,7 @@ const page4 = `
       </div>
     </div>
 
-      <h4 style="text-align: center; margin-top: 12px; font-size: 12px">ACTIVATION CODE: <span id="${activationCodeId}" style="margin-left:6px; display: inline-block; font-family: monospace; animation: ActivationBlink 1s steps(2, start) infinite">_ _ _ _ _ _ _ _</span></h4>
+      <h4 style="text-align: center; margin-top: 12px; font-size: 12px">ACTIVATION CODE: <span id="${activationCodeId}" style="margin-left:6px; display: inline-block; font-family: monospace; animation: ActivationBlink 1s steps(2, start) infinite; font-size: 16px">_ _ _ _ _ _ _ _</span></h4>
 
       <button id="${enterGenerateId}" class="momi-button" style="display: none; margin: auto; margin-top: 8px">ENTER CODE</button>
 
