@@ -168,14 +168,14 @@ const page4 = `
         </tr>
         <tr>
           <td>
-            <button id="${generateTokenId}" class="momi-button" style="font-size: 12px"><span id="${pointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; position: absolute; transform: translate(-40px, -4px); font-size: 18px; color: #f00; font-weight: bold;">${ARROW_SVGS['→']}</span>+1 AT</button>
+            <button id="${generateTokenId}" class="momi-button" style="font-size: 12px"><span id="${pointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; position: absolute; transform: translate(-40px, -4px); font-size: 18px; color: #f00; font-weight: bold;">${ARROW_SVGS['→']}</span>+1 A<span style="letter-spacing: -1px">.T</span>.</button>
           </td>
           <td>0</td>
         </tr>
 
         <tr>
           <td>
-            <button id="${addAutoGeneratorId}" class="momi-button" style="font-size: 12px; text-transform: none;"><span id="${secondPointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; position: absolute; transform: translate(-40px, -4px); font-size: 18px; color: #f00; display: none; font-weight: bold;">${ARROW_SVGS['→']}</span>+1 AT/sec</button>
+            <button id="${addAutoGeneratorId}" class="momi-button" style="font-size: 12px; text-transform: none;"><span id="${secondPointerId}" style="animation: ActivationBlink 1s steps(2, start) infinite; position: absolute; transform: translate(-40px, -4px); font-size: 18px; color: #f00; display: none; font-weight: bold;">${ARROW_SVGS['→']}</span>+1 A<span style="letter-spacing: -1px">.T</span>./sec</button>
           </td>
           <td>
             <div id="${autoGeneratorCostCellId}" style="padding: 4px"><span id="${autoGeneratorPriceId}"></span></div>
@@ -202,7 +202,7 @@ const page4 = `
       </div>
 
       <div style="display: flex; justify-content: space-between">
-        <h5 style="font-size: 12px; margin-bottom: 0; margin-top: 8px; text-transform: none"> AT/sec: <span id="${atPerSecondId}">0</span></h5>
+        <h5 style="font-size: 12px; margin-bottom: 0; margin-top: 8px; text-transform: none"> A<span style="letter-spacing: -1px">.T</span>./sec: <span id="${atPerSecondId}">0</span></h5>
         <button id="${resetGeneratorId}" class="momi-button" style="font-size: 12px; border: none; text-decoration: underline">RESET</button>
       </div>
     </div>

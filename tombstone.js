@@ -67,7 +67,7 @@ export function mountTombstone(mountEl, onClose=noop) {
           <h4 style="text-align: center; margin-bottom: 16px">This Site Interruption was brought to you by:</h4>
           <h4 style="text-align: center; margin-bottom: 0">Steve Pikelny</h4>
           <p style="text-align: center">b. 1989, United States</p>
-          <p style="text-align: center"><em>MoMI Upgrade Activation</em>, 2026</p>
+          <p style="text-align: center"><em>MoMI Site Interruption Activation</em>, 2026</p>
           <p style="text-align: center">JavaScript, HTML/CSS, Webpage</p>
 
           <p style="text-align: center; margin-top: 1em">Learn more about the series at MoMI <a href="https://steviep.xyz/something" target="_blank" style="text-decoration: underline; color: #000;">here</a>.</p>
