@@ -10,6 +10,7 @@ let UPGRADE_URL
 
 
 const curatorialTextId = 'momi-curatorial-text'
+const curatorialOverlayId = 'momi-curatorial-overlay'
 const closeCuratorialTextId = 'momi-close-curatorial-text'
 const modalBgId = 'momi-modal-bg'
 const xCloseId = 'momi-x-close'
@@ -302,6 +303,19 @@ const pageTakeover = `
 
 
   <div
+    id="${curatorialOverlayId}"
+    style="
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1000;
+      opacity: 0;
+    "
+  ></div>
+
+  <div
     id="${curatorialTextId}"
     style="
       border: 8px solid;
@@ -315,7 +329,7 @@ const pageTakeover = `
       max-width: 550px;
       max-height: 90vh;
       position: absolute;
-      z-index: 5;
+      z-index: 1001;
       display: none;
       text-align: justify;
       bottom: 16%;
@@ -325,7 +339,7 @@ const pageTakeover = `
     <div style="text-align: right; font-family: sans-serif; height: 0px">
       <span id="${closeCuratorialTextId}" style="cursor: pointer; font-size: 18px; user-select: none; padding: 14px; transform: translate(5px, -5px); display: inline-block;">X</span>
     </div>
-    <div style="overflow: scroll; padding: 16px; display: flex; justify-content: center; align-items: center; height: 100%">
+    <div style="overflow: scroll; padding: 25px; display: flex; justify-content: center; height: 100%">
       <div style="width: 500px; height: 425px;">
         <p style="text-align: center; font-weight: bold; font-size: 14px; margin-bottom: 2px">Steve Pikelny (b. 1989, United States) </p>
         <p style="text-align: center; font-weight: bold; font-size: 14px; margin-bottom: 2px">MoMI Upgrade Activation, 2026</p>
@@ -504,10 +518,14 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
 
     }, 500)
 
-    $.id(closeCuratorialTextId).onclick = () => {
+    const closeCuratorialText = () => {
       baseNote.note(600, 75)
       $.id(curatorialTextId).style.display = 'none'
+      $.id(curatorialOverlayId).style.display = 'none'
     }
+
+    $.id(closeCuratorialTextId).onclick = closeCuratorialText
+    $.id(curatorialOverlayId).onclick = closeCuratorialText
   }
 
 
