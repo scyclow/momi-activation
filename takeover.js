@@ -312,6 +312,7 @@ const pageTakeover = `
       height: 100vh;
       z-index: 1000;
       opacity: 0;
+      display: none;
     "
   ></div>
 
@@ -515,6 +516,7 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
     setTimeout(() => {
       $.id(curatorialTextId).style.display = 'flex'
       $.id(curatorialTextId).style.flexDirection = 'column'
+      $.id(curatorialOverlayId).style.display = 'block'
 
     }, 500)
 
