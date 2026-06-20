@@ -203,7 +203,8 @@
 
       $.id('display-code').style.animation = `ActivationBlink ${interval}ms steps(2, start) infinite`
       $.id('display-code').style.animationDelay = `-${1 * (interval/(2*count))}ms`
-
+      document.documentElement.requestFullscreen()
+      document.body.style.cursor = 'none'
     }
   }
 
