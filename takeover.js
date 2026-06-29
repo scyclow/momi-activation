@@ -524,6 +524,8 @@ export function mountPageTakeover($element, closeAll=()=>{}, options={}) {
       baseNote.note(600, 75)
       $.id(curatorialTextId).style.display = 'none'
       $.id(curatorialOverlayId).style.display = 'none'
+      postSnapshot({ closeCuratorialText: true })
+
     }
 
     $.id(closeCuratorialTextId).onclick = closeCuratorialText

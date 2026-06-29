@@ -32,6 +32,7 @@ const defaultData = {
   primaryCodeUsed: false,
   secondaryCodeUsed: false,
   activationCodeGenerated: false,
+  closeCuratorialText: false,
   autoGeneratorCount: 0,
   atBalance: 0,
 }
