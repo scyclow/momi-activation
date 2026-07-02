@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
+
+  <title></title>
+
+  <style type="text/css">
+    * {
+      margin: 0;
+      padding: 0;
+      touch-action: manipulation;
+      font-family: Roboto, sans-serif
+    }
+
+    body {
+      animation: GreenYellow 10s linear infinite;
+    }
+
+    main {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    #center {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 0;
+    }
+
+    #warningBlink svg {
+      display: block;
+      height: min(50vh, 85vw);
+      width: auto;
+    }
+
+    #activation {
+      color: #f00;
+      font-weight: 700;
+      font-size: min(9vw, 9vh);
+      letter-spacing: 0.075em;
+      text-align: center;
+    }
+
+    .marquee {
+      color: #f00;
+      font-weight: 700;
+      font-size: min(6vw, 6vh);
+      padding: 1vh 0;
+    }
+
+    @keyframes GreenYellow {
+      0%, 100% {
+        background: #0f0;
+      }
+
+      50% {
+        background: #ff0;
+      }
+    }
+
+    @keyframes GreenYellowColor {
+      0%, 100% {
+        color: #0f0;
+      }
+
+      50% {
+        color: #ff0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main>
+
+    <upgrade-marquee class="marquee" duration="80" delay="0" direction="-1"><span>MUSEUM OF THE MOVING IMAGE</span></upgrade-marquee>
+
+    <div id="center">
+      <upgrade-blink id="warningBlink" delay="0"></upgrade-blink>
+
+      <upgrade-blink id="activationBlink" delay="0">
+        <h1 id="activation">ACTIVATION</h1>
+      </upgrade-blink>
+    </div>
+
+    <upgrade-marquee class="marquee" duration="80" delay="0" direction="1"><span>VISIT THE ACTIVATION CENTER 7/2 - 10/4</span></upgrade-marquee>
+  </main>
+
+
+</body>
+
+<script type="module">
+  import {$, SoundSrc, getQueryParam} from './utils.js'
+  import {warningSvg} from './components.js'
+
+
+  const interval = Number(getQueryParam('interval')) || 1000
+  const freq = Number(getQueryParam('freq')) || 300
+
+  const warningBlink = $.id('warningBlink')
+  warningBlink.innerHTML = warningSvg()
+  warningBlink.setAttribute('duration', interval)
+  warningBlink.render()
+
+  const activationBlink = $.id('activationBlink')
+  activationBlink.setAttribute('duration', interval)
+  activationBlink.render()
+
+  const blinks = [warningBlink, activationBlink]
+  blinks.forEach(b => b.$('#wrapper').style.animationPlayState = 'paused')
+
+  const freqLen = Math.min(300, interval/2)
+
+
+  let clicked
+  document.onclick = () => {
+    if (!clicked) {
+      clicked = true
+      const s = new SoundSrc('square')
+      setInterval(() => {
+        s.note(freq, freqLen)
+      }, interval)
+
+      blinks.forEach(b => b.$('#wrapper').style.animationPlayState = 'running')
+    }
+  }
+
+</script>
+</html>

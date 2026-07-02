@@ -348,7 +348,7 @@ const pageTakeover = `
 
         <h1 style="font-size: 20px; text-transform: uppercase; text-align: center; padding: 0 10px; margin-top: 16px"><span style="animation: ActivationBlink 1s steps(2, start) infinite">ATTN:</span> The Museum of the Moving Image website has been “upgraded” by artists</h1>
 
-        <p style="line-height: 1.3;">Don’t worry. We asked for this, as part of Site Interruptions, a series of artist projects that unfold across MoMI’s homepage and in unexpected locations throughout the Museum from June 2026 to June 2027.</p>
+        <p style="line-height: 1.3;">Don’t worry. We asked for this, as part of <a href="https://movingimage.org/event/site-interruptions/" target="_blank">Site Interruptions</a>, a series of artist projects that unfold across MoMI’s homepage and in unexpected locations throughout the Museum from July 2026 to July 2027.</p>
 
         <p style="margin-top: 16px; line-height: 1.3;">Pikelny is an artist and engineer whose websites channel the spammy, conspiratorial, and aggressively monetized corners of the internet. For this project, he has turned our homepage into something between a browser hijacker and a clicker game, evoking an earlier web overrun by scams, pop-ups, and dubious promises.</p>
 
