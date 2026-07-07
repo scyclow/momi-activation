@@ -1,7 +1,7 @@
 {
   "version": 1,
   "defaultVolume": 0.2,
-  "pingInterval": 1200000,
+  "pingInterval": 60000,
   "days": [
     {
       "name": "Sunday",
