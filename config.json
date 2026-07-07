@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "defaultVolume": 0.5,
+  "defaultVolume": 0.2,
   "pingInterval": 1200000,
   "days": [
     {
@@ -22,7 +22,7 @@
       "startVolumeHour": 18,
       "startVolumeMinutes": 30,
       "endVolumeHour": 18,
-      "endVolumeMinutes": 35,
+      "endVolumeMinutes": 38,
       "volume": 1
     },
     {
