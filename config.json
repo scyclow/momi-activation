@@ -19,10 +19,10 @@
     {
       "name": "Tuesday",
       "dayNumber": 2,
-      "startVolumeHour": 18,
-      "startVolumeMinutes": 56,
-      "endVolumeHour": 18,
-      "endVolumeMinutes": 58,
+      "startVolumeHour": 19,
+      "startVolumeMinutes": 1,
+      "endVolumeHour": 19,
+      "endVolumeMinutes": 2,
       "volume": 1
     },
     {
