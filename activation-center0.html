@@ -160,19 +160,25 @@
 
 <script type="module">
   import {$, SoundSrc, getQueryParam, css, MAX_VOLUME} from './utils.js'
+  import {pingConfig} from './pingConfig.js'
+
 
 
   const interval = Number(getQueryParam('interval')) || 1000
   const baseFreq = Number(getQueryParam('freq')) || 300
+  const volumeOverride = Number(getQueryParam('volume'))
 
 
   let clicked
+  let volume = volumeOverride || 0.2
+
   document.onclick = () => {
     if (!clicked) {
       clicked = true
-      const s = new SoundSrc('square')
-      const s2 = new SoundSrc('square')
-      const s3 = new SoundSrc('square')
+      let s = new SoundSrc('square')
+      let s2 = new SoundSrc('square')
+      let s3 = new SoundSrc('square')
+
 
       const freqLen = Math.min(300, interval/6)
       const diatonicRatios = [0.5, 1.25, 1.5, 1.75, 2].reverse()
@@ -182,17 +188,15 @@
         const delay = (interval / 10) * i
 
         setTimeout(() => {
-          s.note(freq, freqLen)
+          s.note(freq, freqLen, MAX_VOLUME * volume)
           setInterval(() => {
-            s.note(freq, freqLen)
+            s.note(freq, freqLen, MAX_VOLUME * volume)
           }, interval / 2)
         }, delay)
       })
 
-      // setInterval(() => {
-        s2.play(baseFreq, 0.25)
-        s3.play(baseFreq + 1, 0.25)
-      // }, interval)
+      s2.play(baseFreq, 0.25 * volume)
+      s3.play(baseFreq + 1, 0.25 * volume)
 
       const boxes = $.cls('box')
       const count = boxes.length + 1
@@ -205,6 +209,13 @@
       $.id('display-code').style.animationDelay = `-${1 * (interval/(2*count))}ms`
       document.documentElement.requestFullscreen()
       document.body.style.cursor = 'none'
+
+      pingConfig(v => {
+        volume = volumeOverride || v
+        s2.smoothGain(0.25 * MAX_VOLUME * volume)
+        s3.smoothGain(0.25 * MAX_VOLUME * volume)
+      })
+
     }
   }
 

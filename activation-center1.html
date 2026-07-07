@@ -84,28 +84,36 @@
 </body>
 
 <script type="module">
-  import {$, SoundSrc, getQueryParam, css} from './utils.js'
+  import {$, SoundSrc, getQueryParam, css, MAX_VOLUME} from './utils.js'
+  import {pingConfig} from './pingConfig.js'
 
 
   const interval = Number(getQueryParam('interval')) || 1000
   const freq = Number(getQueryParam('freq')) || 300
-
-  const freqLen = Math.min(300, interval/2)
+  const volumeOverride = Number(getQueryParam('volume'))
 
 
   let clicked
+  let volume = volumeOverride || 0.2
+
+  const freqLen = Math.min(300, interval/2)
+
   document.onclick = () => {
     if (!clicked) {
       clicked = true
-      const s = new SoundSrc('square')
+
+      let s = new SoundSrc('square')
+
       setInterval(() => {
-        s.note(freq, freqLen)
+        s.note(freq, freqLen, MAX_VOLUME * volume)
       }, interval)
 
       const warning = $.id('warning')
       warning.style.animation = `ActivationBlink ${interval}ms steps(2, start) infinite`
       document.documentElement.requestFullscreen()
       document.body.style.cursor = 'none'
+
+      pingConfig(v => volume = volumeOverride || v)
     }
   }
 
