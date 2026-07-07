@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "defaultVolume": 0.5,
+  "pingInterval": 1800000,
+  "days": [
+    {
+      "name": "Sunday",
+      "dayNumber": 0,
+      "startVolumeHour": 12,
+      "startVolumeMinutes": 30,
+      "endVolumeHour": 17,
+      "endVolumeMinutes": 30,
+      "volume": 1
+    },
+    {
+      "name": "Monday",
+      "dayNumber": 1
+    },
+    {
+      "name": "Tuesday",
+      "dayNumber": 2
+    },
+    {
+      "name": "Wednesday",
+      "dayNumber": 3
+    },
+    {
+      "name": "Thursday",
+      "dayNumber": 4,
+      "startVolumeHour": 15,
+      "startVolumeMinutes": 30,
+      "endVolumeHour": 17,
+      "endVolumeMinutes": 30,
+      "volume": 1
+    },
+    {
+      "name": "Friday",
+      "dayNumber": 5,
+      "startVolumeHour": 15,
+      "startVolumeMinutes": 30,
+      "endVolumeHour": 19,
+      "endVolumeMinutes": 30,
+      "volume": 1
+    },
+    {
+      "name": "Saturday",
+      "dayNumber": 6,
+      "startVolumeHour": 12,
+      "startVolumeMinutes": 30,
+      "endVolumeHour": 17,
+      "endVolumeMinutes": 30,
+      "volume": 1
+    }
+  ]
+}
