@@ -10,7 +10,7 @@
       "startVolumeMinutes": 30,
       "endVolumeHour": 17,
       "endVolumeMinutes": 30,
-      "volume": 1
+      "volume": 2
     },
     {
       "name": "Monday",
@@ -23,7 +23,7 @@
       "startVolumeMinutes": 14,
       "endVolumeHour": 19,
       "endVolumeMinutes": 15,
-      "volume": 1
+      "volume": 2
     },
     {
       "name": "Wednesday",
@@ -32,20 +32,20 @@
     {
       "name": "Thursday",
       "dayNumber": 4,
-      "startVolumeHour": 15,
+      "startVolumeHour": 14,
       "startVolumeMinutes": 30,
       "endVolumeHour": 17,
       "endVolumeMinutes": 30,
-      "volume": 1
+      "volume": 2
     },
     {
       "name": "Friday",
       "dayNumber": 5,
-      "startVolumeHour": 15,
+      "startVolumeHour": 12,
       "startVolumeMinutes": 30,
       "endVolumeHour": 19,
       "endVolumeMinutes": 30,
-      "volume": 1
+      "volume": 2
     },
     {
       "name": "Saturday",
@@ -54,7 +54,7 @@
       "startVolumeMinutes": 30,
       "endVolumeHour": 17,
       "endVolumeMinutes": 30,
-      "volume": 1
+      "volume": 2
     }
   ]
 }

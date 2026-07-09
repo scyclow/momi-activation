@@ -263,7 +263,7 @@ export class SoundSrc {
 
   play(freq, v=1) {
     forceResume(this.ctx)
-    this.smoothGain(Math.min(v, 1) * MAX_VOLUME)
+    this.smoothGain(v * MAX_VOLUME)
     this.smoothFreq(freq)
   }
 
