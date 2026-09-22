@@ -20,7 +20,7 @@
       "name": "Tuesday",
       "dayNumber": 2,
       "startVolumeHour": 19,
-      "startVolumeMinutes": 12,
+      "startVolumeMinutes": 30,
       "endVolumeHour": 21,
       "endVolumeMinutes": 00,
       "volume": 2
